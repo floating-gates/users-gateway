@@ -1,0 +1,14 @@
+:root {
+  --theme-color: #223843; /* fallback */
+  --theme-color-orange: #D77A61; /* fallback */
+}
+
+.logo-img {
+  height: 25px; /* or whatever height you prefer */
+  width: auto;  /* maintains aspect ratio */
+  position: relative
+}
+
+body, p, h1, h2, h3, h4, h5, h6, a, li, span, div {
+  font-family: 'Titillium Web', sans-serif;
+}
