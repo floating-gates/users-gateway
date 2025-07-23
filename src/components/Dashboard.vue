@@ -141,6 +141,7 @@ onMounted(async () => {
       <div class="col-12">
         <div class="dots"></div>
         <div class="row">
+          
           <!-- Dashboard Header -->
           <div class="col-lg-12 mb-4">
             <div class="dashboard-header" data-aos="fade-up" data-aos-delay="0">
@@ -150,15 +151,15 @@ onMounted(async () => {
               </p>
             </div>
           </div>
+          
+          <!-- Dashboard Stats -->
           <div>
-            
-            <!-- Dashboard Stats -->
             <div class="col-lg-12 mb-5">
               <div class="row">
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                   <div class="stats-card">
                     <h3 class="stats-number">{{ activeProjects }}</h3>
-                    <p class="stats-label">Projects</p>
+                    <p class="stats-label">Active Orders</p>
                   </div>
                 </div>
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
@@ -170,7 +171,7 @@ onMounted(async () => {
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                   <div class="stats-card">
                     <h3 class="stats-number">{{ completedSimulations }}</h3>
-                    <p class="stats-label">Completed Projects</p>
+                    <p class="stats-label">Orders Completed</p>
                   </div>
                 </div>
               </div>
@@ -182,14 +183,14 @@ onMounted(async () => {
             <div class="dashboard-main-content">
               
               <div class="content-header">
-                <h2 class="section-title">Recent Projects</h2>
+                <h2 class="section-title">Recent Orders</h2>
                 <div class="action-buttons">
                   <a class="btn btn-primary"
                      style="margin-right: 5px"
                      :style="[{ background: themeColor },
                              { borderColor: themeColor }]"
                      @click="create_new_project"
-                     >New Project for Customer</a>
+                     >Place an Order for Customer</a>
                 </div>
               </div>
               

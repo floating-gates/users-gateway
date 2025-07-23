@@ -85,25 +85,20 @@ async function handleSubmit() {
 
 
 <template>
-  <div class="untree_co-hero" id="register-section">
-    <div class="container">
-      <div class="col-lg-6 offset-lg-3">
-        <h2 class="heading mt-0" data-aos="fade-up">Register</h2>
-        <form @submit.prevent="handleSubmit" data-aos="fade-up" data-aos-delay="100">
-          <!-- Full Name -->
-          <div class="form-group">
-            <label>Full Name</label>
-            <input v-model="form.full_name" type="text" class="form-control" />
-            <p v-if="errors.full_name" class="error-text">{{ errors.full_name }}</p>
-          </div>
-
-          <!-- Optional Fields -->
-          
-          <div class="form-group">
-            <label>Company Name (Optional)</label>
-            <input v-model="form.company"      type="text" class="form-control" />
-          </div>
-          <div class="form-group">
+<div class="untree_co-hero" id="register-section">
+  <div class="container">
+    <div class="col-lg-6 offset-lg-3">
+      <h2 class="heading mt-0" data-aos="fade-up">Register</h2>
+      <form @submit.prevent="handleSubmit" data-aos="fade-up" data-aos-delay="100">
+        <!-- Full Name -->
+        <div class="form-group">
+          <label>Full Name</label>
+          <input v-model="form.full_name" type="text" class="form-control" />
+          <p v-if="errors.full_name" class="error-text">{{ errors.full_name }}</p>
+        </div>
+        
+        <!-- Optional Fields -->
+        <div class="form-group">
             <label>Postal Code (optional)</label>
             <input v-model="form.postal_code"  type="text" class="form-control" />
           </div>

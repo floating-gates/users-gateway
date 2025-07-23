@@ -7,11 +7,7 @@ const startButtonName = "Get Started";
 const package_names_vec = Object.keys(price_list)
 
 function capitalizeWord(word) {
-    const firstLetter = word.charAt(0)
-    const firstLetterCap = firstLetter.toUpperCase()
-    const remainingLetters = word.slice(1)
-    const capitalizedWord = firstLetterCap + remainingLetters
-    return capitalizedWord 
+    return  word.charAt(0).toUpperCase() + word.slice(1)
 }
 
 

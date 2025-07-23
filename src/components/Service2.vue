@@ -1,7 +1,7 @@
 <script setup>
 import dashboard_pic from "../assets/images/manufacturing_hub_pic.webp";
 import printer_pic from "../assets/images/printer.webp";
-import product_pic from "../assets/images/product.png"
+import product_pic from "../assets/images/in_platform_tank.webp"
 import heat_exchanger_pic from "../assets/images/heat_exchanger.webp";
 import { themeColor, themeColorOrange, themeColorLille,
          themeColorGold, themeColorWhite } from "../data/items";

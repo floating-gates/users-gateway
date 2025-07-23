@@ -2,7 +2,7 @@
 import { ref, onMounted, defineProps } from "vue";
 import { verify_jwt } from "../user_handler/login.js"
 import { themeColor, logout_api_endpoint,
-         JWT_TOKEN_NAME } from "../data/items.js";
+         COOKIE_NAME } from "../data/items.js";
 import { demo_url } from "../data/demo.js"
 
 defineProps({
@@ -32,7 +32,7 @@ const logout = async () => {
     } catch (error) {
         console.error("Logout failed", error);
     } finally {
-        localStorage.removeItem( JWT_TOKEN_NAME );
+        localStorage.removeItem( COOKIE_NAME );
         isAuthenticated.value = await verify_jwt();
     }
 };

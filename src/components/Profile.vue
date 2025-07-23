@@ -1,74 +1,90 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-import { create_subscription,
-         delete_subscription } from '../user_handler/subscription.js';
-import { get_user_details }    from '../user_handler/user_info.js'
+import { create_subscription, delete_subscription } from '../user_handler/subscription.js';
+import { get_user_details } from '../user_handler/user_info.js';
 import { themeColor, price_list, sub_links_list } from "../data/items.js";
 import Header from "./Header.vue";
 
-const user_details = ref('');
-const subscription_plan = ref('');
-const url_to_pay = ref('');
-const host_address = ref('');
+import { verify_jwt }   from '../user_handler/login.js';
 
-watch( subscription_plan, (plan) => {
-    url_to_pay.value = sub_links_list[plan];
+
+const userDetails = ref({});
+const subscriptionPlan = ref('');
+const hostAddress = ref('');
+const error = ref('');
+
+const showHubForm = ref(false);
+const isProvisioning = ref(false);
+const isAuthenticated = ref(false);
+
+watch(subscriptionPlan, (plan) => {
+    paymentUrl.value = sub_links_list[plan];
 });
 
-const error = ref('');
-const showNewHubForm = ref(true);
+const paymentUrl = ref('');
 
 async function handleDeleteSubscription() {
+    if (!window.confirm('Are you sure you want to delete this subscription?')) return;
     
-    const confirmed = window.confirm('Are you sure you want to delete this subscription?');
-    if (!confirmed) return
-        
     try {
         const res = await delete_subscription();
-        
         if (res.status !== 204) {
             const err = await res.json();
             throw new Error(err.message || 'Failed to delete subscription');
         }
-                
     } catch (e) {
         error.value = e.message;
     }
+    
+    await loadUserDetails();
 }
 
 async function paySubscription() {
+    
+    const response = await create_subscription(subscriptionPlan.value, hostAddress.value);
+    
+    if (response.status === 409) {
+        error.value =  "The requested host address is already in use. Please choose a different one";
+    }
+    
+    if (paymentUrl.value) {
+        window.location.href = paymentUrl.value;
+    }
+}
 
-
+async function loadUserDetails() {
     try {
-
-        const response = await create_subscription(
-            subscription_plan.value,
-            host_address.value);
-                
+        const res = await get_user_details();
+        if (!res.ok) throw new Error('Failed to fetch user details');
+        
+        const user = await res.json();
+        userDetails.value = user;
+        subscriptionPlan.value = user.subscription_plan;
+        
+        const status = user.subscription_status;
+        
+        if (status === "inactive" || status === "demo") {
+            showHubForm.value = true;
+        } else if (status === "instantiation") {
+            isProvisioning.value = true;
+        }
+        
     } catch (e) {
         error.value = e.message;
-    } 
-    
-    // Go to Payment
-    window.location.href = url_to_pay.value
+    }
 }
 
 onMounted(async () => {
     
-    try {
-        const res = await get_user_details();
-        if (!res.ok) {
-            throw new Error('Failed to fetch username');
-        }
+    isAuthenticated.value = await verify_jwt();
+    
+    if (!isAuthenticated.value) {
+        window.location.replace("/login");
         
-        user_details.value = await res.json();
-        const sub_status = user_details.value.subscription_status;     
-        if (sub_status !== "inactive")  { showNewHubForm.value = false }
-        
-    } catch (e) {
-        error.value = e.message;
     }
-});
+
+    loadUserDetails();
+})
 </script>
 
 <template>
@@ -84,7 +100,18 @@ onMounted(async () => {
     
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6">
-        <div v-if="showNewHubForm">
+        
+        <div v-if="isProvisioning" class="provisioning-message text-center mb-4">
+          <p>The hub will be functioning within 24 hours and ready to receive external projects.</p>
+          <p>
+            <a :href="paymentUrl" class="text-primary">
+              Having issues? Complete payment here.
+            </a>
+          </p>
+        </div>
+        
+        
+        <div v-if="showHubForm">
           <div class="subscription-card bg-white p-4">
             <div v-if="error" class="error-text">{{ error }}</div>
             
@@ -92,9 +119,9 @@ onMounted(async () => {
               <div class="form-group">
                 <label for="planSelect">What plan do you need?</label>
                 
-                <select v-model="subscription_plan" id="planSelect" class="form-control" required>
+                <select v-model="subscriptionPlan" id="planSelect" class="form-control" required>
                   <option
-                    v-for="([plan_name, price], index) in Object.entries(price_list)"
+                    v-for="([plan_name, price], index) in Object.entries(price_list).filter( ([key]) => key !== 'demo')"
                     :key="plan_name"
                     :value="plan_name"
                     >
@@ -106,7 +133,7 @@ onMounted(async () => {
               <div class="form-group mb-4">
                 <label for="hostUrl">Choose an address for your hub:</label>
                 <input
-                  v-model="host_address"
+                  v-model="hostAddress"
                   id="hostUrl"
                   type="text"
                   class="form-control"
@@ -119,8 +146,9 @@ onMounted(async () => {
                 type="submit"
                 class="btn btn-primary w-100"
                 :style="{ background: themeColor, borderColor: themeColor }"
+                @click="paySubscription"
                 >
-                Checkout
+                Go to Payments
               </button>
             </form>
           </div>
@@ -141,12 +169,12 @@ onMounted(async () => {
               <tbody>
                 <tr>
                   <td>
-                    <a :href="user_details.host_address">
-                      {{  user_details.host_address }}
+                    <a :href="userDetails.host_address">
+                      {{ userDetails.host_address }}
                     </a>
                   </td>
-                  <td>{{ user_details.subscription_plan }}</td>
-                  <td>{{ user_details.subscription_status }}</td>
+                  <td>{{ userDetails.subscription_plan }}</td>
+                  <td>{{ userDetails.subscription_status }}</td>
                   <td>
                     <button class="btn btn-sm btn-danger" @click="handleDeleteSubscription">
                       Suspend
@@ -156,7 +184,7 @@ onMounted(async () => {
               </tbody>
             </table>
           </div>
-        </div>        
+        </div>
       </div>
     </div>
   </div>
