@@ -61,6 +61,7 @@ function submitAddress() {
                 v-model="userAddress"
                 type="text"
                 placeholder="Enter where you want to host your hub, i.g. glass-maker"
+
                 class="form-control address-input"
                 required
                 />
