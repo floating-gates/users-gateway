@@ -49,7 +49,7 @@ const logout = async () => {
       
       <div v-if="context === 'landing-page'">
         
-        <ul class="js-clone-nav d-none d-lg-inline-block site-menu float-left">
+        <ul class="js-clone-nav d-block d-lg-inline-block site-menu float-left">
           <li><a href="#features-section" class="nav-link">How does it work</a></li>
           <li><a href="#pricing-section" class="nav-link">Pricing</a></li>
           <li><a href="/mission" class="nav-link">Mission</a></li>
@@ -57,7 +57,7 @@ const logout = async () => {
         </ul>
         
         <!-- Auth buttons (can be context-specific too) -->
-        <ul v-if="!isAuthenticated" class="js-clone-nav d-none mt-1 d-lg-inline-block site-menu float-right">
+        <ul v-if="!isAuthenticated" class="js-clone-nav d-block mt-1 d-lg-inline-block site-menu float-right">
           <li class="cta-button-outline" style="margin-right: 10px;">
             <a href="/login">Sign in</a>
           </li>
@@ -68,7 +68,7 @@ const logout = async () => {
           
         </ul>
         
-        <ul v-else-if="isAuthenticated" class="js-clone-nav d-none mt-1 d-lg-inline-block site-menu float-right">
+        <ul v-else-if="isAuthenticated" class="js-clone-nav d-block mt-1 d-lg-inline-block site-menu float-right">
           <li class="cta-button-outline" style="margin-right: 10px;">
             <a href="/dashboard">Dashboard</a>
           </li>
@@ -81,7 +81,7 @@ const logout = async () => {
       <!-- DASHBOARD HEADER -->
       
       <div v-if="context === 'dashboard'">
-        <ul class="js-clone-nav d-none mt-1 d-lg-inline-block site-menu float-right" v-if="isAuthenticated">
+        <ul class="js-clone-nav d-block mt-1 d-lg-inline-block site-menu float-right" v-if="isAuthenticated">
           <li class="cta-button-outline" style="margin-right: 10px;">
             <a :href='host_address'>Customers' View</a>
           </li>
@@ -92,7 +92,7 @@ const logout = async () => {
       </div>
       
       <div v-else-if="context === 'profile'" >
-        <ul class="js-clone-nav d-none mt-1 d-lg-inline-block site-menu float-right" v-if="isAuthenticated">
+        <ul class="js-clone-nav d-block mt-1 d-lg-inline-block site-menu float-right" v-if="isAuthenticated">
           <li class="cta-button-outline" style="margin-right: 10px;">
             <a href="/dashboard">Dashboard</a>
           </li>
@@ -101,7 +101,7 @@ const logout = async () => {
    
       
       <div v-if="admin" >
-        <ul class="js-clone-nav d-none mt-1 d-lg-inline-block site-menu float-right">
+        <ul class="js-clone-nav d-block mt-1 d-lg-inline-block site-menu float-right">
           <li class="cta-button-outline" >
             <a href="/admin_dashboard">Admin Dashboard</a>
           </li>
