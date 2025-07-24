@@ -5,8 +5,6 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
 
 // Hero section content
 const heroHeading = "Host your Platform to Receive and Simulate Customers' Projects";
-const buttonSeeFeature = "How does it work";
-const buttonPricing = "Pricing";
 
 // User input state
 const userAddress = ref("");
@@ -62,7 +60,8 @@ function submitAddress() {
               <input
                 v-model="userAddress"
                 type="text"
-                placeholder="Enter where you want to host your hub... "
+                placeholder="Enter where you want to host your hub, i.g. glass-maker"
+
                 class="form-control address-input"
                 required
                 />
