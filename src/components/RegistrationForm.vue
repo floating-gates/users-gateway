@@ -15,6 +15,7 @@ const form = reactive({
 })
 
 const errors = reactive({
+    general: '',
     full_name: '',
     email: '',
     password: '',
@@ -83,7 +84,7 @@ async function handleSubmit() {
             if (response.status === 409) {
                 errors.email = 'Email already registered.'
             } else {
-                alert(result.message || 'Registration failed.')
+                errors.general = 'Registration failed. Return status: ' + response.status
             }
             return
         }
@@ -112,6 +113,8 @@ async function handleSubmit() {
       <h2 class="heading mt-0" data-aos="fade-up">Register</h2>
       <form @submit.prevent="handleSubmit" data-aos="fade-up" data-aos-delay="100">
         <!-- Full Name -->
+        <p v-if="errors.general" class="error-text">{{ errors.general }}</p>
+
         <div class="form-group">
           <label>Full Name</label>
           <input v-model="form.full_name" type="text" class="form-control" />

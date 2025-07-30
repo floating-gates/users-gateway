@@ -29,7 +29,7 @@ const get_project_endpoint      = base_url + '/api/project';
 const create_project_endpoint   = base_url + '/api/project/create';
 const delete_project_endpoint   = base_url + '/api/project/delete';
 const pricing_proj_api_endpoint = base_url + '/api/project/set_price';
-const download_api_endpoint     = base_url + '/api/download';
+const download_api_endpoint     = base_url + '/api/project/download';
 
 // Admin API Endpoints
 const list_users_api_endpoint     = base_url + '/api/admin/list_platform_user';

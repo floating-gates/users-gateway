@@ -15,12 +15,12 @@ export async function create_project( proj_name, customer_mail, description ) {
 
 export async function get_project() {
 
-    const response = await fetch( get_project_endpoint, {
+    const proj_list = await fetch( get_project_endpoint, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',  })
-    
-    return response
+
+    return proj_list
 }
 
 export async function delete_project(project_id) {

@@ -52,7 +52,7 @@ const packages = [
                   <ul class="list-unstyled ul-check primary mb-5">
                     <li> Up to 30 Projects</li>
                     <li> Private Projects </li>
-                    <li> Custom computing quota included </li> 
+                    <li> STL to STEP converter </li> 
                   </ul>
                   <p class="text-center mb-0">
                     <a
@@ -79,7 +79,6 @@ const packages = [
                   </div>
                   <ul class="list-unstyled ul-check primary mb-5">
                     <li>Unlimited Project Number</li>
-                    <li>Proprietary URL</li>
                     <li>Customer data Ownership</li>
                     <li>200 Simulation Hours</li>
                   </ul>
@@ -109,7 +108,7 @@ const packages = [
                   </div>
                   <ul class="list-unstyled ul-check primary mb-5">
                     <li>Package {{ packages[1].name }} plus </li>
-                    <li>Custom simulation hours</li>
+                    <li>Proprietary URL</li>
                     <li>Topology Optimization method</li>
                   </ul>
                   <p class="text-center mb-0">

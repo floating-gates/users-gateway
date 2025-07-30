@@ -57,6 +57,36 @@ async function create_new_project() {
     }
 }
 
+async function downloadFile(proj_id) {
+    try {
+        const response = await fetch( download_api_endpoint + "/" + proj_id , {
+            method: 'GET',
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to download file');
+        }
+
+        const blob = await response.blob();
+
+        // TODO generalize
+        let filename = proj_id + ".stl";
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename; 
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(url);
+    } catch (err) {
+        console.error("Download failed:", err);
+        alert("Could not download the file.");
+    }
+}
+
+
 async function handleDelete(proj_id) {
     
     if (!confirm("Are you sure you want to delete this project?")) return;
@@ -80,7 +110,7 @@ async function handleDelete(proj_id) {
 
 async function handlePriceSet( proj ) {
     try {
-        const response = await set_price(proj);
+        const response = await set_price(proj, 'set');
         
         // Wait for the request to finish
         if (response.ok) {
@@ -113,8 +143,6 @@ onMounted(async () => {
         }
         
         user_details.value = await res.json();
-
-        
     } catch (e) {
         error.value = e.message;
     }
@@ -124,8 +152,7 @@ onMounted(async () => {
         if (!res.ok) {
             throw new Error('Failed to fetch projects');
         }
-        
-        
+                
         project_list.value = await res.json()
     } catch (e) {
         error.value = e.message;
@@ -220,11 +247,12 @@ onMounted(async () => {
                   </div>
                   
                   <div class="project-actions ">
-                    <!-- Download button -->
-                    <button :href="`${download_api_endpoint}/${project.id}`" 
-                       class="btn icon icon-download"
-                       :style="{ borderColor: themeColor, color: themeColor }"
-                       title="Download 3D model"> </button>
+                    <button
+                      @click="downloadFile(project.id)"
+                      class="btn icon icon-download"
+                      :style="{ borderColor: themeColor, color: themeColor }"
+                      title="Download 3D model"
+                      ></button>
                     
                     <!-- Delete button -->
                     <button 
@@ -247,9 +275,17 @@ onMounted(async () => {
                         class="btn btn-primary btn-sm"
                         :style="[{ background: themeColor, borderColor: themeColor }]"
                         >
-                        Submit
+                        Send Quote
                       </button>
                     </form>
+
+                     <button v-if="project.price_status === 'accepted'"
+                        type="submit"
+                        class="btn btn-primary btn-sm"
+                        :style="[{ background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }]" >
+                        Ship at {{ project.shipping_address }}
+                     </button>
+ 
                     
                     <div v-else class="d-flex align-items-center">
                       <h3 class="mb-0 me-3">{{ project.price }}€</h3>

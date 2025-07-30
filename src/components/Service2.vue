@@ -11,17 +11,17 @@ const heading = "How does it work?";
 const items = [
   {
     id: 1,
-    name: "Publish your Platform",
+    name: "Publish the Platform with your Logos/Name",
     des: "Deploy your manufacturing hub at your name.",
   },
   {
     id: 2,
-    name: "Wait for 3D models to come to you",
+    name: "Wait for Orders to come to you",
     des: "Your customers will funnel models to be printed by your machine.",
   },
   {
     id: 3,
-    name: "Allow Limitless Optimizations",
+    name: "Allow Shape Optimizations",
     des: "Your customers car run shape optimizations.",
   },
   {
@@ -30,6 +30,7 @@ const items = [
     des: "Make use of your machines to produce the devices and ship it.",
   },
 ];
+
 const total = 4;
 </script>
 
