@@ -18,6 +18,7 @@ const register_user_api_endpoint = base_url + '/api/user/register';
 const login_user_api_endpoint    = base_url + '/api/user/login';
 const logout_api_endpoint        = base_url + '/api/user/logout';
 const user_details_api_endpoint  = base_url + '/api/user/details';
+const update_feature_endpoint    = base_url + '/api/user/update-feature';
 
 // Subscription API Endpoints
 const get_subscription_endpoint    = base_url + '/api/subscription';  // NOT USED
@@ -86,5 +87,5 @@ export {
     pricing_proj_api_endpoint, download_api_endpoint,
     price_status, price_list, contactInfo,
     list_users_api_endpoint, get_admin_name_api_endpoint,
-    sub_links_list
+    sub_links_list, update_feature_endpoint
 };

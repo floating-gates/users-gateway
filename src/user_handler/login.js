@@ -32,7 +32,7 @@ export async function verify_jwt() {
         if (!response.ok) return false
 
         const user = await response.json();
-        console.log('User is:', user.user_id);
+        console.log('User ID:', user.user_id);
         return true;
         
     } catch (err) {
@@ -49,15 +49,12 @@ export async function verify_admin() {
         if (!response.ok) return false
 
         const user = await response.json();
+        console.log('User is admin');
 
-        if (user.is_admin === true) {
-            return true
-        } else {
-            return false
-        }
+        return user.is_admin
         
     } catch (err) {
-        console.error('JWT verification failed', err);
+        console.error('Admin verfication failed, reason: ', err);
         return false;
     }
 }

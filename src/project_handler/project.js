@@ -3,12 +3,15 @@ import { get_project_endpoint,
          delete_project_endpoint
        } from '../data/items.js'
 
-export async function create_project( proj_name, customer_mail, description ) {
+export async function create_project( proj_name,
+                                      customer_mail,
+                                      description,
+                                      shipping_address ) {
 
     const response = await fetch( create_project_endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify( { proj_name, customer_mail, description } ),
+        body: JSON.stringify( { proj_name, customer_mail, description, shipping_address } ),
         credentials: 'include',  })
         return response
 }

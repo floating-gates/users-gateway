@@ -4,6 +4,9 @@ import { themeColor } from '../data/items.js'
 import { user_login } from '../user_handler/login.js'
 import { register_user } from '../user_handler/registration.js'
 
+const showOptional = ref(false)
+const submitted = ref(false)
+
 const form = reactive({
     full_name: '',
     company: '',
@@ -12,6 +15,7 @@ const form = reactive({
     email: '',
     password: '',
     logo: null,
+    referral_code: null
 })
 
 const errors = reactive({
@@ -23,7 +27,6 @@ const errors = reactive({
     logo: '',
 })
 
-const submitted = ref(false)
 
 function handleLogoUpload(event) {
     const file = event.target.files[0]
@@ -53,17 +56,25 @@ function handleLogoUpload(event) {
 async function handleSubmit() {
     submitted.value = false
     Object.keys(errors).forEach(key => errors[key] = '')
-
     
     let hasError = false
     
-    if (!form.full_name) {
-        errors.full_name = 'Full name is required.'
-        hasError = true
+    if (form.email) {
+        form.email = form.email.toLowerCase().trim()
     }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     
     if (!form.email) {
         errors.email = 'Email is required.'
+        hasError = true
+    } else if (!emailRegex.test(form.email)) {
+        errors.email = 'Invalid email format.'
+        hasError = true
+    }
+    
+    if (!form.full_name) {
+        errors.full_name = 'Full name is required.'
         hasError = true
     }
     
@@ -73,6 +84,7 @@ async function handleSubmit() {
     }
     
     if (hasError) return
+    
     
     try {        
         const registrationForm = new FormData()
@@ -114,21 +126,11 @@ async function handleSubmit() {
       <form @submit.prevent="handleSubmit" data-aos="fade-up" data-aos-delay="100">
         <!-- Full Name -->
         <p v-if="errors.general" class="error-text">{{ errors.general }}</p>
-
+        
         <div class="form-group">
           <label>Full Name</label>
           <input v-model="form.full_name" type="text" class="form-control" />
           <p v-if="errors.full_name" class="error-text">{{ errors.full_name }}</p>
-        </div>
-        
-        <!-- Optional Fields -->
-        <div class="form-group">
-          <label>Postal Code (optional)</label>
-          <input v-model="form.postal_code"  type="text" class="form-control" />
-        </div>
-        <div class="form-group">
-          <label>Phone Number (optional)</label>
-          <input v-model="form.phone_number" type="text" class="form-control" />
         </div>
         
         <!-- Email -->
@@ -147,9 +149,33 @@ async function handleSubmit() {
         
         <!-- Logo Upload -->
         <div class="form-group">
-          <label>Upload Logo</label>
-          <input type="file" accept=".png,image/png" class="form-control" @change="handleLogoUpload" />
+          <label>Upload your Logo (png) </label>
+          <input required type="file" accept=".png,image/png" class="form-control" @change="handleLogoUpload" />
           <p v-if="errors.logo" class="error-text">{{ errors.logo }}</p>
+        </div>
+        
+        
+        <!-- Toggle Button -->
+        <div class="form-group">
+          <a href="#" @click.prevent="showOptional = !showOptional">
+            {{ showOptional ? 'Hide optional fields ▲' : 'Show optional fields ▼' }}
+          </a>
+        </div>
+        
+        <!-- Optional Fields -->
+        <div v-if="showOptional">
+          <div class="form-group">
+            <label>Phone Number </label>
+            <input v-model="form.phone_number" type="text" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Post Code </label>
+            <input v-model="form.postal_code"  type="text" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Referral Code </label>
+            <input v-model="form.referral_code" type="text" class="form-control" />
+          </div>
         </div>
         
         <!-- Submit Button -->
@@ -186,15 +212,15 @@ async function handleSubmit() {
 }
 
 .error-text {
-  color: red;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
 }
 
 .register-footer {
-  margin-top: 2rem;
-  margin-bottom: 4rem; /* Adjust as needed */
-  text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 4rem; /* Adjust as needed */
+    text-align: center;
   font-size: 0.95rem;
 }
 </style>

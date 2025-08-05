@@ -2,10 +2,8 @@
 import { ref, onMounted, computed } from 'vue';
 import { themeColor, themeColorOrange, themeColorLille } from "../data/items.js";
 import Header from "./Header.vue"
-
-import { create_project, get_project,
-         count_project_states, delete_project } from '../project_handler/project.js';
-
+import { create_project, get_project, count_project_states,
+         delete_project } from '../project_handler/project.js';
 import { set_price } from '../price_handler/price_setting.js'
 import { get_user_details } from '../user_handler/user_info.js';
 import { verify_jwt, verify_admin }   from '../user_handler/login.js';
@@ -32,16 +30,22 @@ function handle_price_set_confirmation() {
 }
 
 async function create_new_project() {
-    const name = prompt("Enter project name:");
-    if (!name) return;
+    
+    const date = new Date()
+        
+     const name = "Proj. " + date.getYear() + " " + date.getMonth() + " " + date.getDay() + " " + date.getSeconds() 
     
     const customer_email = prompt("Enter email of the project owner:");
     if (!customer_email) return;
     
     const description = "Missing description";
     
+    const shipping_address = prompt("Enter shipping address:");
+    if (!shipping_address) return;
+    
     try {
-        const res = await create_project(name, customer_email, description);
+        const res = await create_project(name, customer_email,
+                                         description, shipping_address);
         if (!res.ok) {
             const errData = await res.json();
             throw new Error(errData.message || 'Failed to create project');
@@ -57,19 +61,20 @@ async function create_new_project() {
     }
 }
 
+
 async function downloadFile(proj_id) {
     try {
         const response = await fetch( download_api_endpoint + "/" + proj_id , {
             method: 'GET',
             credentials: 'include'
         });
-
+        
         if (!response.ok) {
             throw new Error('Failed to download file');
         }
-
+        
         const blob = await response.blob();
-
+        
         // TODO generalize
         let filename = proj_id + ".stl";
         const url = window.URL.createObjectURL(blob);
@@ -112,15 +117,13 @@ async function handlePriceSet( proj ) {
     try {
         const response = await set_price(proj, 'set');
         
-        // Wait for the request to finish
         if (response.ok) {
             proj.price_status = price_status[2];
         } else {
             const error = await response.json();
-            throw new Error(error.message || 'Price update failed');
+            throw new Error(error.message);
         }
     } catch (err) {
-        console.error('Request failed:', err);
         alert('Failed to set price.');
     }
 }
@@ -143,6 +146,7 @@ onMounted(async () => {
         }
         
         user_details.value = await res.json();
+        
     } catch (e) {
         error.value = e.message;
     }
@@ -152,16 +156,16 @@ onMounted(async () => {
         if (!res.ok) {
             throw new Error('Failed to fetch projects');
         }
-                
         project_list.value = await res.json()
+        
     } catch (e) {
         error.value = e.message;
-    }    
+    }
 })
 </script>
 
 <template>
-<Header :context="'dashboard'" :admin='isAdmin' :host_address='user_details.host_address' />
+<Header :context="'dashboard'" :is_admin='isAdmin' :host_address='user_details.host_address' />
 <div class="untree_co-hero dashboard-section" id="dashboard-section">
   <div class="container">
     <div class="row align-items-center">
@@ -211,13 +215,12 @@ onMounted(async () => {
               
               <div class="content-header">
                 <h2 class="section-title">Recent Orders</h2>
-                <div class="action-buttons">
+                <div class="action-buttons">                  
                   <a class="btn btn-primary"
                      style="margin-right: 5px"
-                     :style="[{ background: themeColor },
-                             { borderColor: themeColor }]"
+                     :style="{ background: themeColor, borderColor: themeColor }"
                      @click="create_new_project"
-                     >Place an Order for Customer</a>
+                     >Place an Order</a>
                 </div>
               </div>
               
@@ -226,8 +229,7 @@ onMounted(async () => {
                 <div 
                   v-for="project in project_list" 
                   :key="project.id" 
-                  class="project-item"
-                  >
+                  class="project-item" >
                   <div class="project-info">
                     <a :href="project.proj_name" class="project-name">
                       <h3>{{ project.proj_name }}</h3>
@@ -242,7 +244,7 @@ onMounted(async () => {
                     </p>
                     
                     <p class="proj-detail">
-                      <a :href="project.address">View project</a>
+                      <a :href="project.proj_url">View project</a>
                     </p>
                   </div>
                   
@@ -278,14 +280,25 @@ onMounted(async () => {
                         Send Quote
                       </button>
                     </form>
+                    
+                    <!-- <label v-if="project.price_status === 'accepted'" -->
+                    <!--        class="btn btn-primary btn-sm" -->
+                    <!--        :style="[{ background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }]" -->
+                    <!--        > -->
+                    <!--   Upload Invoice -->
+                    <!--   <input type="file" -->
+                    <!--          accept="application/pdf" -->
+                    <!--          @change="uploadInvoice" -->
+                    <!--          style="display: none"         /> -->
+                    <!-- </label> -->
 
-                     <button v-if="project.price_status === 'accepted'"
-                        type="submit"
-                        class="btn btn-primary btn-sm"
-                        :style="[{ background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }]" >
-                        Ship at {{ project.shipping_address }}
-                     </button>
- 
+                    <button v-if="project.price_status === 'accepted'"
+                            type="submit"
+                            class="btn btn-primary btn-sm"
+                            :style="[{ background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }]" >
+                      Ship at {{ project.shipping_address }}
+                    </button>
+                    
                     
                     <div v-else class="d-flex align-items-center">
                       <h3 class="mb-0 me-3">{{ project.price }}€</h3>
@@ -424,6 +437,11 @@ onMounted(async () => {
     align-items: center;
     gap: 15px;
     margin-bottom: 15px;
+}
+
+.action-buttons button,
+.action-buttons a {
+  margin-right: 10px;
 }
 
 .price-form {

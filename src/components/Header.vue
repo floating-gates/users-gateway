@@ -9,8 +9,8 @@ defineProps({
     context: {
         type: String,
     },
-    admin: {
-        type: String,
+    is_admin: {
+        type: Boolean,
         default: false
     },
     host_address: String,
@@ -46,6 +46,8 @@ const logout = async () => {
       <a href="/" class="logo m-0 float-left">
         <img src="../assets/images/logo.webp" alt="Logo" class="logo-img" />
       </a>
+
+      <!-- LANDING PAGE HEADER -->
       
       <div v-if="context === 'landing-page'">
         
@@ -56,7 +58,6 @@ const logout = async () => {
           <li><a href="/services" class="nav-link">Services</a></li>
         </ul>
         
-        <!-- Auth buttons (can be context-specific too) -->
         <ul v-if="!isAuthenticated" class="js-clone-nav d-block mt-1 d-lg-inline-block site-menu float-right">
           <li class="cta-button-outline" style="margin-right: 10px;">
             <a href="/login">Sign in</a>
@@ -100,7 +101,7 @@ const logout = async () => {
       </div>
    
       
-      <div v-if="admin" >
+      <div v-if="is_admin" >
         <ul class="js-clone-nav d-block mt-1 d-lg-inline-block site-menu float-right">
           <li class="cta-button-outline" >
             <a href="/admin_dashboard">Admin Dashboard</a>

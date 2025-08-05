@@ -50,9 +50,9 @@ const packages = [
                   </div>
                   <pre></pre>
                   <ul class="list-unstyled ul-check primary mb-5">
-                    <li> Up to 30 Projects</li>
-                    <li> Private Projects </li>
-                    <li> STL to STEP converter </li> 
+                    <li> Up to 20 Active Projects</li>
+                    <li> Automatic Quotations </li>
+                    <li> Proprietary Logo Display </li> 
                   </ul>
                   <p class="text-center mb-0">
                     <a
@@ -80,6 +80,7 @@ const packages = [
                   <ul class="list-unstyled ul-check primary mb-5">
                     <li>Unlimited Project Number</li>
                     <li>Customer data Ownership</li>
+                    <li>Secure Payment Buffer</li>
                     <li>200 Simulation Hours</li>
                   </ul>
                   <p class="text-center mb-0">

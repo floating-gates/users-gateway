@@ -51,6 +51,8 @@ onMounted(async () => {
                       <th>Company</th>
                       <th>Email</th>
                       <th>Phone</th>
+                      <th>Host Address</th>
+                      <th>Referral Code</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -59,6 +61,8 @@ onMounted(async () => {
                       <td>{{ user.company }}</td>
                       <td>{{ user.email }}</td>
                       <td>{{ user.phone_number }}</td>
+                      <td>{{ user.host_address }}</td>
+                      <td>{{ user.referral_code }}</td>
                     </tr>
                   </tbody>
                 </table>

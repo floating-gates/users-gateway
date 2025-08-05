@@ -1,14 +1,16 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-import { create_subscription, delete_subscription } from '../user_handler/subscription.js';
+import { create_subscription,
+         delete_subscription } from '../user_handler/subscription.js';
 import { get_user_details } from '../user_handler/user_info.js';
-import { themeColor, price_list, sub_links_list } from "../data/items.js";
-import Header from "./Header.vue";
-
+import { themeColor, price_list, sub_links_list } from '../data/items.js';
 import { verify_jwt }   from '../user_handler/login.js';
 
+import Header from "./Header.vue";
+import FeatureList from "./FeatureList.vue";
 
 const userDetails = ref({});
+
 const subscriptionPlan = ref('');
 const hostAddress = ref('');
 const error = ref('');
@@ -22,6 +24,10 @@ watch(subscriptionPlan, (plan) => {
 });
 
 const paymentUrl = ref('');
+
+function toggleFeature(feature) {
+    feature.enabled = !feature.enabled
+}
 
 async function handleDeleteSubscription() {
     if (!window.confirm('Are you sure you want to delete this subscription?')) return;
@@ -40,17 +46,20 @@ async function handleDeleteSubscription() {
 }
 
 async function paySubscription() {
+    hostAddress.value = hostAddress.value.replace(/\s/g, '');
     
     const response = await create_subscription(subscriptionPlan.value, hostAddress.value);
     
     if (response.status === 409) {
-        error.value =  "The requested host address is already in use. Please choose a different one";
+        error.value = "The requested host address is already in use. Please choose a different one";
+        return;
     }
     
     if (paymentUrl.value) {
         window.location.href = paymentUrl.value;
     }
 }
+
 
 async function loadUserDetails() {
     try {
@@ -82,7 +91,7 @@ onMounted(async () => {
         window.location.replace("/login");
         
     }
-
+    
     loadUserDetails();
 })
 </script>
@@ -110,7 +119,6 @@ onMounted(async () => {
           </p>
         </div>
         
-        
         <div v-if="showHubForm">
           <div class="subscription-card bg-white p-4">
             <div v-if="error" class="error-text">{{ error }}</div>
@@ -137,19 +145,21 @@ onMounted(async () => {
                   id="hostUrl"
                   type="text"
                   class="form-control"
-                  placeholder="Your Hub Address name"
-                  required
-                  />
+                  placeholder="e.g. JakeCorp, MilanMakers, 3DPrint"
+                  required />
               </div>
               
-              <button
-                type="submit"
-                class="btn btn-primary w-100"
-                :style="{ background: themeColor, borderColor: themeColor }"
-                @click="paySubscription"
-                >
-                Go to Payments
-              </button>
+              <div class="text-center mt-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary px-4"
+                  :style="{ background: themeColor, borderColor: themeColor }"
+                  @click="paySubscription"
+                  >
+                  Go to Payments
+                </button>
+              </div>
+              
             </form>
           </div>
         </div>
@@ -161,9 +171,9 @@ onMounted(async () => {
               <thead>
                 <tr>
                   <th>Location</th>
-                  <th>Plan</th>
+                  <th>Actual Plan</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -176,7 +186,8 @@ onMounted(async () => {
                   <td>{{ userDetails.subscription_plan }}</td>
                   <td>{{ userDetails.subscription_status }}</td>
                   <td>
-                    <button class="btn btn-sm btn-danger" @click="handleDeleteSubscription">
+                    <button class="btn btn-sm btn-danger"
+                            @click="handleDeleteSubscription">
                       Suspend
                     </button>
                   </td>
@@ -184,11 +195,33 @@ onMounted(async () => {
               </tbody>
             </table>
           </div>
+          <FeatureList
+            v-if="userDetails && typeof userDetails.payment_independent !== 'undefined' && typeof userDetails.automatic_quotation !== 'undefined'"
+            :independent_payment="userDetails.payment_independent"
+            :automatic_quotation="userDetails.automatic_quotation"
+            />
         </div>
       </div>
     </div>
+  </div>  
+  
+  <div class="text-center mt-5 mb-3">
+    <h2>Feature request and Problem resolution</h2>
+    
+    <div class="text-center mt-5 mb-3">
+      <a
+        href="https://github.com/floating-gates/users-gateway/issues"
+        class="btn btn-primary px-4"
+        :style="{ background: themeColor, borderColor: themeColor }"
+        >
+        Go to GitHub
+      </a>
+    </div>
+    
   </div>
 </div>
+
+
 </template>
 
 
@@ -267,4 +300,5 @@ onMounted(async () => {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
 }
+
 </style>
