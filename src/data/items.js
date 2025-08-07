@@ -30,21 +30,27 @@ const get_project_endpoint      = base_url + '/api/project';
 const create_project_endpoint   = base_url + '/api/project/create';
 const delete_project_endpoint   = base_url + '/api/project/delete';
 const pricing_proj_api_endpoint = base_url + '/api/project/set_price';
+const price_status_api_endpoint = base_url + '/api/project/set_price_status';
 const download_api_endpoint     = base_url + '/api/project/download';
 
 // Admin API Endpoints
 const list_users_api_endpoint     = base_url + '/api/admin/list_platform_user';
 const get_admin_name_api_endpoint = base_url + '/api/admin/get_admin_name';
 
+
+const post_payment_information_endpoint = base_url + '/api/payment/info';
+
 const price_status = {
     1: 'pending',
     2: 'set',
     3: 'accepted',
-    4: 'rejected'
+    4: 'rejected',
+    5: 'invoice_sent',
+    6: 'paid',
+    7: 'shipped'
 };
 
-//----------------- Not exported
-const tier = {  
+const tier = {  //----------------- Not exported
     1: 'basic',
     2: 'standard',
     3: 'enterprise',
@@ -75,17 +81,19 @@ const contactInfo = {
     vat: 'IT01675720294'
 };
 
+const MAX_MB_PDF = 5;
+
 // Exporting all
 export {
     themeColor, themeColorOrange, themeColorWhite, themeColorLille,
-    themeColorGold, base_url, COOKIE_NAME,
+    themeColorGold, base_url, COOKIE_NAME, price_status_api_endpoint,
     auth_api_endpoint, register_user_api_endpoint, login_user_api_endpoint,
-    logout_api_endpoint, user_details_api_endpoint,
+    logout_api_endpoint, user_details_api_endpoint, MAX_MB_PDF,
     get_subscription_endpoint, create_subscription_endpoint,
     delete_subscription_endpoint, get_project_endpoint,
     create_project_endpoint, delete_project_endpoint,
     pricing_proj_api_endpoint, download_api_endpoint,
     price_status, price_list, contactInfo,
     list_users_api_endpoint, get_admin_name_api_endpoint,
-    sub_links_list, update_feature_endpoint
+    sub_links_list, update_feature_endpoint, post_payment_information_endpoint
 };

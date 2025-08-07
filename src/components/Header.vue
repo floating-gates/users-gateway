@@ -1,8 +1,7 @@
 <script setup>
 import { ref, onMounted, defineProps } from "vue";
 import { verify_jwt } from "../user_handler/login.js"
-import { themeColor, logout_api_endpoint,
-         COOKIE_NAME } from "../data/items.js";
+import { themeColor, logout_api_endpoint, COOKIE_NAME } from "../data/items.js";
 import { demo_url } from "../data/demo.js"
 
 defineProps({
@@ -55,7 +54,7 @@ const logout = async () => {
           <li><a href="#features-section" class="nav-link">How does it work</a></li>
           <li><a href="#pricing-section" class="nav-link">Pricing</a></li>
           <li><a href="/mission" class="nav-link">Mission</a></li>
-          <li><a href="/services" class="nav-link">Services</a></li>
+          <!-- <li><a href="/services" class="nav-link">Services</a></li> -->
         </ul>
         
         <ul v-if="!isAuthenticated" class="js-clone-nav d-block mt-1 d-lg-inline-block site-menu float-right">

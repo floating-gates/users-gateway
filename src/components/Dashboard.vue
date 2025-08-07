@@ -2,18 +2,23 @@
 import { ref, onMounted, computed } from 'vue';
 import { themeColor, themeColorOrange, themeColorLille } from "../data/items.js";
 import Header from "./Header.vue"
+import ShippingDetails from "./ShippingDetails.vue" 
+import PricingDetails  from "./PricingDetails.vue" 
 import { create_project, get_project, count_project_states,
-         delete_project } from '../project_handler/project.js';
-import { set_price } from '../price_handler/price_setting.js'
+         delete_project, downloadFile } from '../project_handler/project.js';
+import { handle_price_allocation } from '../price_handler/price_setting.js'
 import { get_user_details } from '../user_handler/user_info.js';
 import { verify_jwt, verify_admin }   from '../user_handler/login.js';
 
-import { download_api_endpoint, price_status } from "../data/items.js"
+import { price_status } from "../data/items.js"
 
 // Dashboard data
-const project_list = ref([]);
-const isAuthenticated = ref(false);
-const showConfirmation = ref(false);
+const project_in_scope = ref(null)
+const project_list = ref([])
+const isAuthenticated = ref(false)
+const showConfirmation = ref(false)
+const showPricingDetails = ref(false)
+const showShippingDetails = ref(false)
 const isAdmin = ref(false);
 
 const error = ref('');
@@ -21,76 +26,35 @@ const user_details = ref('');
 
 // Use computed for reactive counts
 const activeProjects = computed(() => project_list.value.length);
-const pendingSimulations = computed(() => count_project_states(project_list.value, price_status[2]));
-const completedSimulations = computed(() => count_project_states(project_list.value,price_status[3]));
+const pendingSimulations = computed(() =>
+    count_project_states(project_list.value, price_status[2]));
+const completedSimulations = computed(() =>
+    count_project_states(project_list.value,price_status[3]) + 
+        count_project_states(project_list.value,price_status[7]) );
 
-// Show confirmation screen first
 function handle_price_set_confirmation() {
     showConfirmation.value = true;
 }
 
-async function create_new_project() {
-    
-    const date = new Date()
-        
-     const name = "Proj. " + date.getYear() + " " + date.getMonth() + " " + date.getDay() + " " + date.getSeconds() 
-    
-    const customer_email = prompt("Enter email of the project owner:");
-    if (!customer_email) return;
-    
-    const description = "Missing description";
-    
-    const shipping_address = prompt("Enter shipping address:");
-    if (!shipping_address) return;
-    
-    try {
-        const res = await create_project(name, customer_email,
-                                         description, shipping_address);
-        if (!res.ok) {
-            const errData = await res.json();
-            throw new Error(errData.message || 'Failed to create project');
-        }
-        
-        const new_project = await res.json();
-        
-        // Prepend to the project list for immediate feedback
-        project_list.value.unshift(new_project);
-        activeProjects.value = project_list.value.length;
-    } catch (err) {
-        alert("Error creating project: " + err.message);
-    }
+function handle_showPricingDetails( proj_id ) {
+    project_in_scope.value = project_list.value.find( proj => proj.id === proj_id );
+    showPricingDetails.value = !showPricingDetails.value;
 }
 
-
-async function downloadFile(proj_id) {
-    try {
-        const response = await fetch( download_api_endpoint + "/" + proj_id , {
-            method: 'GET',
-            credentials: 'include'
-        });
-        
-        if (!response.ok) {
-            throw new Error('Failed to download file');
-        }
-        
-        const blob = await response.blob();
-        
-        // TODO generalize
-        let filename = proj_id + ".stl";
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename; 
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        window.URL.revokeObjectURL(url);
-    } catch (err) {
-        console.error("Download failed:", err);
-        alert("Could not download the file.");
-    }
+function handle_showShippingDetails( proj_id ) {
+    project_in_scope.value = project_list.value.find( proj => proj.id === proj_id );
+    showShippingDetails.value = !showShippingDetails.value;
 }
 
+function handleGeneral_showShippingDetails() {
+    
+    showShippingDetails.value = !showShippingDetails.value;
+}
+
+function handleGeneral_showPricingDetails() {
+    
+    showPricingDetails.value = !showPricingDetails.value;
+}
 
 async function handleDelete(proj_id) {
     
@@ -98,11 +62,7 @@ async function handleDelete(proj_id) {
     
     try {
         const res = await delete_project(proj_id);
-        
-        console.log(status)
-        if (res.status !== 204) {
-            throw new Error('Failed to delete project');
-        }
+        if (res.status !== 204) { throw new Error('Failed to delete project');  }
         
         // Remove from list
         project_list.value = project_list.value.filter(p => p.id !== proj_id);
@@ -111,23 +71,6 @@ async function handleDelete(proj_id) {
         alert("Error deleting project: " + err.message);
     }
 }
-
-
-async function handlePriceSet( proj ) {
-    try {
-        const response = await set_price(proj, 'set');
-        
-        if (response.ok) {
-            proj.price_status = price_status[2];
-        } else {
-            const error = await response.json();
-            throw new Error(error.message);
-        }
-    } catch (err) {
-        alert('Failed to set price.');
-    }
-}
-
 
 onMounted(async () => {
     
@@ -140,23 +83,19 @@ onMounted(async () => {
     isAdmin.value = await verify_admin()
     
     try {
-        const res = await get_user_details();
-        if (!res.ok) {
+        const res_usr = await get_user_details();
+        
+        if (!res_usr.ok) {
             throw new Error('Failed to fetch username');
         }
         
-        user_details.value = await res.json();
+        user_details.value = await res_usr.json();
         
-    } catch (e) {
-        error.value = e.message;
-    }
-    
-    try {
-        const res = await get_project();
-        if (!res.ok) {
+        const res_prj = await get_project();
+        if (!res_prj.ok) {
             throw new Error('Failed to fetch projects');
         }
-        project_list.value = await res.json()
+        project_list.value = await res_prj.json();
         
     } catch (e) {
         error.value = e.message;
@@ -165,7 +104,7 @@ onMounted(async () => {
 </script>
 
 <template>
-<Header :context="'dashboard'" :is_admin='isAdmin' :host_address='user_details.host_address' />
+<Header context="dashboard" :is_admin='isAdmin' :host_address='user_details.host_address' />
 <div class="untree_co-hero dashboard-section" id="dashboard-section">
   <div class="container">
     <div class="row align-items-center">
@@ -217,10 +156,10 @@ onMounted(async () => {
                 <h2 class="section-title">Recent Orders</h2>
                 <div class="action-buttons">                  
                   <a class="btn btn-primary"
+                     :href="user_details.host_address"
                      style="margin-right: 5px"
                      :style="{ background: themeColor, borderColor: themeColor }"
-                     @click="create_new_project"
-                     >Place an Order</a>
+                     >Place an Order Yourself </a>
                 </div>
               </div>
               
@@ -253,7 +192,7 @@ onMounted(async () => {
                       @click="downloadFile(project.id)"
                       class="btn icon icon-download"
                       :style="{ borderColor: themeColor, color: themeColor }"
-                      title="Download 3D model"
+                      title="Download the 3D model"
                       ></button>
                     
                     <!-- Delete button -->
@@ -265,7 +204,9 @@ onMounted(async () => {
                       ></button>
                     
                     <!-- Price sets -->
-                    <form v-if="project.price_status === 'pending'"  class="price-form" @submit.prevent="handlePriceSet( project )">
+                    <form v-if="project.price_status === 'pending'"
+                          class="price-form"
+                          @submit.prevent="handle_price_allocation( project )">
                       <label>Set Price (€):</label>
                       <input
                         type="number"
@@ -275,51 +216,47 @@ onMounted(async () => {
                       <button
                         type="submit"
                         class="btn btn-primary btn-sm"
-                        :style="[{ background: themeColor, borderColor: themeColor }]"
-                        >
+                        :style="[{ background: themeColor, borderColor: themeColor }]" >
                         Send Quote
                       </button>
                     </form>
                     
-                    <!-- <label v-if="project.price_status === 'accepted'" -->
-                    <!--        class="btn btn-primary btn-sm" -->
-                    <!--        :style="[{ background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }]" -->
-                    <!--        > -->
-                    <!--   Upload Invoice -->
-                    <!--   <input type="file" -->
-                    <!--          accept="application/pdf" -->
-                    <!--          @change="uploadInvoice" -->
-                    <!--          style="display: none"         /> -->
-                    <!-- </label> -->
-
                     <button v-if="project.price_status === 'accepted'"
-                            type="submit"
+                            @click="handle_showPricingDetails( project.id )"
                             class="btn btn-primary btn-sm"
-                            :style="[{ background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }]" >
-                      Ship at {{ project.shipping_address }}
+                            :style="[{ background: themeColor, borderColor: themeColor, color: themeColorWhite }]" >
+                      Send Payment Details
+                    </button>
+                    <button
+                      v-else-if="project.price_status === 'invoice_sent'"
+                      class="btn btn-success btn-sm d-flex align-items-center"
+                      disabled
+                      :style="[{ background: themeColorLille, color: themeColor }]"
+                      >
+                      <span class="me-1">Invoice Sent</span>
+                      <i class="bi bi-check-circle-fill"></i>
                     </button>
                     
+                    <button v-if="project.price_status === 'accepted' || project.price_status === 'invoice_sent'"
+                            @click="handle_showShippingDetails( project.id )"
+                            class="btn btn-primary btn-sm"
+                            :style="[{ background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }]" >
+                      Ship at {{ project.city }}, {{ project.country }}
+                    </button>
                     
                     <div v-else class="d-flex align-items-center">
                       <h3 class="mb-0 me-3">{{ project.price }}€</h3>
                       
-                      <i 
-                        class="icon icon-check-circle text-success" 
-                        v-if="project.price_status === price_status[3]" 
-                        style="font-size: 20px;"
-                        ></i>
+                      <i v-if="project.price_status === price_status[3]" 
+                         class="icon icon-check-circle text-success" 
+                         ></i>
                       
-                      <i 
-                        class="icon icon-spinner animate-spin text-secondary" 
-                        v-if="project.price_status === price_status[2]" 
-                        style="font-size: 20px;"
-                        ></i>
+                      <i v-if="project.price_status === price_status[2]" 
+                         class="icon icon-spinner animate-spin text-secondary" 
+                         ></i>
                       
-                      <i 
-                        class="icon icon-cancel text-danger" 
-                        v-if="project.price_status === price_status[4]" 
-                        style="font-size: 20px;"
-                        ></i>
+                      <i class="icon icon-cancel text-danger" 
+                         v-if="project.price_status === price_status[4]"  ></i>
                     </div>
                   </div>
                   
@@ -329,10 +266,8 @@ onMounted(async () => {
                       <div 
                         class="progress-bar" 
                         role="progressbar" 
-                        :style="{ 
-                                width: project.progress + '%', 
-                                backgroundColor: project.progress === 100 ? themeColorOrange : themeColor 
-                                }" 
+                        :style="{ width: project.progress + '%', 
+                                backgroundColor: project.progress === 100 ? themeColorOrange : themeColor }" 
                         :aria-valuenow="project.progress" 
                         aria-valuemin="0" 
                         aria-valuemax="100"
@@ -345,6 +280,14 @@ onMounted(async () => {
               </div>
             </div>
           </div>
+          
+          <ShippingDetails v-if="showShippingDetails"
+                           :proj="project_in_scope"
+                           @close="handleGeneral_showShippingDetails" />
+          <PricingDetails v-if="showPricingDetails"
+                          :proj="project_in_scope"
+                          @close="handleGeneral_showPricingDetails" />
+          
         </div>
       </div>
     </div>
@@ -441,7 +384,7 @@ onMounted(async () => {
 
 .action-buttons button,
 .action-buttons a {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 .price-form {
