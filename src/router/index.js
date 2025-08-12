@@ -7,8 +7,9 @@ import Mission from    '../views/Mission.vue'
 import ValueProposition from '../views/ValueProposition.vue'
 import Profile from '../components/Profile.vue'
 import TermsService from '../views/TermsService.vue'
-import Services from '../components/Services.vue'
-import Guide from '../components/Guide.vue'
+import Services from '../views/Services.vue'
+import Guide from '../views/Guide.vue'
+import FAQ from '../views/FAQ.vue'
 
 const routes = [
     { path: '/', component: LandingPage },
@@ -20,7 +21,9 @@ const routes = [
     { path: '/profile', component: Profile },
     { path: '/services', component: Services },
     { path: '/terms_and_services', component: TermsService },
-    { path: '/guide', component: Guide }
+    { path: '/guide', component: Guide },
+    { path: '/faq',   component: FAQ }
+
 ]
 
 const router = createRouter({

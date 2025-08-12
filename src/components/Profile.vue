@@ -46,7 +46,13 @@ async function handleDeleteSubscription() {
 }
 
 async function paySubscription() {
-    hostAddress.value = hostAddress.value.replace(/\s/g, '');
+
+    // Verify the address - no spcial char or Capital letters
+    hostAddress.value = hostAddress.value.trim().toLowerCase();
+    if (!/^[a-z0-9_-]+$/.test(hostAddress.value)) {
+        error.value = "Host address can only contain letters, numbers, hyphens (-), and underscores (_).";
+        return;
+    }
     
     const response = await create_subscription(subscriptionPlan.value, hostAddress.value);
     
@@ -140,13 +146,12 @@ onMounted(async () => {
               
               <div class="form-group mb-4">
                 <label for="hostUrl">Choose an address for your hub:</label>
-                <input
+                <input required
                   v-model="hostAddress"
                   id="hostUrl"
                   type="text"
                   class="form-control"
-                  placeholder="e.g. JakeCorp, MilanMakers, 3DPrint"
-                  required />
+                  placeholder="e.g. JakeCorp, ParisMakers, 3DPrint"  />
               </div>
               
               <div class="text-center mt-3">
@@ -154,8 +159,7 @@ onMounted(async () => {
                   type="submit"
                   class="btn btn-primary px-4"
                   :style="{ background: themeColor, borderColor: themeColor }"
-                  @click="paySubscription"
-                  >
+                  @click="paySubscription" >
                   Go to Payments
                 </button>
               </div>

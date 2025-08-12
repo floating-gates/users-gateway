@@ -1,16 +1,17 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import { themeColor, themeColorOrange, themeColorLille } from "../data/items.js";
-import Header from "./Header.vue"
-import ShippingDetails from "./ShippingDetails.vue" 
-import PricingDetails  from "./PricingDetails.vue" 
+
+import Header from "./Header.vue";
+import ShippingDetails from "./ShippingDetails.vue";
+import PricingDetails  from "./PricingDetails.vue"; 
+import OrderDetails    from "./OrderDetails.vue";
+
 import { create_project, get_project, count_project_states,
-         delete_project, downloadFile } from '../project_handler/project.js';
+         delete_project } from '../project_handler/project.js';
 import { handle_price_allocation } from '../price_handler/price_setting.js'
 import { get_user_details } from '../user_handler/user_info.js';
 import { verify_jwt, verify_admin }   from '../user_handler/login.js';
-
-import { price_status } from "../data/items.js"
+import { themeColor, themeColorOrange, themeColorLille, price_status } from "../data/items.js";
 
 // Dashboard data
 const project_in_scope = ref(null)
@@ -19,6 +20,7 @@ const isAuthenticated = ref(false)
 const showConfirmation = ref(false)
 const showPricingDetails = ref(false)
 const showShippingDetails = ref(false)
+const showOrderInfo = ref(false)
 const isAdmin = ref(false);
 
 const error = ref('');
@@ -32,9 +34,7 @@ const completedSimulations = computed(() =>
     count_project_states(project_list.value,price_status[3]) + 
         count_project_states(project_list.value,price_status[7]) );
 
-function handle_price_set_confirmation() {
-    showConfirmation.value = true;
-}
+function handle_price_set_confirmation() { showConfirmation.value = true }
 
 function handle_showPricingDetails( proj_id ) {
     project_in_scope.value = project_list.value.find( proj => proj.id === proj_id );
@@ -45,14 +45,21 @@ function handle_showShippingDetails( proj_id ) {
     project_in_scope.value = project_list.value.find( proj => proj.id === proj_id );
     showShippingDetails.value = !showShippingDetails.value;
 }
+        
+function handle_showOrderInfo( proj_id ) {
+    project_in_scope.value = project_list.value.find( proj => proj.id === proj_id );
+    showOrderInfo.value = !showOrderInfo.value
+}
 
 function handleGeneral_showShippingDetails() {
-    
     showShippingDetails.value = !showShippingDetails.value;
 }
 
+function handleGeneral_showOrderInfo() {
+    showOrderInfo.value = !showOrderInfo.value
+}
+
 function handleGeneral_showPricingDetails() {
-    
     showPricingDetails.value = !showPricingDetails.value;
 }
 
@@ -109,7 +116,6 @@ onMounted(async () => {
   <div class="container">
     <div class="row align-items-center">
       <div class="col-12">
-        <div class="dots"></div>
         <div class="row">
           
           <!-- Dashboard Header -->
@@ -158,8 +164,8 @@ onMounted(async () => {
                   <a class="btn btn-primary"
                      :href="user_details.host_address"
                      style="margin-right: 5px"
-                     :style="{ background: themeColor, borderColor: themeColor }"
-                     >Place an Order Yourself </a>
+                     :style="{ background: themeColor, borderColor: themeColor }">
+                     Place an Order Yourself </a>
                 </div>
               </div>
               
@@ -189,11 +195,12 @@ onMounted(async () => {
                   
                   <div class="project-actions ">
                     <button
-                      @click="downloadFile(project.id)"
-                      class="btn icon icon-download"
-                      :style="{ borderColor: themeColor, color: themeColor }"
-                      title="Download the 3D model"
+                      @click="handle_showOrderInfo( project.id )" 
+                      class="btn btn-lille icon icon-info"
+                      :style="{ borderColor: themeColorLille, color: themeColor }"
+                      title="Info on Order"
                       ></button>
+                    
                     
                     <!-- Delete button -->
                     <button 
@@ -207,12 +214,11 @@ onMounted(async () => {
                     <form v-if="project.price_status === 'pending'"
                           class="price-form"
                           @submit.prevent="handle_price_allocation( project )">
+                      
                       <label>Set Price (€):</label>
                       <input
                         type="number"
-                        v-model="project.price"
-                        required
-                        />
+                        v-model="project.price" />
                       <button
                         type="submit"
                         class="btn btn-primary btn-sm"
@@ -231,8 +237,7 @@ onMounted(async () => {
                       v-else-if="project.price_status === 'invoice_sent'"
                       class="btn btn-success btn-sm d-flex align-items-center"
                       disabled
-                      :style="[{ background: themeColorLille, color: themeColor }]"
-                      >
+                      :style="[{ background: themeColorLille, color: themeColor }]"  >
                       <span class="me-1">Invoice Sent</span>
                       <i class="bi bi-check-circle-fill"></i>
                     </button>
@@ -241,7 +246,7 @@ onMounted(async () => {
                             @click="handle_showShippingDetails( project.id )"
                             class="btn btn-primary btn-sm"
                             :style="[{ background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }]" >
-                      Ship at {{ project.city }}, {{ project.country }}
+                      Ship to {{ project.city }}, {{ project.country }}
                     </button>
                     
                     <div v-else class="d-flex align-items-center">
@@ -287,7 +292,10 @@ onMounted(async () => {
           <PricingDetails v-if="showPricingDetails"
                           :proj="project_in_scope"
                           @close="handleGeneral_showPricingDetails" />
-          
+          <OrderDetails v-if="showOrderInfo"
+                        :proj="project_in_scope"
+                        @close="handleGeneral_showOrderInfo" />
+
         </div>
       </div>
     </div>
@@ -348,19 +356,18 @@ onMounted(async () => {
     padding: 15px 0;
     border-bottom: 1px solid v-bind(themeColorLille);
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     flex-wrap: wrap;
 }
-
 
 .icon {
     padding: 14px;
 }
 
-.project-item:last-child {
-    border-bottom: none;
-}
+/* .project-item:last-child { */
+/*     border-bottom: none; */
+/* } */
 
 .project-info {
     flex: 1;
@@ -401,7 +408,7 @@ onMounted(async () => {
 .price-form input {
     width: 80px;
     padding: 5px;
-    border: 1px solid #ddd;
+    border: 1px solid v-bind(themeColor);
     border-radius: 4px;
 }
 
@@ -416,6 +423,11 @@ onMounted(async () => {
 
 .btn:hover {
     background-color: v-bind(themeColorOrange);
+    border-color: v-bind(themeColor);
+}
+
+.btn-lille:hover {
+    background-color: v-bind(themeColorLille);
     border-color: v-bind(themeColor);
 }
 

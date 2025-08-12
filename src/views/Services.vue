@@ -1,6 +1,6 @@
 <script setup>
-import { themeColor, themeColorOrange, contactInfo } from "../data/items";
-import Header from "./Header.vue";
+import { themeColor, themeColorOrange, themeColorLille, contactInfo } from "../data/items";
+import Header from "../components/Header.vue";
 import { ref } from "vue";
 
 const phone =  contactInfo["phone"].replace(/[\s+]/g, "");
@@ -42,7 +42,6 @@ const services = [
       outcome: [
       "Software able to explore physics from a starting point and insight modification."
     ]
-
   },
   {
     name: "Provider of Informatic Infrastructure",
@@ -68,22 +67,19 @@ const selectedIndex = ref(0);
     <div class="container">
       <div class="row align-items-center">
 
-        <h1 class="mb-4 text-4xl align-items-center heading font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white border-gray-200  shadow-sm">Services</h1>
+        <h1 class="page-title">Services</h1>
               
         <div class="col-12">
           <div class="dots"></div>
           <div class="row align-items-center">
             <div class="col-lg-5">
-              <ul class="list-group shadow-sm rounded overflow-hidden">
+              <ul class="service-list">
                 <li
                   v-for="(service, index) in services"
                   :key="index"
                   @click="selectedIndex = index"
-                  class="list-group-item list-group-item-action py-3"
+                  class="service-item"
                   :class="{ active: selectedIndex === index }"
-                  :style="selectedIndex === index
-                          ? { backgroundColor: themeColor, border: 'none' }
-                          : { cursor: 'pointer' }"
                 >
                   {{ service.name }}
                 </li>
@@ -95,61 +91,50 @@ const selectedIndex = ref(0);
               data-aos="fade-right"
               data-aos-delay="400"
             >
-              <div
-                class="active"
-                :style="{
-                  backgroundColor: '#fbfbfe',
-                  padding: '2rem',
-                  border: '1px',
-                  borderRadius: '0.75rem',
-                }"
-              >
-                <h3 class="mb-3" :style="{ color: themeColor }">
+              <div class="service-content">
+                <h3 class="service-title">
                   {{ services[selectedIndex].name }}
                 </h3>
-                <p class="text-muted mb-3">
+                <p class="service-description">
                   {{ services[selectedIndex].description }}
                 </p>
 
-                <p :style="{ color: themeColor, fontWeight: '600', fontSize: '1.05rem' }">
-                  Outcome:
-                </p>
-                <ul class="mt-2">
-                  <li
-                    v-for="(adv, i) in services[selectedIndex].outcome"
-                    :key="i"
-                    class="text-dark mb-2"
-                    :style="{ fontWeight: '600', fontSize: '1rem' }"
-                  >
-                    {{ adv }}
-                  </li>
-                </ul>
+                <div class="service-section">
+                  <h4 class="section-title">Outcome</h4>
+                  <ul class="service-benefits">
+                    <li
+                      v-for="(outcome, i) in services[selectedIndex].outcome"
+                      :key="i"
+                      class="benefit-item"
+                    >
+                      {{ outcome }}
+                    </li>
+                  </ul>
+                </div>
                 
-                <p :style="{ color: themeColor, fontWeight: '600', fontSize: '1.05rem' }">
-                  Advantages:
-                </p>
-                <ul class="mt-2">
-                  <li
-                    v-for="(adv, i) in services[selectedIndex].advantages"
-                    :key="i"
-                    class="text-dark mb-2"
-                    :style="{ fontWeight: '600', fontSize: '1rem' }"
-                  >
-                    {{ adv }}
-                  </li>
-                </ul>
+                <div class="service-section">
+                  <h4 class="section-title">Advantages</h4>
+                  <ul class="service-benefits">
+                    <li
+                      v-for="(adv, i) in services[selectedIndex].advantages"
+                      :key="i"
+                      class="benefit-item"
+                    >
+                      {{ adv }}
+                    </li>
+                  </ul>
+                </div>
 
-                <!-- WhatsApp Button -->
                 <a
                   :href="whatsAppUrl"
-                  class="whatsapp_container"
+                  class="whatsapp-btn"
                   target="_blank"
                   rel="noopener"
                 >
                   <img
                     src="../assets/images/WhatsAppButtonWhiteSmall.svg"
                     alt="Contact via WhatsApp"
-                    class="section-image"
+                    class="whatsapp-icon"
                   />
                 </a>
               </div>
@@ -162,25 +147,146 @@ const selectedIndex = ref(0);
 </template>
 
 <style scoped>
-.btn-hover:hover {
-  color: v-bind(themeColorWhite);
-  background-color: v-bind(themeColorOrange);
+.page-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: v-bind(themeColor);
+  margin-bottom: 3rem;
+  text-align: center;
 }
 
-.list-group-item:hover {
-  background-color: #f0f0f0;
-  transition: background-color 0.2s ease;
+.service-list {
+  list-style: none;
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: white;
+  border: 1px solid v-bind(themeColorLille);
 }
 
-.list-group-item.active {
+.service-item {
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  border-bottom: 1px solid v-bind(themeColoLille);
+  position: relative;
+  background: white;
+}
+
+.service-item:hover {
+  background: v-bind(themeColorLille);
+}
+
+.service-item.active {
+  background: v-bind(themeColor);
+  color: v-bind(themeColorLille);
   font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.whatsapp_container {
+
+.service-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid v-bind(themeColorLille);
+  position: relative;
+}
+
+.service-title {
+  color: v-bind(themeColor);
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.service-description {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.service-section {
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  color: v-bind(themeColor);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
+}
+
+.section-title::before {
+  content: '●';
+  margin-right: 0.5rem;
+  color: v-bind(themeColorOrange);
+}
+
+.service-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.benefit-item {
+  color: #444;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  padding-left: 1.2rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.benefit-item::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: v-bind(themeColorOrange);
+  font-weight: bold;
+}
+
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  height: 100%; 
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  /* padding: 0.6rem 1.2rem; */
+  /* background: #25d366; */
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px v-bind(themeColor);
+}
+
+.whatsapp-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px v-bind(themeColor);
+  text-decoration: none;
+}
+
+.whatsapp-icon {
+  height: 60px;
+  width: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .service-content {
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  
+  .service-item {
+    padding: 0.875rem 1rem;
+  }
+  
+  .page-title {
+    margin-bottom: 2rem;
+  }
 }
 </style>

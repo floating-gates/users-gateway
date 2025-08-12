@@ -15,7 +15,7 @@ const submitted = ref(false);
 const payment_details = reactive({
     iban: '',
     iban_holder_name: '',
-    invoice: null
+    invoice: ''
 })
 
 const errors = reactive({
@@ -32,13 +32,11 @@ function handle_invoice_upload(event) {
 
     if (!file.type.includes('pdf')) {
         errors.invoice = 'Only PDF files are allowed.'
-        payment_details.invoice = null
         return
     }
 
     if (file.size > MAX_MB_PDF * 1024 * 1024) {
         errors.invoice = `File size must be less than ${MAX_MB_PDF}MB.`
-        payment_details.invoice = null
         return
     }
 
@@ -68,12 +66,10 @@ async function handleSubmit() {
             return
         }
 
-        alert("Payment information submitted successfully.")
         emit('close')
 
     } catch (error) {
         console.error('Payment submission error:', error)
-        alert('Something went wrong. Please try again.')
     } finally {
         submitted.value = false
     }
@@ -129,7 +125,6 @@ async function handleSubmit() {
             accept=".pdf"
             required
           />
-          <p v-if="invoiceFile">Selected: {{ invoiceFile.name }}</p>
         </div>
 
         <div class="modal-actions">

@@ -43,10 +43,10 @@ const features = computed(() => [
     name: 'Automatic Quotes',
     enabled: auto_quote.value
   },
-  {
-    name: 'Independent Payments',
-    enabled: indep_pay.value
-  }
+  // {
+  //   name: 'Independent Payments',
+  //   enabled: indep_pay.value
+  // }
 ])
 
 
