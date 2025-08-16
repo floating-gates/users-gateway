@@ -12,7 +12,7 @@ const items = [
   {
     id: 1,
     name: "Publish the Platform with your Logos/Name",
-    des: "Deploy your manufacturing hub at your name.",
+    des: "Deploy your manufacturing hub with your name and assets.",
   },
   {
     id: 2,
@@ -21,13 +21,13 @@ const items = [
   },
   {
     id: 3,
-    name: "Allow Shape Optimizations",
-    des: "Your customers car run shape optimizations.",
+    name: "Your Customers can use our Services",
+    des: "Your customers car run Manufacturing Checks, Automatic Quotation and Shape Optimizations. While you are informed at every step.",
   },
   {
     id: 4,
-    name: "Time to use your 3D printers",
-    des: "Make use of your machines to produce the devices and ship it.",
+    name: "No more Idle time for your machines",
+    des: "Now it time to make use of your facilities to produce the devices and ship it."
   },
 ];
 
@@ -42,10 +42,8 @@ const total = 4;
         
         <div class="col-lg-5 order-lg-2 js-custom-dots">
           <a
-            
             class="service link horizontal d-flex active"
             data-aos="fade-left"
-            data-aos-delay="0"
           >
             <div class="service-icon  mb-4" :style="{ backgroundColor: themeColorWhite }">
               <svg
@@ -53,7 +51,7 @@ const total = 4;
                 width="1em"
                 height="1em"
                 viewBox="0 0 16 16"
-                fill="{{themeColor}}"
+                :fill="themeColor"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -138,12 +136,10 @@ const total = 4;
                 height="1em"
                 viewBox="0 0 16 16"
                 fill="{{themeColor}}"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+                xmlns="http://www.w3.org/2000/svg"  >
                 <path
                   fill-rule="evenodd"
-                  d="M14.5 13.5h-13A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5zm-13 1A1.5 1.5 0 0 1 0 13V6a1.5 1.5 0 0 1 1.5-1.5h13A1.5 1.5 0 0 1 16 6v7a1.5 1.5 0 0 1-1.5 1.5h-13zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z"
-                />
+                  d="M14.5 13.5h-13A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5zm-13 1A1.5 1.5 0 0 1 0 13V6a1.5 1.5 0 0 1 1.5-1.5h13A1.5 1.5 0 0 1 16 6v7a1.5 1.5 0 0 1-1.5 1.5h-13zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z"   />
               </svg>
             </div>
             <div class="service-contents">

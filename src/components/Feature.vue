@@ -1,7 +1,7 @@
 <script setup>
 
 import { themeColor, themeColorOrange, themeColorWhite,
-       themeColorLille, themeColorGold } from '../data/items'
+        themeColorLille, themeColorGold } from '../data/items'
 
 const items = [
   {

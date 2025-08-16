@@ -22,8 +22,8 @@ import Contact from "../components/Contact.vue";
     <Testimonial />
     <About />
     <Blog />
+   -->
     <Advantage />
-    -->
     <Pricing />
 
 </template>

@@ -29,9 +29,9 @@ const packages = [
 
 
 <template>
-  <div class="untree_co-section" id="pricing-section">
+  <div class="untree_co-section bg-light" id="pricing-section">
     <div class="container">
-      <div class="row pricing-title">
+      <div class="row pricing-title ">
         <div class="col-12 text-center" data-aos="fade-up" data-aos-delay="0">
           <h2 class="heading">{{ heading }}</h2>
           <p>{{ subHeading }}</p>

@@ -3,8 +3,7 @@ import { contactInfo } from "../data/items";
 
 const copyrightText = "Copyright 2025, All rights reserved.";
 const column1Heading = "About us";
-const column1Text =
-      "We're building the bridge between advanced manufacturing and seamless digital integration. Our mission is to empower makers, engineers, and innovators by providing a platform where custom 3D solutions meet scalable production.";
+const column1Text = "We are building a bridge between unused production capacity and digital integration. Our mission is to enable makers and innovators to utilise the idle machinery in the territory, through a platform that combines customised production with scalable manufacturing."
 const column3Heading = "Services";
 const column4Heading = "Contact";
 

@@ -20,6 +20,10 @@ const logout_api_endpoint        = base_url + '/api/user/logout';
 const user_details_api_endpoint  = base_url + '/api/user/details';
 const update_feature_endpoint    = base_url + '/api/user/update-feature';
 
+const update_machine_endpoint = base_url + '/api/user/update-machine'
+const get_machine_endpoint    = base_url + '/api/user/get-machines'
+
+
 // Subscription API Endpoints
 const get_subscription_endpoint    = base_url + '/api/subscription';  // NOT USED
 const create_subscription_endpoint = base_url + '/api/subscription/create';
@@ -72,6 +76,17 @@ const sub_links_list = {
 };
 
 
+// Pricing
+const machineTagNames = {
+    'cnc_3_axis': 'CNC 3 Axis',
+    'cnc_5_axis': 'CNC 5 Axis',
+    'inj_mould': 'Injection Moulding Press',
+    'fdm_3d_printer': 'FDM 3D Printer',
+    'sla_3d_printer': 'SLA 3D Printer',
+    'sls_3d_printer': 'SLS 3D Printer'
+};
+
+
 // Contact Info
 const contactInfo = {
     address: 'Via Capitello Rasa 28, Lendinara (RO), 45026, Italy',
@@ -93,7 +108,8 @@ export {
     delete_subscription_endpoint, get_project_endpoint,
     create_project_endpoint, delete_project_endpoint,
     pricing_proj_api_endpoint, download_api_endpoint,
-    price_status, price_list, contactInfo,
+    price_status, price_list, contactInfo, get_machine_endpoint,
+    update_machine_endpoint, machineTagNames,
     list_users_api_endpoint, get_admin_name_api_endpoint,
     sub_links_list, update_feature_endpoint, post_payment_information_endpoint
 };

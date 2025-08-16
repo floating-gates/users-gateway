@@ -1,7 +1,9 @@
 <script setup>
 import { ref, computed, defineProps, onMounted } from 'vue'
-import { themeColor, themeColorWhite } from '../data/items.js'
+import { themeColor, themeColorWhite, themeColorOrange } from '../data/items.js'
 import { updateFeature } from '../user_handler/feature.js'
+
+import AutoQuoteForm from './AutoQuoteForm.vue'
 
 // Props from parent
 const props = defineProps({
@@ -9,48 +11,34 @@ const props = defineProps({
   automatic_quotation: Boolean,
 })
 
-
 const indep_pay = ref(null)
 const auto_quote = ref(null)
 
+const show_auto_quote_form = ref(false)
 
-// Single toggle dispatcher
-async function toggleFeature(feature) {
-  switch (feature) {
-  case 'Automatic Quotes':
-      await toggleAutomaticQuotation()
-      break
-    case 'Independent Payments':
-      await togglePaymentIndependent()
-      break
-  }
-}
-
-// Individual toggles
+// Toggle automatic quotation
 async function toggleAutomaticQuotation() {
   auto_quote.value = !auto_quote.value
   await updateFeature(!!indep_pay.value, !!auto_quote.value)
 }
 
+// Toggle independent payment
 async function togglePaymentIndependent() {
   indep_pay.value = !indep_pay.value
   await updateFeature(!!indep_pay.value, !!auto_quote.value)
 }
 
-// Computed features list (reactive)
-const features = computed(() => [
-  {
-    name: 'Automatic Quotes',
-    enabled: auto_quote.value
-  },
-  // {
-  //   name: 'Independent Payments',
-  //   enabled: indep_pay.value
-  // }
-])
+// Computed object for automatic quotes
+const automatic_quote = computed(() => ({
+  name: 'Automatic Quotes',
+  enabled: auto_quote.value
+}))
 
+function toggleAutomaticQuotationForm() {
+    show_auto_quote_form.value = !show_auto_quote_form.value
+}
 
-// Set values on mount (useful if props may change late)
+// Initialize state from props
 onMounted(() => {
   indep_pay.value = props.independent_payment
   auto_quote.value = props.automatic_quotation
@@ -62,61 +50,80 @@ onMounted(() => {
     <h2>Hub Features</h2>
 
     <div class="features-list">
-      <div
-        v-for="feature in features"
-        :key="feature.name"
-        class="feature-item"
-      >
-        <span class="feature-label">{{ feature.name }}</span>
+      <div class="feature-item">
+        <span class="feature-label">{{ automatic_quote.name }}</span>
+        <button v-if="auto_quote"
+                class="feature-toggle"
+                @click="toggleAutomaticQuotationForm" >
+          Configure
+        </button>
         <button
           class="feature-toggle"
-          :class="{ active: feature.enabled }"
-          :style="feature.enabled ? { background: themeColor, color: themeColorWhite } : {}"
-          @click="toggleFeature(feature.name)"
-        >
-          {{ feature.enabled ? 'ON' : 'OFF' }}
+          :style="automatic_quote.enabled
+            ? { background: themeColor, borderColor: themeColor, color: themeColorWhite }
+            : { background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }"
+          @click="toggleAutomaticQuotation" >
+          {{ automatic_quote.enabled ? 'ON' : 'OFF' }}
         </button>
       </div>
     </div>
+    <AutoQuoteForm v-if="show_auto_quote_form" />
   </div>
 </template>
 
 <style scoped>
 .hub-features {
+  background-color: v-bind(themeColorWhite);
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  padding: 3rem 2rem;
+  margin: 3rem auto;
+  max-width: 700px;
   text-align: center;
-  margin-top: 3rem;
+}
+
+.hub-features h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: v-bind(themeColor);
   margin-bottom: 2rem;
 }
 
 .features-list {
-  max-width: 450px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .feature-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f9f9f9;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  background: #fafafa;
+  padding: 1rem 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .feature-label {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 500;
+  color: #333;
 }
 
 .feature-toggle {
-  padding: 0.4rem 1.2rem;
-  border: none;
-  border-radius: 20px;
-  font-weight: bold;
-  background: #ccc;
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  font-weight: 500;
+  font-size: 1rem;
+  border: 1px solid transparent;
+  cursor: pointer;
   transition: all 0.3s ease;
+  min-width: 80px;
+}
+
+.feature-toggle:hover {
+  transform: translateY(-2px);
 }
 </style>
+
