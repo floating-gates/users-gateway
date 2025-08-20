@@ -1,15 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LandingPage from '../views/LandingPage.vue'
-import Login from    '../components/Login.vue'
-import Dashboard from    '../components/Dashboard.vue'
-import AdminDashboard from    '../views/AdminDashboard.vue'
-import Mission from    '../views/Mission.vue'
+import LandingPage      from '../views/LandingPage.vue'
+import Login            from '../components/Login.vue'
+import Dashboard        from '../components/Dashboard.vue'
+import Pricing          from '../components/Pricing.vue'
+import AdminDashboard   from '../views/AdminDashboard.vue'
+import Mission          from '../views/Mission.vue'
 import ValueProposition from '../views/ValueProposition.vue'
-import Profile from '../components/Profile.vue'
-import TermsService from '../views/TermsService.vue'
-import Services from '../views/Services.vue'
-import Guide from '../views/Guide.vue'
-import FAQ from '../views/FAQ.vue'
+import Profile          from '../components/Profile.vue'
+import TermsService     from '../views/TermsService.vue'
+import Services         from '../views/Services.vue'
+import Guide            from '../views/Guide.vue'
+import FAQ              from '../views/FAQ.vue'
 
 const routes = [
     { path: '/', component: LandingPage },
@@ -22,8 +23,8 @@ const routes = [
     { path: '/services', component: Services },
     { path: '/terms_and_services', component: TermsService },
     { path: '/guide', component: Guide },
-    { path: '/faq',   component: FAQ }
-
+    { path: '/faq',   component: FAQ },
+    { path: '/pricing', component: Pricing }
 ]
 
 const router = createRouter({

@@ -11,7 +11,7 @@ const heading = "How does it work?";
 const items = [
   {
     id: 1,
-    name: "Publish the Platform with your Logos/Name",
+    name: "Publish the Platform with your Brand",
     des: "Deploy your manufacturing hub with your name and assets.",
   },
   {
@@ -21,12 +21,12 @@ const items = [
   },
   {
     id: 3,
-    name: "Your Customers can use our Services",
+    name: "Your Customers can Access the Services",
     des: "Your customers car run Manufacturing Checks, Automatic Quotation and Shape Optimizations. While you are informed at every step.",
   },
   {
     id: 4,
-    name: "No more Idle time for your machines",
+    name: "No more Idle time for your Machines",
     des: "Now it time to make use of your facilities to produce the devices and ship it."
   },
 ];
@@ -35,7 +35,7 @@ const total = 4;
 </script>
 
 <template>
-  <div class="untree_co-section bg-light" id="features-section">
+  <div class="untree_co-section bg-light" id="how_does_it_work">
     <div class="container">
       <h1 class="heading" data-aos="fade-up">{{ heading }}</h1>
       <div class="row justify-content-between d-flex align-items-center">
@@ -157,15 +157,15 @@ const total = 4;
               </div>
               <div class="item">
                 <span class="number">{{ items[1].id }}/{{ total }}</span>
-                <img :src="product_pic" alt="Image" class="img-fluid" />
+                <img :src="product_pic" alt="Client Platform" class="img-fluid" />
               </div>
               <div class="item">
                 <span class="number">{{ items[2].id }}/{{ total }}</span>
-                <img :src="heat_exchanger_pic" alt="Image" class="img-fluid" />
+                <img :src="heat_exchanger_pic" alt="Platform Service" class="img-fluid" />
               </div>
               <div class="item">
                 <span class="number">{{ items[3].id }}/{{ total }}</span>
-                <img :src="printer_pic" alt="Image" class="img-fluid" />
+                <img :src="printer_pic" alt="Finished Devices" class="img-fluid" />
               </div>
             </div>
           </div>
@@ -178,10 +178,10 @@ const total = 4;
 
 <style scoped>
 .heading {
-  margin-bottom: 6rem;  /* adds vertical space below */
-  font-size: 3.5rem;   /* adjust to your design system */
-  font-weight: 600;
-  text-align: left;   /* optional, use left if desired */
+  margin-bottom: 5rem;  
+  font-size: 3.0rem;  
+  font-weight: 550;
+  text-align: left;
 }
 
 .service-icon {

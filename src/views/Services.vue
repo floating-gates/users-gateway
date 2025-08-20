@@ -125,14 +125,10 @@ const selectedIndex = ref(0);
                   </ul>
                 </div>
 
-                <a
-                  :href="whatsAppUrl"
-                  class="whatsapp-btn"
-                  target="_blank"
-                  rel="noopener"
-                >
+                <a  :href="whatsAppUrl"
+                    class="whatsapp-btn" >
                   <img
-                    src="../assets/images/WhatsAppButtonWhiteSmall.svg"
+                    src="../assets/images/WhatsAppButtonGreenMedium.svg"
                     alt="Contact via WhatsApp"
                     class="whatsapp-icon"
                   />
@@ -252,20 +248,17 @@ const selectedIndex = ref(0);
 }
 
 .whatsapp-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1.5rem;
-  /* padding: 0.6rem 1.2rem; */
-  /* background: #25d366; */
-  border-radius: 8px;
+  display: flex;               /* flex container */
+  align-items: center;         /* vertical centering */
+  justify-content: center;     /* horizontal centering */
+  margin: 1.5rem auto 0;       /* add auto left/right for centering */
+  width: fit-content;          /* shrink wrap button around content */
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px v-bind(themeColor);
 }
 
 .whatsapp-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px v-bind(themeColor);
+  transform: translateY(-2px);
+  /* box-shadow: 0 4px 12px v-bind(themeColor); */
   text-decoration: none;
 }
 

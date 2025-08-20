@@ -4,7 +4,7 @@ import mainPhoto from "../assets/images/heat_exchanger.webp";
 import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
 
 // Hero section content
-const heroHeading = "Host your Platform to Receive and Simulate Customers' Projects";
+const heroHeading = "Host your Manufacturing to Elevate and Automate Customers'Projects";
 
 // User input state
 const userAddress = ref("");
@@ -13,10 +13,10 @@ const userAddress = ref("");
 function submitAddress() {
   if (!userAddress.value) return;
 
-  // Set cookie (expires in 30 days)
-  const days = 30;
-  const expires = new Date(Date.now() + days * 864e5).toUTCString();
-  document.cookie = `host_address=${encodeURIComponent(userAddress.value)}; expires=${expires}; path=/`;
+  // // Set cookie (expires in 30 days)
+  // const days = 30;
+  // const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  // document.cookie = `host_address=${encodeURIComponent(userAddress.value)}; expires=${expires}; path=/`;
 
   // Redirect to /profile
   window.location.href = "/profile";
@@ -24,7 +24,7 @@ function submitAddress() {
 </script>
 
 <template>
-<div class="untree_co-hero" id="home-section">
+<div class="untree_co-hero py-lg-7" id="home-section">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-12">
@@ -39,16 +39,15 @@ function submitAddress() {
           </div>
           
           <div class="col-lg-6">
-            <h1   class="heading"
-                  style="font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.2; max-width: 100%;"
-                  data-aos="fade-up"
-                  data-aos-delay="100">
-              {{ heroHeading }}
+            <h1 class="heading"
+                style="font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.2; max-width: 100%;"
+                data-aos="fade-up"
+                data-aos-delay="100">
+                {{ heroHeading }}
             </h1>
             <div class="excerpt" data-aos="fade-up" data-aos-delay="100">
               <p>
-                Easily receive <span :style="{ color: themeColorOrange }">orders</span>
-                to perform simulation, and handle manufacturing.
+                Publish your platform at your-name.com to easily receive and manage <span :style="{ color: themeColorOrange }">orders</span>, check its feasability, set its price and handle manufacturing.
               </p>
             </div>
             <form
@@ -57,25 +56,19 @@ function submitAddress() {
               data-aos="fade-up"
               data-aos-delay="200"
               >
-              <input
+              <input required
                 v-model="userAddress"
                 type="text"
-                placeholder="Enter where you want to host your hub, i.g. glass-maker"
-
-                class="form-control address-input"
-                required
-                />
+                placeholder="Enter your hub name, i.g. glass-maker"
+                class="form-control address-input" />
               <button
                 type="submit"
                 class="btn btn-primary address-submit"
                 style="[{ background: themeColor }, { borderColor: themeColor }]
-                        @click = submitAddress"
-                
-                >
+                        @click = submitAddress" >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                 </svg>
-                
               </button>
             </form>
           </div>
@@ -98,7 +91,7 @@ function submitAddress() {
     max-width: 100%;
     margin-top: 20px;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }

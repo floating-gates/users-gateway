@@ -51,9 +51,9 @@ const logout = async () => {
       <div v-if="context === 'landing-page'">
         
         <ul class="d-flex d-lg-inline-block site-menu">
-          <li><a href="#why" class="nav-link">Why</a></li>
-          <li><a href="#features-section" class="nav-link">How does it work</a></li>
-          <li><a href="#pricing-section" class="nav-link">Pricing</a></li>
+          <li><a href="/#why" class="nav-link">Why</a></li>
+          <li><a href="/#how_does_it_work" class="nav-link">How does it work</a></li>
+          <li><a href="/pricing" class="nav-link">Pricing</a></li>
           <li><a href="/mission" class="nav-link">Mission</a></li>
           <!-- <li><a href="/services" class="nav-link">Services</a></li> -->
         </ul>

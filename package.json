@@ -7,11 +7,11 @@
     "build-test": "vite build --mode development && cp -r dist/* /shared_fs/data/landing-page",
     "build-staging": "vite build --mode staging",
     "build-production": "vite build --mode production",
-    "deploy-staging":    "npm run build-staging    && scp -r dist/* mattia@192.168.1.99:/shared_fs/data/landing-page",
+    "deploy-staging": "npm run build-staging    && scp -r dist/* mattia@192.168.1.99:/shared_fs/data/landing-page",
     "deploy-production": "npm run build-production && scp -r dist/* mattia@192.168.1.100:/shared_fs/data/landing-page"
   },
   "dependencies": {
-    "vue": "^3.3.4",
+    "vue": "^3.5.18",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {

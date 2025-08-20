@@ -1,14 +1,13 @@
 <script setup>
 import advantages_yoy from "../assets/images/advantages_yoy.svg";
-import { themeColor, themeColorOrange } from "../data/items";
-
+import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
 </script>
 
 <template>
-<div class="advantages-section py-6 py-lg-7" id="why">
+<div class="untree_co-section advantages-section py-6 py-lg-7" id="why">
     <div class="container">
       <div class="text-center mb-6" data-aos="fade-up">
-        <h2 class="section-title mb-3">Why Choose Our Solution?</h2>
+        <h1 class="section-title">Why Automate Customers'Projects?</h1>
         <p class="section-subtitle text-muted">Discover the competitive edge our automation brings to your operations</p>
       </div>
 
@@ -16,17 +15,12 @@ import { themeColor, themeColorOrange } from "../data/items";
         <!-- Content Column -->
         <div class="col-4 col-lg-4" data-aos="fade-right" data-aos-delay="100">
           <div class="pe-lg-4">
-            <!-- <h3 class="advantage-heading mb-4"> -->
-            <!--   Transform Your Workflow with Intelligent Automation -->
-            <!-- </h3> -->
-
             <ul class="advantage-list">
               <li class="advantage-item">
                 <div class="item-icon">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
 </svg>
-
                 </div>
                 <div class="item-content">
                   <h4 class="item-title">Automatic Corrections</h4>
@@ -89,10 +83,9 @@ import { themeColor, themeColorOrange } from "../data/items";
 
 
 .section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-  /* color: var(--bs-dark); */
+  margin-bottom: 1.8rem;  /* adds vertical space below */
+  font-size: 3.0rem;   /* adjust to your design system */
+  font-weight: 550;
   position: relative;
   display: inline-block;
 }
@@ -101,7 +94,6 @@ import { themeColor, themeColorOrange } from "../data/items";
   font-size: 2rem;
   font-weight: 600;
   line-height: 1.3;
-  color: var(--bs-dark);
   margin-bottom: 1.5rem;
 }
 
@@ -116,7 +108,7 @@ import { themeColor, themeColorOrange } from "../data/items";
   align-items: center;
   padding: 1.5rem;
   margin-bottom: 1rem;
-  background-color: white;
+  background-color: v-bind(themeColorWhite);
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;

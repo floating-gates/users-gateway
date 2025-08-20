@@ -1,8 +1,10 @@
 import { get_project_endpoint,
          create_project_endpoint,
          delete_project_endpoint,
-         download_api_endpoint
+         download_api_endpoint,
+         price_status
        } from '../data/items.js'
+
 
 export async function create_project( proj_name,
                                       customer_mail,
@@ -67,4 +69,16 @@ export async function downloadFile( proj_id ) {
     } catch (err) {
         alert("Could not download the file.");
     }
+}
+
+
+export function get_progress( proj ) {    
+    if      ( proj.price_status === price_status[1] ) { return 10 } 
+    else if ( proj.price_status === price_status[2] ) { return 30 }
+    else if ( proj.price_status === price_status[3] ) { return 50 }
+    else if ( proj.price_status === price_status[4] ) { return 100 }
+    else if ( proj.price_status === price_status[5] ) { return 80 }
+    else if ( proj.price_status === price_status[6] ) { return 90 }
+    else if ( proj.price_status === price_status[7] ) { return 100 }    
+    
 }

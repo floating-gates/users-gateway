@@ -6,13 +6,38 @@ import Header from "../components/Header.vue";
 const faqs = [
   {
     question: "Why would you need it?",
-    answer: "In a scenario where cost must be reduced, a platform to offload sales and tecnical departements."
+    answer: "In a scenario where cost must be reduced, a platform to offload sales and technical departments."
   },
   {
     question: "Can I cancel anytime?",
     answer: "Yes, our engagement terms are designed to be flexible. For ongoing projects, we work in milestone-based phases, allowing you to evaluate progress and decide on continuation at each stage. For consulting agreements, standard notice periods apply as outlined in your specific contract. We believe in earning your business through results, not lock-in contracts."
+  },
+  {
+    question: "Who is Floating Gates for?",
+    answer: "Our platform is designed for small to medium-sized manufacturers, hobbyists with 3D printers, and even larger enterprises with idle machines. If you want to optimize production, reduce overhead from sales processes, and reach more clients, Floating Gates is for you."
+  },
+  {
+    question: "How do you ensure quality?",
+    answer: "We integrate automatic feasibility checks, shape optimization, and compliance with certification standards. By collaborating with regulatory bodies and quality certification partners, we make sure your production remains reliable and industry-compliant."
+  },
+  {
+    question: "How is data handled and stored?",
+    answer: "We provide cloud-based access for speed and scalability, but for enterprise customers we also offer on-premise installations to ensure full data ownership. Your intellectual property and sensitive files remain secure at all times."
+  },
+  {
+    question: "What makes Floating Gates different?",
+    answer: "Unlike traditional platforms, we don’t just connect clients and manufacturers — we provide intelligent simulation, automated quoting, and optimization tools to reduce human effort and idle machine time. Plus, we operate on a non-subscription program tailored to manufacturers’ needs."
+  },
+  {
+    question: "Do you support international customers?",
+    answer: "Yes. Our platform is cloud-delivered and accessible globally. We are starting in Italy, but our services and partnerships are designed to scale internationally, especially in markets where customization and speed are critical."
+  },
+  {
+    question: "How do you price your services?",
+    answer: "We offer tiered subscription plans (Basic, Standard, Enterprise) alongside custom software development options. Affiliates and manufacturers can also benefit from revenue-sharing models, ensuring flexibility and fair pricing for different needs."
   }
 ];
+
 
 const openItems = ref(new Set());
 

@@ -1,52 +1,74 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, watch } from 'vue';
 import { themeColor, themeColorWhite, themeColorOrange, machineTagNames } from '../data/items';
-import { getMachineList } from '../user_handler/machine.js';
 
-const machines = ref([]);
+const props = defineProps(["machines", "materials"]);
 
-onMounted(async () => {
-  const list = await getMachineList();
-  // Example stats added for demonstration
-  machines.value = list.map(m => ({
-    ...m,
-    operative_cost: (Math.random() * 0.5 + 0.1).toFixed(2) + " €/cm³",
-    speed: (Math.random() * 10 + 1).toFixed(2) + " cm³/sec",
-      setupCost: (Math.random() * 50 + 10).toFixed(0) + " €"
-  }));
-});
+const display_machines = ref([]);
+
+function arrange_summary_display(machines, materials) {
+  console.log("materials: ", materials, "\n machines:", machines);
+  const result = [];
+
+  for (const mac of machines) {
+    const display_machine = {
+      display_name: machineTagNames[mac.machine_tag] || mac.machine_tag,
+      materials: []
+    };
+
+    for (const mat of materials) {
+      if (mat.manufacturing_methods_tags?.includes(mac.machine_tag)) {
+        display_machine.materials.push(mat.display_name || mat.material_tag);
+      }
+    }
+
+    result.push(display_machine);
+  }
+
+  return result;
+}
+
+watch(
+  [() => props.machines, () => props.materials],
+  ([machines, materials]) => {
+    display_machines.value = arrange_summary_display(machines, materials);
+  },
+  { immediate: true, deep: true }
+);
 </script>
 
 <template>
   <div class="machine-selector-container">
     <div class="machine-selector">
 
-      <!-- Header -->
-    <!-- Header Section -->
-    <div class="header-section">
-      <h3 class="main-title">Your Manufacturing Capabilities</h3>
-      <p class="subtitle">Here you see how your machines are configured</p>
-    </div>
+      <div class="header-section">
+        <h3 class="main-title">Your Manufacturing Capabilities</h3>
+        <p class="subtitle">Here you see how your machines are configured</p>
+      </div>
 
       <!-- Machines List -->
       <section class="machines-list">
         <div 
-          v-for="machine in machines" 
-          :key="machine.machine_tag" 
+          v-for="machine in display_machines" 
+          :key="machine.display_name" 
           class="machine-row"
         >
           <div class="machine-info">
-            <h4 class="machine-name">  {{ machineTagNames[ machine.machine_tag ] }}</h4>
+            <h4 class="machine-name">{{ machine.display_name }}</h4>
             <div class="machine-stats">
-              <span class="stat"><strong>Operative Cost:</strong> {{ machine.cost }}</span>
-              <span class="stat"><strong>Operative Speed:</strong> {{ machine.speed }}</span>
-              <span class="stat"><strong>Setup Cost:</strong> {{ machine.setupCost }}</span>
-              <span class="stat"><strong>Business overhead:</strong> {{ machine.overhead }}</span>
+              <span class="stat">
+                <strong>Materials:</strong>
+                <span v-if="machine.materials.length">
+                  {{ machine.materials.join(', ') }}
+                </span>
+                <span v-else>
+                  None
+                </span>
+              </span>
             </div>
           </div>
         </div>
       </section>
-
     </div>
   </div>
 </template>
@@ -118,11 +140,9 @@ onMounted(async () => {
 }
 
 .main-title {
-    font-size: 2.0rem;
-    font-weight: 700;
-    color: v-bind(themeColor);
-    margin-bottom: 2.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: v-bind(themeColor);
+  margin-bottom: 2.5rem;
 }
-
 </style>
-

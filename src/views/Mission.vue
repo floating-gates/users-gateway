@@ -31,12 +31,12 @@ const mission_points = []
 </script>
 
 <template>
-  <Header :context="'login'" />
-  
+  <Header :context="'landing-page'" />
+
   <!-- Hero Mission Section -->
-  <div class="mission-hero bg-light">
+  <div class="mission-hero ">
     <div class="container">
-      <div class="row justify-content-between align-items-center g-5">
+      <div class="row justify-content-between align-items-center">
         <div class="col-lg-5">
           <div class="mission-content">
 
@@ -85,7 +85,7 @@ const mission_points = []
   </div>
 
   <!-- How to Achieve Section -->
-  <section class="achievement-section">
+  <section class="achievement-section bg-light">
     <div class="container">
       <div class="section-header text-center" data-aos="fade-up" data-aos-delay="0">
         <span class="section-badge" :style="{ backgroundColor: themeColorOrange + '20', color: themeColorOrange }">
@@ -148,10 +148,9 @@ const mission_points = []
 </template>
 
 <style scoped>
-/* Mission Hero Section */
+
 .mission-hero {
-  padding: 100px 0 120px;
-  background: v-bind("themeColor");
+  padding: 200px 0 120px;
   position: relative;
   overflow: hidden;
 }
@@ -161,16 +160,7 @@ const mission_points = []
   z-index: 2;
 }
 
-/* .section-badge { */
-/*   display: inline-block; */
-/*   padding: 8px 24px; */
-/*   border-radius: 50px; */
-/*   font-weight: 600; */
-/*   font-size: 14px; */
-/*   text-transform: uppercase; */
-/*   letter-spacing: 1px; */
-/*   margin-bottom: 16px; */
-/* } */
+
 .mission-badge {
   display: inline-flex;
   align-items: center;
@@ -178,9 +168,7 @@ const mission_points = []
   border-radius: 50px;
   font-weight: 600;
   font-size: 14px;
-  /* border: 2px solid; */
   margin-bottom: 24px;
-  /* backdrop-filter: blur(10px); */
 }
 
 .mission-title {
@@ -188,15 +176,14 @@ const mission_points = []
   font-weight: 650;
   line-height: 1.2;
   margin-bottom: 30px;
-  color: v-bind("themeColor");
 }
 
 .lead-text {
   font-size: 1.2rem;
   line-height: 1.7;
-  color: #555;
   margin-bottom: 40px;
   font-weight: 400;
+  color: v-bind("themeColor");
 }
 
 .mission-points {

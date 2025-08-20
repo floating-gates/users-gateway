@@ -6,7 +6,6 @@ export async function get_user_details() {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
     });
-    console.log(response);
-    return response;
+    
+    return await response.json(); 
 }
-

@@ -7,11 +7,11 @@ import PricingDetails  from "./PricingDetails.vue";
 import OrderDetails    from "./OrderDetails.vue";
 
 import { create_project, get_project, count_project_states,
-         delete_project } from '../project_handler/project.js';
+         delete_project, get_progress } from '../project_handler/project.js';
 import { handle_price_allocation } from '../price_handler/price_setting.js'
 import { get_user_details } from '../user_handler/user_info.js';
 import { verify_jwt, verify_admin }   from '../user_handler/login.js';
-import { themeColor, themeColorOrange, themeColorLille, price_status } from "../data/items.js";
+import { themeColor, themeColorOrange, themeColorLille, themeColorWhite, price_status } from "../data/items.js";
 
 // Dashboard data
 const project_in_scope = ref(null)
@@ -32,7 +32,7 @@ const pendingSimulations = computed(() =>
     count_project_states(project_list.value, price_status[2]));
 const completedSimulations = computed(() =>
     count_project_states(project_list.value,price_status[3]) + 
-        count_project_states(project_list.value,price_status[7]) );
+    count_project_states(project_list.value,price_status[7]) );
 
 function handle_price_set_confirmation() { showConfirmation.value = true }
 
@@ -45,7 +45,7 @@ function handle_showShippingDetails( proj_id ) {
     project_in_scope.value = project_list.value.find( proj => proj.id === proj_id );
     showShippingDetails.value = !showShippingDetails.value;
 }
-        
+
 function handle_showOrderInfo( proj_id ) {
     project_in_scope.value = project_list.value.find( proj => proj.id === proj_id );
     showOrderInfo.value = !showOrderInfo.value
@@ -62,6 +62,8 @@ function handleGeneral_showOrderInfo() {
 function handleGeneral_showPricingDetails() {
     showPricingDetails.value = !showPricingDetails.value;
 }
+
+
 
 async function handleDelete(proj_id) {
     
@@ -90,13 +92,7 @@ onMounted(async () => {
     isAdmin.value = await verify_admin()
     
     try {
-        const res_usr = await get_user_details();
-        
-        if (!res_usr.ok) {
-            throw new Error('Failed to fetch username');
-        }
-        
-        user_details.value = await res_usr.json();
+        user_details.value = await get_user_details();
         
         const res_prj = await get_project();
         if (!res_prj.ok) {
@@ -165,7 +161,7 @@ onMounted(async () => {
                      :href="user_details.host_address"
                      style="margin-right: 5px"
                      :style="{ background: themeColor, borderColor: themeColor }">
-                     Place an Order Yourself </a>
+                    Place an Order Yourself </a>
                 </div>
               </div>
               
@@ -176,18 +172,15 @@ onMounted(async () => {
                   :key="project.id" 
                   class="project-item" >
                   <div class="project-info">
-                    <a :href="project.proj_name" class="project-name">
+                    <p class="project-name">
                       <h3>{{ project.proj_name }}</h3>
-                    </a>
-                    
+                    </p>
                     <p class="proj-detail">
                       Status: {{ project.status }}
                     </p>
-                    
                     <p class="proj-detail">
                       <a :href="'mailto:' + project.customer_mail">Email customer</a>
                     </p>
-                    
                     <p class="proj-detail">
                       <a :href="project.proj_url">View project</a>
                     </p>
@@ -271,13 +264,13 @@ onMounted(async () => {
                       <div 
                         class="progress-bar" 
                         role="progressbar" 
-                        :style="{ width: project.progress + '%', 
-                                backgroundColor: project.progress === 100 ? themeColorOrange : themeColor }" 
-                        :aria-valuenow="project.progress" 
+                        :style="{ 
+                                width: get_progress(project) + '%', 
+                                backgroundColor: get_progress(project) === 100 ? themeColorWhite : themeColor 
+                                }"
+                        :aria-valuenow="get_progress(project)"
                         aria-valuemin="0" 
-                        aria-valuemax="100"
-                        >
-                        {{ project.progress }}%
+                        aria-valuemax="100" >
                       </div>
                     </div>
                   </div>
@@ -295,7 +288,7 @@ onMounted(async () => {
           <OrderDetails v-if="showOrderInfo"
                         :proj="project_in_scope"
                         @close="handleGeneral_showOrderInfo" />
-
+          
         </div>
       </div>
     </div>

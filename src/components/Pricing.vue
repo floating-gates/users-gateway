@@ -1,7 +1,12 @@
 <script setup>
-import { themeColor, themeColorOrange, price_list } from "../data/items";
-const heading = "Pricing";
-const subHeading = "Pricing refer to the hosting services. While you can choose how much charging the customer to produce their devices";
+import Header from './Header.vue'
+  
+import { themeColor, themeColorOrange,
+         themeColorWhite, price_list } from "../data/items";
+
+
+const heading = "Plans and Pricing";
+const subHeading = "Pricing refer only to the hosting services. While you can choose how much charging the customer to produce their devices";
 const startButtonName = "Get Started";
 
 const package_names_vec = Object.keys(price_list)
@@ -18,17 +23,19 @@ const packages = [
   },
   {
     name: capitalizeWord(package_names_vec[1]),
-    price: "Coming Soon",
+    price: "Coming Soon...",
   },
   {
     name: capitalizeWord(package_names_vec[2]),
-    price: "Coming Soon",
+    price: "Request a Quote",
   },
 ];
 </script>
 
 
 <template>
+  <Header :context="'landing-page'" />
+
   <div class="untree_co-section bg-light" id="pricing-section">
     <div class="container">
       <div class="row pricing-title ">
@@ -52,18 +59,16 @@ const packages = [
                   <ul class="list-unstyled ul-check primary mb-5">
                     <li> Up to 20 Active Projects</li>
                     <li> Automatic Quotations </li>
-                    <li> Proprietary Logo Display </li> 
+                    <li> Your Brand in Display </li> 
                   </ul>
                   <p class="text-center mb-0">
                     <a
                       href="/profile"
                       class="btn btn-outline-primary btn-hovered"
-                      :style="[
-                        { color: themeColor },
-                        { borderColor: themeColor },
-                      ]"
-                      >{{ startButtonName }}</a
-                    >
+                      :style="[ { backgroundColor: themeColorWhite },
+                                { borderColor: themeColorWhite },
+                                { color: themeColor }]">
+                      {{ startButtonName }}</a >
                   </p>
                 </div>
               </div>
@@ -110,16 +115,16 @@ const packages = [
                   <ul class="list-unstyled ul-check primary mb-5">
                     <li>Package {{ packages[1].name }} plus </li>
                     <li>Proprietary URL</li>
-                    <li>Topology Optimization method</li>
+                    <li>Parametric CAD of your best product</li>
                   </ul>
                   <p class="text-center mb-0">
                     <a
                       href="/profile"
                       class="btn btn-outline-primary btn-hovered"
-                      :style="[
-                        { color: themeColor },
-                        { borderColor: themeColor },
-                      ]">{{ startButtonName }}</a
+                      :style="[ { backgroundColor: themeColorWhite },
+                                { borderColor: themeColorWhite },
+                                { color: themeColor }]">
+                      {{ startButtonName }}</a
                     >
                   </p>
                 </div>
@@ -133,15 +138,37 @@ const packages = [
 </template>
 
 
-
 <style scoped>
-.btn-hovered:hover {
-  color: v-bind(themeColor);
-  background-color: v-bind(themeColorOrange);
-  border-color: v-bind(themeColor);
+.heading {
+  margin: 3rem;  
+  font-size: 3.0rem;  
+  font-weight: 550;
+  text-align: center;
+}
+
+.btn {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+
+  transform: scale(1.05);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  z-index: 2; /* ensures it overlays above neighbors */
 }
 
 .ul-check.primary li::before {
   color: v-bind(themeColorOrange); 
+}
+
+.pricing {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 2rem; /* keep it smooth */
+}
+
+.pricing:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  z-index: 2; /* ensures it overlays above neighbors */
 }
 </style>

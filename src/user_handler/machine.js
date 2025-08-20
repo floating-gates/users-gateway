@@ -15,7 +15,7 @@ export async function  getMachineList() {
         return res.json()
 
     } catch (err) {
-        console.error('Failed to update feature:', err)
+        console.error('Failed to fetch machines:', err)
     }
 }
     

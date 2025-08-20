@@ -24,6 +24,9 @@ const update_machine_endpoint = base_url + '/api/user/update-machine'
 const get_machine_endpoint    = base_url + '/api/user/get-machines'
 
 
+const update_materials_endpoint = base_url + '/api/user/update-materials'
+const get_materials_endpoint    = base_url + '/api/user/get-materials'
+
 // Subscription API Endpoints
 const get_subscription_endpoint    = base_url + '/api/subscription';  // NOT USED
 const create_subscription_endpoint = base_url + '/api/subscription/create';
@@ -109,7 +112,8 @@ export {
     create_project_endpoint, delete_project_endpoint,
     pricing_proj_api_endpoint, download_api_endpoint,
     price_status, price_list, contactInfo, get_machine_endpoint,
-    update_machine_endpoint, machineTagNames,
+    update_machine_endpoint, get_materials_endpoint,
+    update_materials_endpoint, machineTagNames,
     list_users_api_endpoint, get_admin_name_api_endpoint,
     sub_links_list, update_feature_endpoint, post_payment_information_endpoint
 };
