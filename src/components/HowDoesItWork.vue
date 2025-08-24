@@ -2,32 +2,43 @@
 import dashboard_pic from "../assets/images/manufacturing_hub_pic.webp";
 import printer_pic from "../assets/images/printer.webp";
 import product_pic from "../assets/images/in_platform_tank.webp"
-import heat_exchanger_pic from "../assets/images/heat_exchanger.webp";
+import dashboard_empty from "../assets/images/dashboard_empty.webp"
+import platform_with_pump from "../assets/images/platform_with_pump.webp";
 import { themeColor, themeColorOrange, themeColorLille,
          themeColorGold, themeColorWhite } from "../data/items";
 
-const heading = "How does it work?";
+// const heading = "How does it work?";
+// const heading = "0 → 1: From nothing to customers via Gates."
 
 const items = [
   {
-    id: 1,
-    name: "Publish the Platform with your Brand",
-    des: "Deploy your manufacturing hub with your name and assets.",
+      id: 1,
+      name: "Publish the Platform with your Brand",
+      des: "Deploy your manufacturing facilities online with your name and assets.",
+      pic: dashboard_empty,
+      alt: "Publish Hub"
   },
   {
-    id: 2,
-    name: "Wait for Orders to come to you",
-    des: "Your customers will funnel models to be printed by your machine.",
+      id: 2,
+      name: "Your Customers can Access the Services",
+      des: "Your customers car run Manufacturing Checks, Automatic Quotation and Shape Optimizations. While you are informed at every step.",
+      pic: platform_with_pump,
+      alt: "Services"
+
   },
   {
-    id: 3,
-    name: "Your Customers can Access the Services",
-    des: "Your customers car run Manufacturing Checks, Automatic Quotation and Shape Optimizations. While you are informed at every step.",
+      id: 3,
+      name: "Wait for Orders to come to you",
+      des: "Your customers will funnel models to be printed by your machine.",
+      pic: product_pic,
+      alt: "Wait Orders"
   },
   {
-    id: 4,
-    name: "No more Idle time for your Machines",
-    des: "Now it time to make use of your facilities to produce the devices and ship it."
+      id: 4,
+      name: "No more Idle time for your Machines",
+      des: "Now it time to make use of your facilities to produce the devices and ship it.",
+      pic: printer_pic,
+      alt: "Use the machinery"
   },
 ];
 
@@ -37,7 +48,19 @@ const total = 4;
 <template>
   <div class="untree_co-section bg-light" id="how_does_it_work">
     <div class="container">
-      <h1 class="heading" data-aos="fade-up">{{ heading }}</h1>
+      <h1 class="heading" data-aos="fade-up">
+<span class="enhance-sequential">
+  <span v-for="(letter, index) in 'Enhance and Automate'.split('')" 
+        :key="index"
+        class="letter"
+        :style="{ '--delay': index + 's' }">
+    {{ letter }}
+  </span>
+</span>
+         Customers'Projects
+      <sub :style="{ color: themeColorOrange, 'font-size': '1.3rem' }">
+          WITH GATES
+      </sub></h1>
       <div class="row justify-content-between d-flex align-items-center">
         
         <div class="col-lg-5 order-lg-2 js-custom-dots">
@@ -153,19 +176,19 @@ const total = 4;
             <div class="owl-single no-dots owl-carousel">
               <div class="item">
                 <span class="number">{{ items[0].id }}/{{ total }}</span>
-                <img :src="dashboard_pic" alt="Dashboard Manufacturing" class="img-fluid" />
+                <img :src="items[0].pic" alt="items[0].alt" class="img" />
               </div>
               <div class="item">
                 <span class="number">{{ items[1].id }}/{{ total }}</span>
-                <img :src="product_pic" alt="Client Platform" class="img-fluid" />
+                <img :src="items[1].pic" alt="items[1].alt" class="img" />
               </div>
               <div class="item">
                 <span class="number">{{ items[2].id }}/{{ total }}</span>
-                <img :src="heat_exchanger_pic" alt="Platform Service" class="img-fluid" />
+                <img :src="items[2].pic" alt="items[2].alt" class="img" />
               </div>
               <div class="item">
                 <span class="number">{{ items[3].id }}/{{ total }}</span>
-                <img :src="printer_pic" alt="Finished Devices" class="img-fluid" />
+                <img :src="items[3].pic" alt="items[3].alt" class="img" />
               </div>
             </div>
           </div>
@@ -182,6 +205,17 @@ const total = 4;
   font-size: 3.0rem;  
   font-weight: 550;
   text-align: left;
+  color: v-bind(themeColor);
+  
+}
+
+.img {
+  height: 30rem;      /* fixed height */
+  width: auto;        /* adjust width automatically */
+  max-width: 100%;    /* prevent overflow */
+  object-fit: contain; /* keep aspect ratio */
+  display: block;     /* avoid inline spacing issues */
+  margin: 0 auto;     /* optional: center horizontally */
 }
 
 .service-icon {
@@ -193,6 +227,18 @@ const total = 4;
 
 .owl-single .number {
   background-color: v-bind(themeColor);
-  }
+}
+
+
+.enhance-sequential .letter {
+  color: v-bind(themeColor); /* default color */
+  animation: letter-highlight 20s infinite; /* total duration = letters * 1s */
+  animation-delay: var(--delay);
+}
+
+@keyframes letter-highlight {
+  0%, 70.0% { color: v-bind(themeColor); } /* stay black most of the time */
+  30%, 25% { color: v-bind(themeColorOrange); } /* themeColorOrange */
+}
 
 </style>

@@ -35,26 +35,10 @@ const tabRefs = ref([]);
 const indicatorStyle = ref({});
 
 
-onMounted(async () => {
-
-    isAuthenticated.value = await verify_jwt();
-    if (!isAuthenticated.value) window.location.replace("/login");
-    
-    userDetails.value = await get_user_details();
-    machines.value    = await getMachineList();
-    materials.value   = await getMaterials();
-    
-    const sub_status = userDetails.value.subscription_status
-    
-    if ( sub_status === "inactive" || sub_status === "demo") {
-        showHubForm.value = true;
-    }
-    
-    // initialize indicator after DOM renders
-    await nextTick();
-    const initialIndex = tabs.indexOf(activeTab.value);
-    moveIndicator(initialIndex);
-});
+function changeMenuTab(selected_menu_tab, idx) {
+    activeTab.value = selected_menu_tab
+    setActiveTab(selected_menu_tab, idx)
+}
 
 
 // --------------------
@@ -76,22 +60,43 @@ function moveIndicator(index) {
     }
 }
 
+
+onMounted(async () => {
+
+    isAuthenticated.value = await verify_jwt();
+    if (!isAuthenticated.value) { window.location.replace("/login") };
+    
+    userDetails.value = await get_user_details();
+    machines.value    = await getMachineList();
+    materials.value   = await getMaterials();
+    
+    const sub_status = userDetails.value.subscription_status
+    
+    if ( sub_status === "inactive" || sub_status === "demo") {
+        showHubForm.value = true;
+    }
+    
+    // initialize indicator after DOM renders
+    await nextTick();
+    const initialIndex = tabs.indexOf(activeTab.value);
+    moveIndicator(initialIndex);
+});
 </script>
 
 
 <template>
 <Header :context="'profile'" />
 
-<div class="untree_co-section bg-light">
+<div class="untree_co-section">
   <div class="row justify-content-center">
     <div class="col-md-12 col-lg-8">
       
       <div v-if="showHubForm">
-        <EnrollToSub />
+        <EnrollToSub
+          :provisional_hub_name="userDetails.provisional_hub_name"/>
       </div>
       
-      <div  v-else >
-        
+      <div  v-else >        
         <div class="tab-menu-container text-center mb-6">
           <div class="tab-menu">
             <div class="tab-indicator" :style="indicatorStyle"></div>
@@ -109,7 +114,8 @@ function moveIndicator(index) {
         <div v-if="activeTab === 'Summary'">
           <Summary
             :machines="machines"
-            :materials="materials"/>
+            :materials="materials"
+            @go_to_machines="changeMenuTab('Machines', 1)"/>
         </div>
         
         <div v-if="activeTab === 'Machines'">
@@ -159,6 +165,7 @@ function moveIndicator(index) {
 .tab-indicator {
     position: absolute;
     top: 2px;
+    left: 0;
     height: calc(100% - 4px);
     background-color: v-bind(themeColor);
     border-radius: 50px;

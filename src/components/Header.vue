@@ -12,17 +12,15 @@ defineProps({
         type: Boolean,
         default: false
     },
-    host_address: String,
-    default: demo_url
+    host_address: {
+        type: String,
+        default: demo_url
+    }
 })
 
 const isAuthenticated = ref(false);
 
-onMounted(async () => {
-    isAuthenticated.value = await verify_jwt();
-})
-
-const logout = async () => {
+async function logout() {
     try {
         await fetch(logout_api_endpoint, {
             method: 'POST',
@@ -35,6 +33,10 @@ const logout = async () => {
         isAuthenticated.value = await verify_jwt();
     }
 };
+
+onMounted(async () => {
+    isAuthenticated.value = await verify_jwt();
+})
 </script>
 
 
@@ -43,7 +45,7 @@ const logout = async () => {
   <div class="container">
     <div class="site-navigation">
       <a href="/" class="logo float-left">
-        <img src="../assets/images/logo.webp" alt="Floating Gates" class="logo-img" />
+        <img src="../assets/images/logo.webp" alt="Floating Gates Logo" class="logo-img" />
       </a>
       
       <!-- LANDING PAGE HEADER -->
@@ -51,29 +53,30 @@ const logout = async () => {
       <div v-if="context === 'landing-page'">
         
         <ul class="d-flex d-lg-inline-block site-menu">
-          <li><a href="/#why" class="nav-link">Why</a></li>
-          <li><a href="/#how_does_it_work" class="nav-link">How does it work</a></li>
+          <!-- <li><a href="/#why" class="nav-link">Why</a></li> -->
+          <!-- <li><a href="/#how_does_it_work" class="nav-link">How does it work</a></li> -->
+          <li><a href="/" class="nav-link">Home</a></li>
           <li><a href="/pricing" class="nav-link">Pricing</a></li>
           <li><a href="/mission" class="nav-link">Mission</a></li>
-          <!-- <li><a href="/services" class="nav-link">Services</a></li> -->
+          <!-- <li><a href="/use-cases" class="nav-link">Use Cases</a></li> -->
         </ul>
         
         
         <ul v-if="isAuthenticated" class="d-flex d-lg-inline-block site-menu float-right">
-          <li class="cta-button-outline" style="margin-right: 10px;">
+          <li class="cta-button-outline">
             <a href="/dashboard">Dashboard</a>
           </li>
           <li class="cta-primary">
-            <a @click="logout" :style="[{ backgroundColor: themeColor }]">Logout</a>
+            <a @click="logout" :style="{ backgroundColor: themeColor }">Logout</a>
           </li>
         </ul>
         
-        <ul v-else class=" d-block mt-1 d-lg-inline-block site-menu float-right">
-          <li class="cta-button-outline" style="margin-right: 10px;">
+        <ul v-else class="d-block mt-1 d-lg-inline-block site-menu float-right">
+          <li class="cta-button-outline">
             <a href="/login">Sign in</a>
           </li>
           <li class="cta-primary">
-            <a :href="demo_url" :style="[{ backgroundColor: themeColor }]">Demo</a>
+            <a :href="demo_url" :style="{ backgroundColor: themeColor }">Demo</a>
           </li>
         </ul>
       </div>
@@ -81,19 +84,19 @@ const logout = async () => {
       <!-- DASHBOARD HEADER -->
       
       <div v-if="context === 'dashboard'">
-        <ul class=" d-block mt-1 d-lg-inline-block site-menu float-right">
-          <li class="cta-button-outline" style="margin-right: 10px;">
+        <ul class="d-block mt-1 d-lg-inline-block site-menu float-right">
+          <li class="cta-button-outline" >
             <a :href='host_address'>Customers' View</a>
           </li>
-          <li class="cta-button-outline" style="margin-right: 10px;">
-            <a href="/profile">Profile</a>
+          <li class="cta-primary" >
+            <a href="/profile" :style="{ backgroundColor: themeColor }">Profile</a>
           </li>
         </ul>
       </div>
       
       <div v-else-if="context === 'profile'" >
         <ul class=" d-block mt-1 d-lg-inline-block site-menu float-right">
-          <li class="cta-button-outline" style="margin-right: 10px;">
+          <li class="cta-button-outline">
             <a href="/dashboard">Dashboard</a>
           </li>
         </ul>
@@ -111,3 +114,10 @@ const logout = async () => {
   </div>
 </nav>
 </template>
+
+
+<style scoped>
+.cta-button-outline {
+    margin-right: 10px;
+}
+</style>

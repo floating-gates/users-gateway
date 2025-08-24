@@ -79,15 +79,15 @@ const sub_links_list = {
 };
 
 
-// Pricing
-const machineTagNames = {
-    'cnc_3_axis': 'CNC 3 Axis',
-    'cnc_5_axis': 'CNC 5 Axis',
-    'inj_mould': 'Injection Moulding Press',
-    'fdm_3d_printer': 'FDM 3D Printer',
-    'sla_3d_printer': 'SLA 3D Printer',
-    'sls_3d_printer': 'SLS 3D Printer'
-};
+// // Pricing
+// const machineTagNames = {
+//     'cnc_3_axis': 'CNC 3 Axis',
+//     'cnc_5_axis': 'CNC 5 Axis',
+//     'inj_mould': 'Injection Moulding Press',
+//     'fdm_3d_printer': 'FDM 3D Printer',
+//     'sla_3d_printer': 'SLA 3D Printer',
+//     'sls_3d_printer': 'SLS 3D Printer'
+// };
 
 
 // Contact Info
@@ -113,7 +113,7 @@ export {
     pricing_proj_api_endpoint, download_api_endpoint,
     price_status, price_list, contactInfo, get_machine_endpoint,
     update_machine_endpoint, get_materials_endpoint,
-    update_materials_endpoint, machineTagNames,
-    list_users_api_endpoint, get_admin_name_api_endpoint,
-    sub_links_list, update_feature_endpoint, post_payment_information_endpoint
+    update_materials_endpoint, list_users_api_endpoint,
+    get_admin_name_api_endpoint, sub_links_list, update_feature_endpoint,
+    post_payment_information_endpoint
 };

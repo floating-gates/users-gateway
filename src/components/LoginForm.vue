@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { themeColor, auth_api_endpoint} from '../data/items'
 import { user_login } from '../user_handler/login.js'
 import { useRouter } from 'vue-router'
@@ -110,6 +110,11 @@ async function handleLogin() {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.heading {
+  font-size: 4rem;
+  margin-bottom: 2rem;
 }
 
 .error-text {

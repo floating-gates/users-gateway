@@ -1,7 +1,7 @@
 <script setup>
-import { ref, watch, defineEmits, onMounted } from 'vue';
+import { ref, defineEmits, onMounted } from 'vue';
 import { themeColor, themeColorWhite, themeColorLille,
-         themeColorOrange, machineTagNames } from '../data/items';
+         themeColorOrange } from '../data/items';
 import { default_materials } from '../data/default_materials.js'
 import { updateMaterials } from "../user_handler/materials.js"
 
@@ -13,8 +13,9 @@ const display_materials = ref([])
 
 // Merge CURRENT materials &  defaults - no duplications
 function arrange_materials_view( materials, default_materials ) {
+   
     // Collect tags of actual materials
-    const current_mat_tags = materials.map(m => m.material_tag);
+    const current_mat_tags = materials.map( m => m.material_tag );
     
     // Filter defaults that are not already in current materials
     const missing_defaults = default_materials
@@ -26,17 +27,10 @@ function arrange_materials_view( materials, default_materials ) {
     ];
 }
 
+function update_and_emit_materials() {
 
-onMounted(() => {
-    
-    if ( props.materials.length > 0 ){
-        display_materials.value = arrange_materials_view( props.materials, default_materials );
-    } else {
-        display_materials.value = default_materials;
-    }
-});
-
-function emitMaterials() {
+    const confirmed = window.confirm("Are you sure you want to update your materials?");
+    if (!confirmed) return;
     
     const materials = []
     
@@ -47,7 +41,6 @@ function emitMaterials() {
     }
     
     updateMaterials( materials );
-    
     emit("update_materials", materials);
 }
 
@@ -63,6 +56,16 @@ function toggleMachine( material, machine_tag ) {
         material.manufacturing_methods_tags.push( machine_tag );
     }
 };
+
+onMounted(() => {
+    
+    if ( props.materials.length > 0 ){
+        display_materials.value = arrange_materials_view( props.materials, default_materials );
+    } else {
+        display_materials.value = default_materials;
+    }
+    
+});
 </script>
 
 <template>
@@ -92,12 +95,11 @@ function toggleMachine( material, machine_tag ) {
             <div class="machine-options">
               <button 
                 v-for="machine in props.machines" 
-                :key="machine.id"
-                type="button"
+                :key="machine.machine_tag"
                 class="machine-btn"
                 :class="{ active: material.manufacturing_methods_tags.includes( machine.machine_tag ) }"
-                @click="toggleMachine( material, machine.machine_tag)">
-                {{ machineTagNames[machine.machine_tag] }}
+                @click="toggleMachine( material, machine.machine_tag )">
+                {{ machine.display_name }}
               </button>
             </div>
           </div>
@@ -110,6 +112,7 @@ function toggleMachine( material, machine_tag ) {
                 type="number" 
                 step="0.01" 
                 v-model.number="material.cost_per_cm3"
+                :placeholder="material.cost_per_cm3"
                 class="cost-input" />
             </label>
           </div>
@@ -129,7 +132,7 @@ function toggleMachine( material, machine_tag ) {
     <div class="button-group">
       <a
         class="btn primary-button"
-        @click="emitMaterials"
+        @click="update_and_emit_materials"
         >
         Update Materials
       </a>
@@ -172,18 +175,18 @@ function toggleMachine( material, machine_tag ) {
 
 .materials-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
     padding: 2rem;
 }
 
 /* --- Material Card --- */
 .material-card {
-    background: v-bind(themeColorWhite);
+    /* background: v-bind(themeColorWhite); */
     border-radius: 18px;
     padding: 1.25rem;
     transition: all 0.25s ease;
-    border: 1px solid #e2e8f0;
+    border: 2px solid #e2e8f0;
 }
 
 .material-card:hover {
@@ -193,7 +196,9 @@ function toggleMachine( material, machine_tag ) {
 
 .material-card.selected {
     border-color: v-bind(themeColor);
-    background: v-bind(themeColorLille);
+    background: v-bind(themeColorWhite);
+    border: 6px solid v-bind(themeColor);
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.1);
 }
 
 /* --- Material Info --- */

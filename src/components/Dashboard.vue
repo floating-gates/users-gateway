@@ -63,8 +63,6 @@ function handleGeneral_showPricingDetails() {
     showPricingDetails.value = !showPricingDetails.value;
 }
 
-
-
 async function handleDelete(proj_id) {
     
     if (!confirm("Are you sure you want to delete this project?")) return;
@@ -85,9 +83,7 @@ onMounted(async () => {
     
     isAuthenticated.value = await verify_jwt();
     
-    if (!isAuthenticated.value) {
-        window.location.replace("/login");
-    }
+    if (!isAuthenticated.value) { window.location.replace("/login") }
     
     isAdmin.value = await verify_admin()
     

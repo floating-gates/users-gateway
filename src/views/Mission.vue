@@ -23,11 +23,6 @@ const features = [
                 description: 'Optimize the devices under analysis for maximum efficiency' 
               }
 ]
-
-const mission_points = []
-      // [{ icon: '🏭', text: 'Unlock idle manufacturing capacity worldwide' },
-      //             { icon: '🔗', text: 'Offer seamless access to local machines for customers' },
-      //             { icon: '🚀', text: 'Empower makers, creators, and businesses' }]
 </script>
 
 <template>
@@ -58,11 +53,6 @@ const mission_points = []
                 We believe that every machine, whether in a household garage or a corporate lab, holds <b>untapped potential</b>. Our mission is to connect customers with these machines to meet customizable and scalable production needs.
               </p>
               
-              <div class="mission-points">
-                <div class="point-item" v-for="(point, index) in mission_points" :key="index">
-                  <span class="point-text">{{ point.text }}</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>

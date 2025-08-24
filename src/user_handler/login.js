@@ -47,10 +47,7 @@ export async function verify_admin() {
         const response = await get_user_credentials();
 
         if (!response.ok) return false
-
-        const user = await response.json();
-        console.log('User is admin');
-
+        const user = await response.json();        
         return user.is_admin
         
     } catch (err) {

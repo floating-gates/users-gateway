@@ -1,37 +1,76 @@
 <script setup>
 import { ref, onMounted, defineEmits, defineProps } from 'vue'
 import { updateMachineList } from "../user_handler/machine.js"
-import { themeColor, themeColorOrange, themeColorWhite } from '../data/items.js';
+import { themeColor, themeColorOrange,
+         themeColorWhite } from '../data/items.js';
 import { default_machines } from '../data/default_machines.js'
 
-const available_machine = ref([]) // now an array of objects { machine_tag: string }
+/*
+///////////////////  EXAMPLE OF MACHINE STRUCTURE
+{
+     machine_tag: 'inj_mould',
+     display_name: 'Injection Molding Machine',
+     description: 'High-volume plastic part production',
+     specs: ['Mass production', 'Plastics only', 'Fast cycle'],
+     cost_per_hour: 0,
+     speed_cm3_per_hour: 0,
+     setup_cost: 0
+}
+*/
+
 const props = defineProps(["machines"])
 const emit  = defineEmits(["update_machine"])
 
-// Toggle machine in available_machine (stores objects)
-function toggleMachine(machine_tag) {
-    const index = available_machine.value.findIndex(m => m.machine_tag === machine_tag)
-    if (index > -1) { available_machine.value.splice(index, 1) }
-    else            { available_machine.value.push({ machine_tag })}
+const display_machines = ref([]) 
+
+function toggleMachine(machine) {
+    machine.selected = !(machine.selected)
 }
 
-// Remove machine from available_machine
-function removeMachine(machine_tag) {
-    const index = available_machine.value.findIndex(m => m.machine_tag === machine_tag)
-    if (index > -1) { available_machine.value.splice(index, 1)  }
+function update_and_emit_machines() {
+    let msg = "Are you sure you want to update your machine fleet?"
+    
+    const selected_machines = display_machines.value.filter(m => m.selected)
+
+    if (selected_machines.length === 0) {
+        msg = "No machine is selected, are you sure?"
+    }
+    
+    const confirmed = window.confirm(msg);
+    if (!confirmed) return;
+    
+    updateMachineList(selected_machines);
+    emit("update_machine", selected_machines);
+}
+
+function arrange_machine_view( current_mac, def_mac ) {
+    const mac = {}
+
+for (const def of def_mac) {
+    const m = {
+        ...def,
+        selected: false
+    }
+    mac[m.machine_tag] = m
+}
+
+for (const cur of current_mac) {
+    const m = {
+        ...cur,
+        selected: true
+    }
+    mac[m.machine_tag] = m
+}
+
+    // Convert object back into an array
+    return Object.values(mac)
 }
 
 onMounted(async () => {
-    const full_machines_list = props.machines;
-    full_machines_list.forEach( m => { available_machine.value.push( m ) })
+    
+    display_machines.value = arrange_machine_view(props.machines, default_machines)
+    
 })
-
-
-// Send update to backend
-function sendUpdate() {
-    updateMachineList(available_machine.value)
-    emit("update_machine", available_machine.value);
-}
 </script>
 
 
@@ -40,44 +79,43 @@ function sendUpdate() {
   <div class="machine-selector"> 
     <div class="header-section">
       <h3 class="report-issue-title">Choose Your Manufacturing Machines</h3>
-      <p class="subtitle">Choose a well established machines or create a the manufacturing method required for your production workflow</p>
+      <p class="subtitle">Choose an established machine or create a the manufacturing method required for your production workflow</p>
     </div>
     
     <section class="machines-grid">
       <div
-        v-for="machine in default_machines"
+        v-for="machine in display_machines"
         :key="machine.machine_tag"
         class="machine-card"
-        :class="{ 'selected': available_machine.some(m => m.machine_tag === machine.machine_tag) }"
-        @click="toggleMachine(machine.machine_tag)" >
-          <input
-            type="checkbox"
-            class="machine-checkbox"
-            :checked="available_machine.some(m => m.machine_tag === machine.machine_tag)"
-            @change.stop="toggleMachine(machine.machine_tag)"
-            />
-          <div class="machine-info">
-            <h4 class="machine-name">{{ machine.name }}</h4>
-            <p class="machine-description">{{ machine.description }}</p>
-            <div class="machine-specs">
-              <span class="spec-tag" v-for="spec in machine.specs" :key="spec">{{ spec }}</span>
-            </div>
+        :class="{ 'selected': machine.selected }"
+        @click="toggleMachine(machine)" >
+        <input
+          type="checkbox"
+          class="machine-checkbox"
+          @change.stop="toggleMachine(machine)"
+          />
+        <div class="machine-info">
+          <h4 class="machine-name">{{ machine.display_name }}</h4>
+          <p class="machine-description">{{ machine.description }}</p>
+          <div class="machine-specs">
+            <span class="spec-tag"  v-for="spec in machine.specs" :key="spec">{{ spec }}</span>
           </div>
-
+        </div>
+        
         <div class="machine-inputs" @click.stop>
-            <label>
-              Cost (€/hour)
-              <input type="number" v-model.number="machine.cost_per_hour" min="0" />
-            </label>
-            <label>
-              Speed (cm^3/hour)
-              <input type="number" v-model.number="machine.speed" min="0" />
-            </label>
-            <label>
-              Setup cost (cost/project)
-              <input type="number" v-model.number="machine.setup_cost" min="0" />
-            </label>
-          </div>
+          <label>
+            Cost (€/hour)
+            <input type="number" placeholder="0" v-model.number="machine.cost_per_hour" min="0" />
+          </label>
+          <label>
+            Speed (cm^3/hour)
+            <input type="number" placeholder="0" v-model.number="machine.speed_cm3_per_hour" min="0" />
+          </label>
+          <label>
+            Setup cost (cost/project)
+            <input type="number" placeholder="0" v-model.number="machine.setup_cost" min="0" />
+          </label>
+        </div>
       </div>
     </section>
   </div>
@@ -85,8 +123,7 @@ function sendUpdate() {
   <div class="button-group">
     <a
       class="btn primary-button"
-      @click="sendUpdate"
-      :disabled="!available_machine.length" >
+      @click="update_and_emit_machines">
       Update Machine Fleet
     </a>
   </div>
@@ -127,7 +164,7 @@ function sendUpdate() {
 
 /* --- Machine Card --- */
 .machine-card {
-    background: v-bind(themeColorWhite);
+    /* background: v-bind(themeColorWhite); */
     border-radius: 18px;
     padding: 1.25rem;
     cursor: pointer;
@@ -149,11 +186,11 @@ function sendUpdate() {
 .machine-card.selected .machine-info h4,
 .machine-card.selected .machine-info p,
 .machine-card.selected .spec-tag {
-  color: v-bind(themeColorWhite);
+    color: v-bind(themeColorWhite);
 }
 
 .machine-card.selected .spec-tag {
-  background: rgba(255, 255, 255, 0.2);   /* so tags stay visible */
+    background: rgba(255, 255, 255, 0.2);   /* so tags stay visible */
 }
 
 .machine-checkbox {  /* it hides the actual checkbox */ 
@@ -248,7 +285,6 @@ function sendUpdate() {
 }
 
 /* Machine Input */
-2
 .machine-inputs {
     margin-top: 1rem;
     display: flex;
@@ -265,18 +301,18 @@ function sendUpdate() {
 }
 
 .machine-inputs input {
-  margin-top: 0.25rem;
-  padding: 0.4rem 0.6rem;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  outline: none;
+    margin-top: 0.25rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
 }
 
 .machine-card.selected .machine-inputs input {
-  border-color: v-bind(themeColorWhite);
-  background: rgba(255, 255, 255, 0.1);
-  color: v-bind(themeColorWhite);
+    border-color: v-bind(themeColorWhite);
+    background: rgba(255, 255, 255, 0.1);
+    color: v-bind(themeColorWhite);
 }
 
 </style>

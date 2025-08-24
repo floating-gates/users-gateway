@@ -3,8 +3,6 @@ import { ref, computed, defineProps, onMounted } from 'vue'
 import { themeColor, themeColorWhite, themeColorOrange } from '../data/items.js'
 import { updateFeature } from '../user_handler/feature.js'
 
-import AutoQuoteForm from './AutoQuoteForm.vue'
-
 // Props from parent
 const props = defineProps({
   independent_payment: Boolean,
@@ -13,8 +11,6 @@ const props = defineProps({
 
 const indep_pay = ref(null)
 const auto_quote = ref(null)
-
-const show_auto_quote_form = ref(false)
 
 // Toggle automatic quotation
 async function toggleAutomaticQuotation() {
@@ -34,9 +30,6 @@ const automatic_quote = computed(() => ({
   enabled: auto_quote.value
 }))
 
-function toggleAutomaticQuotationForm() {
-    show_auto_quote_form.value = !show_auto_quote_form.value
-}
 
 // Initialize state from props
 onMounted(() => {
@@ -52,11 +45,6 @@ onMounted(() => {
     <div class="features-list">
       <div class="feature-item">
         <span class="feature-label">{{ automatic_quote.name }}</span>
-        <button v-if="auto_quote"
-                class="feature-toggle"
-                @click="toggleAutomaticQuotationForm" >
-          Configure
-        </button>
         <button
           class="feature-toggle"
           :style="automatic_quote.enabled
@@ -67,7 +55,6 @@ onMounted(() => {
         </button>
       </div>
     </div>
-    <AutoQuoteForm v-if="show_auto_quote_form" />
   </div>
 </template>
 
