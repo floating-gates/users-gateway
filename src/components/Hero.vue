@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import mainPhoto from "../assets/images/heat_exchanger.webp";
+import mainPhoto from "../assets/images/hero_pic.webp";
 import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
 
 const heroHeading = "Host your Manufacturing to Elevate and Automate Customers'Projects";
@@ -102,17 +102,17 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
 </script>
 
 <template>
-<div class="untree_co-hero py-lg-7" id="home-section">
-  <div class="container">
-    <div class="row align-items-center">
+<div class="untree_co-hero py-lg-8" id="home-section">
+<div class="container wider-container">
+  <div class="row align-items-center">
       <div class="col-12">
         <div class="dots"></div>
         <div class="row align-items-center">
           <div class="col-lg-6 ml-auto order-lg-2" data-aos="fade-right" data-aos-delay="400">
-            <img :src="mainPhoto" alt="Heat Exchanger" class="img-fluid" />
+            <img :src="mainPhoto" alt="Floating Gates in action" class="img-fluid" />
           </div>
           
-          <div class="col-lg-6">
+          <div class="col-lg-5 ps-lg-5">
             <h1 class="heading"
                 style="font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.2; max-width: 100%;"
                 data-aos="fade-up"
@@ -121,7 +121,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
             </h1>
             <div class="excerpt" data-aos="fade-up" data-aos-delay="100">
               <p>
-                Publish your platform at your-name.com to easily receive and manage <span :style="{ color: themeColorOrange }">orders</span>, check its feasability, set its price and handle manufacturing.
+                Publish your platform at <span :style="{ color: themeColorOrange }">YOUR-NAME.COM</span> to easily receive and manage <span :style="{ color: themeColorOrange }">orders</span>, check its feasability, set its price and handle manufacturing.
               </p>
             </div>
             
@@ -173,6 +173,11 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
 .btn-hover:hover {
     color: v-bind(themeColorWhite);
     background-color: v-bind(themeColorOrange);
+}
+
+.wider-container {
+  max-width: 1420px; /* Bootstrap’s xl is 1140px, this gives you extra room */
+  margin: 0 auto;
 }
 
 .address-form {

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LandingPage      from '../views/LandingPage.vue'
 import Login            from '../views/Login.vue'
 import Dashboard        from '../components/Dashboard.vue'
-import Pricing          from '../components/Pricing.vue'
+import Pricing          from '../views/Pricing.vue'
 import AdminDashboard   from '../views/AdminDashboard.vue'
 import Mission          from '../views/Mission.vue'
 import ValueProposition from '../views/ValueProposition.vue'
@@ -11,6 +11,7 @@ import TermsService     from '../views/TermsService.vue'
 import Services         from '../views/Services.vue'
 import Guide            from '../views/Guide.vue'
 import FAQ              from '../views/FAQ.vue'
+import CaseStudies      from '../views/CaseStudies.vue'
 
 const routes = [
     { path: '/', component: LandingPage },
@@ -24,7 +25,8 @@ const routes = [
     { path: '/terms_and_services', component: TermsService },
     { path: '/guide', component: Guide },
     { path: '/faq',   component: FAQ },
-    { path: '/pricing', component: Pricing }
+    { path: '/pricing', component: Pricing },
+    { path: '/case-studies', component: CaseStudies }
 ]
 
 const router = createRouter({

@@ -16,10 +16,12 @@ function toggleLoginForm() {
   <Header :context="'login'" />
 
   <div class="untree_co-hero" id="auth-section">
-    <div class="container">
+    <!-- <div class="container"> -->
+     <div class="container-fluid login-container container">
+
       <div class="row align-items-center">
         <!-- Form column -->
-        <div class="col-lg-6">
+        <div class="col-lg-5">
           <div v-if="showLoginForm">
             <LoginForm @switch-to-register="toggleLoginForm" />
           </div>
@@ -29,9 +31,9 @@ function toggleLoginForm() {
         </div>
 
         <!-- Image column -->
-        <div class="col-lg-6">
+        <div class="col-lg-7">
           <img 
-            src="../assets/images/manufacturing_hub_pic_bak.webp" 
+            src="../assets/images/platform_logic_pic.webp" 
             alt="Manufacturing Hub" 
             class="img-fluid rounded"
           />
@@ -69,16 +71,25 @@ function toggleLoginForm() {
   margin-top: 1rem;
 }
 
-.toggle-link a {
-  color: #007bff;
-  text-decoration: underline;
-  cursor: pointer;
+/* .toggle-link a { */
+/*   color: #007bff; */
+/*   text-decoration: underline; */
+/*   cursor: pointer; */
+/* } */
+
+
+.login-container {    
+    padding-left: 5%;
+    padding-right: 5%;
+    max-width: 1600px; /* Optional: cap it so it doesn’t grow too much on ultra-wide monitors */
+    margin: 0 auto;
 }
 
-.img-fluid {
-  max-width: 100%;
-  height: auto;
-}
+
+/* .img-fluid { */
+/*   max-width: 100%; */
+/*   height: auto; */
+/* } */
 
 .register-footer {
   text-align: center;

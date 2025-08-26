@@ -4,14 +4,14 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
 </script>
 
 <template>
-<div class="untree_co-section advantages-section py-6 py-lg-7" id="why">
-    <div class="container">
-      <div class="text-center mb-6" data-aos="fade-up">
+<div class="untree_co-section advantages-section" id="why">
+   <div class="container-fluid login-container container">
+      <div class="text-center" data-aos="fade-up">
         <h1 class="section-title">Why Automate Customers'Projects?</h1>
-        <p class="section-subtitle text-muted">Discover the competitive edge our automation brings to your operations</p>
+        <p class="section-subtitle">Discover the competitive edge our automation brings to your operations</p>
       </div>
 
-      <div class="row align-items-center g-5">
+      <div class="row align-items-center">
         <!-- Content Column -->
         <div class="col-4 col-lg-4" data-aos="fade-right" data-aos-delay="100">
           <div class="pe-lg-4">
@@ -64,8 +64,7 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
               :src="advantages_yoy"
               alt="Automation performance metrics "
               loading="lazy"
-              class="img-fluid"
-            />
+              class="img-fluid" />
           </div>
         </div>
       </div>
@@ -77,8 +76,7 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
 .advantages-section {
   position: relative;
   overflow: hidden;
-  margin-top: 4rem;   /* Add margin above */
-  margin-bottom: 4rem; /* Add margin below */
+  margin-bottom: 2rem; /* Add margin below */
 }
 
 
@@ -144,11 +142,20 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
   margin-bottom: 0.5rem;
 }
 
-.item-description {
-  font-size: 0.95rem;
-  margin-bottom: 0;
-  line-height: 1.5;
+/* .item-description { */
+/*   font-size: 0.95rem; */
+/*   margin-bottom: 0; */
+/*   line-height: 1.5; */
+/* } */
+
+
+.login-container {    
+    padding-left: 5%;
+    padding-right: 5%;
+    max-width: 1600px; /* Optional: cap it so it doesn’t grow too much on ultra-wide monitors */
+    margin: 0 auto;
 }
+
 
 .visual-wrapper {
   transition: all 0.3s ease;
@@ -159,9 +166,9 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
 }
 
 @media (max-width: 991.98px) {
-  .section-title {
-    font-size: 2rem;
-  }
+  /* .section-title { */
+  /*   font-size: 2rem; */
+  /* } */
   
   .advantage-heading {
     font-size: 1.75rem;
@@ -177,9 +184,9 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
     font-size: 1.75rem;
   }
   
-  .section-subtitle {
-    font-size: 1rem;
-  }
+  /* .section-subtitle { */
+  /*   font-size: 1rem; */
+  /* } */
   
   .advantage-item {
     flex-direction: column;

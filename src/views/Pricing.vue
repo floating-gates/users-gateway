@@ -1,5 +1,5 @@
 <script setup>
-import Header from './Header.vue'
+import Header from '../components/Header.vue'
 
 import { themeColor, themeColorOrange,
          themeColorWhite, price_list } from "../data/items";

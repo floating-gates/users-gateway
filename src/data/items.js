@@ -79,17 +79,6 @@ const sub_links_list = {
 };
 
 
-// // Pricing
-// const machineTagNames = {
-//     'cnc_3_axis': 'CNC 3 Axis',
-//     'cnc_5_axis': 'CNC 5 Axis',
-//     'inj_mould': 'Injection Moulding Press',
-//     'fdm_3d_printer': 'FDM 3D Printer',
-//     'sla_3d_printer': 'SLA 3D Printer',
-//     'sls_3d_printer': 'SLS 3D Printer'
-// };
-
-
 // Contact Info
 const contactInfo = {
     address: 'Via Capitello Rasa 28, Lendinara (RO), 45026, Italy',
