@@ -119,9 +119,10 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
                 data-aos-delay="100">
               {{ heroHeading }}
             </h1>
-            <div class="excerpt" data-aos="fade-up" data-aos-delay="100">
-              <p>
-                Publish your platform at <span :style="{ color: themeColorOrange }">YOUR-NAME.COM</span> to easily receive and manage <span :style="{ color: themeColorOrange }">orders</span>, check its feasability, set its price and handle manufacturing.
+            <div class="excerpt"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
+              <p> Publish your platform at <strong :style="{ color: themeColorOrange }">YourName.com</strong>. Understand, qualify, and estimate order inquiries, delivering them without needing to spend time on sales or feasability checks.
               </p>
             </div>
             

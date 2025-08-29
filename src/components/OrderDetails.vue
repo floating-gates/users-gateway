@@ -38,7 +38,14 @@ const emit  = defineEmits(['close']);
       
       <div class="price-highlight">
         <span>Estimated Price</span>
-        <div class="price-value">{{ props.proj.estimated_price }} €</div>
+        <div class="price-value">
+          <template v-if="props.proj.estimated_price < 0.01">
+            Price not evaluated by the customer
+          </template>
+          <template v-else>
+            {{ props.proj.estimated_price.toFixed(2) }} €
+          </template>
+        </div>
       </div>
 
       <div class="order-field">

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "confirm":          "read -p 'Are you sure you want to deploy to PRODUCTION? (y/N) ' ans && [ \"$ans\" = y ]",
-    "build-test":       "vite build --mode development && cp -r dist/* /shared_fs/data/landing-page",
+    "build-local":      "vite build --mode development && cp -r dist/* /shared_fs/data/landing-page",
     "build-staging":    "vite build --mode staging",
     "build-production": "vite build --mode production",
     "deploy-staging":                       "npm run build-staging && scp -r dist/* mattia@192.168.1.99:/shared_fs/data/landing-page",

@@ -12,6 +12,7 @@ import Services         from '../views/Services.vue'
 import Guide            from '../views/Guide.vue'
 import FAQ              from '../views/FAQ.vue'
 import CaseStudies      from '../views/CaseStudies.vue'
+import PrivacyPolicy    from '../views/PrivacyPolicy.vue'
 
 const routes = [
     { path: '/', component: LandingPage },
@@ -23,6 +24,7 @@ const routes = [
     { path: '/profile', component: Profile },
     { path: '/services', component: Services },
     { path: '/terms_and_services', component: TermsService },
+    { path: '/privacy-policy', component: PrivacyPolicy },
     { path: '/guide', component: Guide },
     { path: '/faq',   component: FAQ },
     { path: '/pricing', component: Pricing },

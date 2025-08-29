@@ -89,15 +89,15 @@ function scrollTo(elementId) {
         <div class="definitions-grid">
           <div class="definition-item">
             <strong>"Platform"</strong> refers to the Floating Gates software platform, including all related services, 
-            tools, and applications.
+            tools, and all the linked platform clients (i.e. xxx.floating-gatwes.com).
           </div>
           <div class="definition-item">
             <strong>"Manufacturer"</strong> refers to companies with manufacturing capacity that use our Platform 
-            to serve their customers.
+            to serve their customers, and user of the dashboard.
           </div>
           <div class="definition-item">
             <strong>"End Customer"</strong> refers to the customers of Manufacturers who access Platform services 
-            through the B2B2C model.
+            through the client.
           </div>
           <div class="definition-item">
             <strong>"User"</strong> refers to any individual or entity accessing or using the Platform, including 
@@ -209,7 +209,7 @@ function scrollTo(elementId) {
         </p>
         <p>
           <strong>8.3 Feedback:</strong> Any feedback, suggestions, or improvements you provide may be used by 
-          Floating Gates without compensation or attribution.
+          Floating Gates without any compensation or attribution.
         </p>
       </section>
       
@@ -232,18 +232,23 @@ function scrollTo(elementId) {
       <section id="payment" class="term-section">
         <h2>10. Payment Terms</h2>
         <p>
-          <strong>10.1 Fees:</strong> Platform usage fees are determined based on service tier, usage volume, 
-          and specific agreements with Manufacturers and End Customers.
+          <strong>10.1 Fees:</strong> Usage fees are determined by the selected service tier, 
+          actual consumption, and any specific agreements established with Manufacturers 
+          or End Customers.
         </p>
         <p>
-          <strong>10.2 Payment Processing:</strong> We may facilitate payment processing between Manufacturers and 
-          End Customers. Transaction fees may apply.
+          <strong>10.2 Payment Processing:</strong> We may provide payment processing services 
+          to facilitate transactions between Manufacturers and End Customers. 
+          Applicable transaction fees may be charged.
         </p>
         <p>
-          <strong>10.3 Refunds:</strong> Refund policies vary based on service type and specific circumstances. 
-          Refund requests must be submitted through official channels.
+          <strong>10.3 Refunds:</strong> Refund eligibility depends on the type of service and 
+          the circumstances of the request. All refund claims must be submitted via email at
+          {{ contactInfo.email }} before the first week of past billing cycle and it will be evaluated
+          following internal usage metrics.
         </p>
       </section>
+
       
       <section id="limitations" class="term-section">
         <h2>11. Service Limitations and Accuracy</h2>

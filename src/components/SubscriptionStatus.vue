@@ -6,7 +6,7 @@ import { themeColor, themeColorOrange, themeColorWhite } from '../data/items.js'
 const props = defineProps(['user'])
 const error = ref('')
 
-console.log("USER:" ,props.user)
+
 async function handleDeleteSubscription() {
     
     if (!window.confirm('Are you sure you want to suspend this subscription?')) {

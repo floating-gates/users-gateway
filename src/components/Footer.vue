@@ -87,8 +87,10 @@ const socialItems = [
         <p class="mb-0">
           {{ copyrightText }}
           &nbsp;|&nbsp;
-          <a href="/terms_and_services">Terms and Services apply</a>
-        </p>
+          <a href="/terms_and_services">Terms and Services</a>
+          and 
+          <a href="/privacy-policy"> Privacy Policy</a>
+          apply </p>
       </div>
     </div>
   </div>

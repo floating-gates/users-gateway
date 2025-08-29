@@ -154,11 +154,19 @@ onMounted(async () => {
 
 
 <style scoped>
+
+.tab-menu-container {
+  margin-top: 2rem; /* push below header */
+  overflow-x: auto; /* allow horizontal scroll if too many tabs */
+  -webkit-overflow-scrolling: touch;
+}
+
+
 .tab-menu {
     position: relative;
     display: inline-flex;
     border-radius: 50px;
-    border: 2px solid v-bind(themeColor);
+    border: 3px solid v-bind(themeColor);
     padding: 0.25rem;
 }
 

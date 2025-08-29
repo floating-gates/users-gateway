@@ -7,6 +7,8 @@ const themeColorGold   = '#D8B4A0';
 
 // URLs and Tokens
 const base_url                   = import.meta.env.VITE_API_URL;
+const demo_url                   = import.meta.env.VITE_DEMO_URL;
+
 const gocardless_token           = import.meta.env.VITE_GOCARDLESS_TOKEN
 const gocardless_secret          = import.meta.env.VITE_GOCARDLESS_SECRET
 const gocardless_link_basic_plan = import.meta.env.VITE_GOCARDLESS_LINK_BASIC_PLAN
@@ -22,7 +24,6 @@ const update_feature_endpoint    = base_url + '/api/user/update-feature';
 
 const update_machine_endpoint = base_url + '/api/user/update-machine'
 const get_machine_endpoint    = base_url + '/api/user/get-machines'
-
 
 const update_materials_endpoint = base_url + '/api/user/update-materials'
 const get_materials_endpoint    = base_url + '/api/user/get-materials'
@@ -93,7 +94,7 @@ const MAX_MB_PDF = 5;
 // Exporting all
 export {
     themeColor, themeColorOrange, themeColorWhite, themeColorLille,
-    themeColorGold, base_url, COOKIE_NAME, price_status_api_endpoint,
+    themeColorGold, base_url, demo_url, COOKIE_NAME, price_status_api_endpoint,
     auth_api_endpoint, register_user_api_endpoint, login_user_api_endpoint,
     logout_api_endpoint, user_details_api_endpoint, MAX_MB_PDF,
     get_subscription_endpoint, create_subscription_endpoint,
