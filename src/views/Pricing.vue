@@ -220,8 +220,20 @@ const packages = [
     z-index: 2; /* ensures it overlays above neighbors */
 }
 
+.ul-check.primary li {
+  position: relative;
+  padding-left: 2rem; /* space for tick */
+  margin-bottom: 0.75rem;
+}
+
 .ul-check.primary li::before {
-    color: v-bind(themeColorOrange); 
+  content: "✓"; /* tick symbol */
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: v-bind(themeColorOrange);
+  font-weight: 700;
+  font-size: 1.2rem;
 }
 
 .pricing {

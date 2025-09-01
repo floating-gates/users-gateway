@@ -4,37 +4,40 @@ import { ref } from "vue";
 import Header from "../components/Header.vue";
 
 const faqs = [
-  {
+ {
     question: "What is Floating Gates?",
-    answer: "Floating Gates is a technology provider that connects manufacturers with their existing or new customers base. It hosts an online platform at the address of your choice, capable of funneling your customers effectively. It provides end users with automations such as feasibility checks, instant quotes, and design optimizations. Meanwhile, manufacturers can monitor doubtful clients and standardize their existing customer base."
-  },
+    answer: "A technology infrastructure provider. That connects manufacturers reality with their existing and new customers base, providing additional technology."
+},
+{
+ question: "What it actaully does?",
+answer: "It hosts an 3D online platform at an URL of your choice, capable of funneling your customers effectively. It provides to your end-users automations such as feasibility checks, instant quotes, and design optimizations. Meanwhile, manufacturers can monitor doubtful clients and standardize their existing customer base."  },
   {
-    question: "Who is Floating Gates for?",
+    question: "Who is it for?",
     answer: "We serve everyone from 3D printing hobbyists to enterprises with manufacturing capabilities—such as CNC workshops and 3D printing farms. Our solution is especially valuable for those with well-established production methods who struggle to fully utilize their machines due to cumbersome order inquiries."
   },
   {
-    question: "What problem does Floating Gates solve?",
-    answer: "We help manufacturers increase the number of confirmed orders through a light screening process and automated case assessments by the end customer. This enables unused capacity to be turned into revenue by automating quotes, technical checks, and customer engagement."
+    question: "What problem does it solve?",
+    answer: "We help manufacturers increase the number of actual orders through a an automated screening process and a smart assessments of the requests by the end customer. This enables unused capacity to be turned into revenue by automating quotes, technical checks, and customer engagement."
   },
   {
-    question: "What differentiates Floating Gates from competitors?",
-    answer: "Unlike standalone tools, we provide a complete infrastructure that connects manufacturers into a shared pool, maximizing visibility and utilization. We do not interfere with or block your business decisions; instead, we provide a framework that enhances customer service and operational efficiency."
+    question: "What differentiates it from competitors?",
+    answer: "Unlike standalone tools, we provide a complete infrastructure that connects manufacturers into a shared pool, maximizing visibility and utilization for you. We do not interfere with your business decisions, instead, we provide a framework that enhances customer service and operational efficiency."
   },
   {
     question: "Can I be listed into one of the Certified Manufactured list?",
-    answer: "Yes, we are starting a programme to collect a list a company who prefer to be listed into a wider network of makers so they can reach a wider customer base. Send us an email if you would like a preview of the service."
+    answer: "Yes, we are starting a programme to collect a list a company who prefer to be listed into a wider network of makers so they can reach a wider customer base. Send us an email at contact@floating-gates.com if you would like a preview of the service."
   },
   {
     question: "How is data handled and stored?",
     answer: "For the Basic and Standard plans, we offer secure cloud access as well as on-premise options, with all data protected under GDPR-compliant practices. For enterprise customers, software and data governance are fully transferred to the purchaser."
   },
   {
-    question: "Do you support international customers?",
-    answer: "Yes. Floating Gates is cloud-based and globally accessible, starting from Europe and scaling worldwide."
+    question: "How does it work the custom address?",
+    answer: "Floating Gates is cloud-based and it is going to host a server for the infrastructrure and its'services. For the Basic and Standard programme we are going to use the suffix floating-gates.com while for Enterprise customer we purchase a stand alone domain name"
   },
   {
     question: "Do you offer affiliate programs?",
-    answer: "Yes. Creators and manufacturers can earn commissions by bringing new customers to the platform."
+    answer: "Yes. Creators and manufacturers can earn commissions by bringing new customers to the platform. By subscribing at: https://floating-gates.com/referral_login"
   },
   {
     question: "What is your refund policy?",

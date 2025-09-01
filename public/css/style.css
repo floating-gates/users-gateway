@@ -191,8 +191,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
           right: 0;
           -webkit-transform: translateY(-50%);
           -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
-          font-family: 'icomoon'; }
+          transform: translateY(-50%); }
       .site-nav .site-navigation .site-menu .has-children .dropdown {
         visibility: hidden;
         opacity: 0;
@@ -749,8 +748,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     left: 0;
     top: -.2rem;
     content: "\e5ca";
-    font-size: 20px;
-    font-family: 'icomoon'; }
+    font-size: 20px; }
 
 .ul-check.primary li:before {
   color: #D77A61; }

@@ -22,7 +22,7 @@ const isAuthenticated = ref(false);
 const isMenuOpen      = ref(false);
 
 async function platform_logout() {
-    logout() 
+    await logout(); 
     isAuthenticated.value = false;
     window.location.href = "/login"
 };
@@ -62,12 +62,17 @@ onMounted(async () => {
 
               <div class="button-group">
                 <ul v-if="isAuthenticated" class="site-menu button-menu">
-                  <li class="cta-button-outline"><a href="/dashboard">Dashboard</a></li>
+                  <li class="cta-button-outline">
+                    <a href="/dashboard">Dashboard</a>
+                  </li>
                 </ul>
-
                 <ul v-else class="site-menu button-menu">
-                  <li class="cta-button-outline"><a href="/login">Sign in</a></li>
-                  <li class="cta-primary"><a :href="demo_url" :style="{ backgroundColor: themeColor }">Demo</a></li>
+                  <li class="cta-button-outline">
+                    <a href="/login">Sign in</a>
+                  </li>
+                  <li class="cta-primary">
+                    <a :href="demo_url" :style="{ backgroundColor: themeColor }">Demo</a>
+                  </li>
                 </ul>
               </div>
             </template>
@@ -76,9 +81,14 @@ onMounted(async () => {
             <template v-else-if="context === 'dashboard'">
               <div class="button-group">
                 <ul class="site-menu button-menu">
-                  <li class="cta-button-outline"><a :href='host_address'>Customers' View</a></li>
-                  <li class="cta-primary"><a href="/profile" :style="{ backgroundColor: themeColor }">Profile</a></li>
-                  <li v-if="is_admin" class="cta-button-outline"><a href="/admin_dashboard">Admin Dashboard</a></li>
+                  <li v-if="is_admin" class="cta-button-outline">
+                    <a href="/admin_dashboard">Admin Dashboard</a>
+                  </li>
+                  <li class="cta-button-outline">
+                    <a :href='host_address'>Your Hub Client</a>
+                  </li>
+                  <li class="cta-primary"><a href="/profile" :style="{ backgroundColor: themeColor }">Profile</a>
+                  </li>
                 </ul>
               </div>
             </template>

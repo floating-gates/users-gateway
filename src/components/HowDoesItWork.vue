@@ -7,9 +7,6 @@ import platform_with_pump from "../assets/images/platform_with_pump.webp";
 import { themeColor, themeColorOrange, themeColorLille,
          themeColorGold, themeColorWhite } from "../data/items";
 
-// const heading = "How does it work?";
-// const heading = "0 → 1: From nothing to customers via Gates."
-
 const items = [
     {
         id: 1,
@@ -20,7 +17,7 @@ const items = [
     },
     {
         id: 2,
-        name: "Your Customers can Access the Services",
+        name: "Your Customers can access Your Hub",
         des: "Your customers car run Manufacturing Checks, Automatic Quotation and Shape Optimizations. While you are informed at every step.",
         pic: platform_with_pump,
         alt: "Services"

@@ -1,5 +1,6 @@
 <script setup>
 import { contactInfo } from "../data/items";
+import iconGithub from "../assets/images/github-logo.svg";
 
 const copyrightText = "Copyright 2025, All rights reserved.";
 const column1Heading = "About us";
@@ -10,13 +11,13 @@ const connectHeading = "Connect with us";
 const socialItems = [
   {
     link: "https://github.com/floating-gates/",
-    icon: "icon-github",
+    icon: iconGithub,
   },
 ];
 </script>
 
 <template>
-<div class="site-footer">
+<div class="site-footer" id="footer">
   <div class="footer-dots"></div>
   <div class="container">
     <div class="row justify-content-between">
@@ -29,17 +30,13 @@ const socialItems = [
               <h3>{{ column1Heading }}</h3>
               <p>{{ column1Text }}</p>
             </div>
-            <!-- <div> -->
-            <!--   <a href="/faq"> -->
-            <!--     <h5>FAQ</h5> -->
-            <!--   </a> -->
-            <!-- </div> -->
             <div class="widget">
               <h3>{{ connectHeading }}</h3>
               <ul class="list-unstyled social">
-                <li style="margin-right: 4px">
-                  <a :href="socialItems[0].link"
-                     ><span :class="socialItems[0].icon"></span>
+                <li >
+                  <a :href="socialItems[0].link"  >
+                    <img :src="socialItems[0].icon"
+                         alt="Go to Github" class="img-fluid" />
                   </a>
                 </li>
               </ul>

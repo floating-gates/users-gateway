@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref, onMounted } from 'vue'
-import { themeColor } from '../data/items.js'
+import { themeColor, themeColorOrange } from '../data/items.js'
 import { user_login } from '../user_handler/login.js'
 import { register_user } from '../user_handler/registration.js'
 
@@ -121,14 +121,19 @@ onMounted( () => {
     const params = new URLSearchParams(window.location.search);
     provisional_hub_name.value = params.get("provisional_hub_name");
 })
-
 </script>
     
 <template>
 <div class="untree_co-hero" id="register-section">
   <div class="container">
-    <h3 class="heading" data-aos="fade-up">Publish Your Hub</h3>
-    <p>No payment is going to be charged until you purchase one of the packages; the demo platform is free forever.</p>
+    <h3
+      class="heading" data-aos="fade-up">Publish Your Hub
+    </h3>
+    <h3 class="heading" data-aos="fade-up">
+      <sub :style="{ color: themeColorOrange, 'font-size': '1.0rem' }">
+      NO PAYMENT REQUIRED.
+      </sub>
+    </h3>
     <form @submit.prevent="handleSubmit" data-aos="fade-up" data-aos-delay="100">
       <!-- General error -->
       <p v-if="errors.general" class="error-text">{{ errors.general }}</p>

@@ -88,7 +88,7 @@ const features = [
           </p>
           
           <div  class="cta-section">
-            <a href="/#features-section" class="cta-button" :style="{ backgroundColor: themeColor, borderColor: themeColor }">
+            <a href="/faq" class="cta-button" :style="{ backgroundColor: themeColor, borderColor: themeColor }">
               Learn More About Our Platform
             </a>
           </div>

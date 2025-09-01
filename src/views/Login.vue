@@ -40,9 +40,17 @@ function toggleLoginForm() {
         </div>
       </div>
       <div v-if="!showLoginForm" class="register-footer">
-        <p> Already have an account? <a href="#" @click.prevent="toggleLoginForm">Login</a></p>
-        <p>By registering you confirm to have read and accepted the  <a href="/terms_and_services">Terms and Conditions</a></p>
+        <p> Already have an account?
+          <a href="#" @click.prevent="toggleLoginForm">Login</a>
+        </p>
+        <p>By registering you confirm to have read and accepted the
+          <a href="/terms_and_services">Terms and Conditions</a>
+          and 
+          <a href="/privacy-policy"> Privacy Policy</a>
+        </p>
       </div>
+
+        
     </div>
   </div>
 </template>

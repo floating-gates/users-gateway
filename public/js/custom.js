@@ -325,31 +325,41 @@ $(function(){
   };
   scrollWindow();
 
-	var counter = function() {
-		
-		$('.count-numbers').waypoint( function( direction ) {
+//     var counter = function() {
+//         const counters = document.querySelectorAll('.counter > span');
+        
+//         const animateCounter = (el) => {
+//             const target = +el.dataset.number;
+//             let current = 0;
+//             const step = Math.ceil(target / 200); // speed
+            
+//             function update() {
+//       current += step;
+//                 if (current < target) {
+//                     el.textContent = current.toLocaleString();
+//                     requestAnimationFrame(update);
+//       } else {
+//           el.textContent = target.toLocaleString();
+//       }
+//             }
+            
+//             update();
+//   };
 
-			if( direction === 'down' && !$(this.element).hasClass('ut-animated') ) {
+//   const observer = new IntersectionObserver(entries => {
+//     entries.forEach(entry => {
+//       if (entry.isIntersecting && !entry.target.classList.contains('ut-animated')) {
+//         entry.target.classList.add('ut-animated');
+//         animateCounter(entry.target.querySelector('span'));
+//         observer.unobserve(entry.target);
+//       }
+//     });
+//   }, { threshold: 0.5 });
 
-				var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
-				$('.counter > span').each(function(){
-					var $this = $(this),
-						num = $this.data('number');
-					$this.animateNumber(
-					  {
-					    number: num,
-					    numberStep: comma_separator_number_step
-					  }, 5000
-					);
-				});
-				
-			}
-
-		} , { offset: '95%' } );
-
-	}
-	counter();
-
+//   document.querySelectorAll('.count-numbers').forEach(el => observer.observe(el));
+// };
+//     counter();
+    
 	// jarallax
 	var jarallaxPlugin = function() {
 		if ( $('.jarallax').length > 0 ) {

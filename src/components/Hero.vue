@@ -102,14 +102,14 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
 </script>
 
 <template>
-<div class="untree_co-hero py-lg-8" id="home-section">
+<div class="untree_co-hero py-lg-8" id="hero">
 <div class="container wider-container">
   <div class="row align-items-center">
       <div class="col-12">
         <div class="dots"></div>
         <div class="row align-items-center">
           <div class="col-lg-6 ml-auto order-lg-2" data-aos="fade-right" data-aos-delay="400">
-            <img :src="mainPhoto" alt="Floating Gates in action" class="img-fluid" />
+            <img :src="mainPhoto" alt="Technology Proxy in action" class="img-fluid" />
           </div>
           
           <div class="col-lg-5 ps-lg-5">
