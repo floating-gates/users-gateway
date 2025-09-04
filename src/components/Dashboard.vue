@@ -196,8 +196,7 @@ onMounted(async () => {
                       @click="handleDelete(project.id)" 
                       class="btn icon icon-trash"
                       :style="{ borderColor: themeColorOrange, color: themeColor }"
-                      title="Delete Project"
-                      ></button>
+                      title="Delete Project"  ></button>
                     
                     <!-- Price sets -->
                     <form v-if="project.price_status === 'pending'"

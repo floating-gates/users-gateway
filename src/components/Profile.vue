@@ -14,6 +14,7 @@ import EnrollToSub from "./EnrollToSub.vue";
 import ReportIssue from "./ReportIssue.vue";
 import SubscriptionStatus from "./SubscriptionStatus.vue";
 import Materials from "./Materials.vue";
+import BrandDetails from "./BrandDetails.vue"
 
 const activeTab = ref('Summary');
 const tabs = ['Summary',
@@ -21,6 +22,7 @@ const tabs = ['Summary',
               'Materials',
               'Features',
               'Subscription',
+              'Details',
               'Issues'];
 
 const userDetails = ref({});
@@ -132,7 +134,8 @@ onMounted(async () => {
         </div>
         
         <div v-if="activeTab === 'Subscription'">
-          <SubscriptionStatus :user="userDetails"/>
+          <SubscriptionStatus
+            :user="userDetails" />
         </div>
         
         <div v-else-if="activeTab === 'Features'">
@@ -140,6 +143,11 @@ onMounted(async () => {
             :independent_payment="userDetails.payment_independent"
             :automatic_quotation="userDetails.automatic_quotation"
             />
+        </div>
+
+        <div v-else-if="activeTab === 'Details'">
+          <BrandDetails
+            :user="userDetails" />
         </div>
         
         <div v-else-if="activeTab === 'Issues'">

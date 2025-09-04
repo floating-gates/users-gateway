@@ -22,7 +22,7 @@ const logout_api_endpoint        = base_url + '/api/user/logout';
 const user_details_api_endpoint  = base_url + '/api/user/details';
 const update_feature_endpoint    = base_url + '/api/user/update-feature';
 const get_logo_endpoint          = base_url + '/api/user/get_logo'
-
+const upload_logo_endpoint       = base_url + '/api/user/upload_logo'
 
 const update_machine_endpoint = base_url + '/api/user/update-machine'
 const get_machine_endpoint    = base_url + '/api/user/get-machines'
@@ -107,5 +107,5 @@ export {
     update_machine_endpoint, get_materials_endpoint,
     update_materials_endpoint, list_users_api_endpoint,
     get_admin_name_api_endpoint, sub_links_list, update_feature_endpoint,
-    post_payment_information_endpoint, get_logo_endpoint
+    post_payment_information_endpoint, get_logo_endpoint, upload_logo_endpoint
 };

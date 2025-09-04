@@ -3,6 +3,7 @@ import { reactive, ref, onMounted } from 'vue'
 import { themeColor, themeColorOrange } from '../data/items.js'
 import { user_login } from '../user_handler/login.js'
 import { register_user } from '../user_handler/registration.js'
+import { validate_logo } from '../user_handler/logo.js'
 
 const showOptional = ref(false)
 const submitted = ref(false)
@@ -33,25 +34,12 @@ const errors = reactive({
 function handleLogoUpload(event) {
     const file = event.target.files[0]
     previewUrl.value = null
-    form.logo = null
     errors.logo = ''
     
-    if (!file) return
-    
-    // Validate type
-    if (!file.type.includes('png')) {
-        errors.logo = 'Only PNG files are allowed.'
-        return
+    if ( validate_logo(file, errors.logo) ) {
+        form.logo = file
+        previewUrl.value = URL.createObjectURL(file)
     }
-    
-    // Validate size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-        errors.logo = 'File size must be less than 5MB.'
-        return
-    }
-    
-    form.logo = file
-    previewUrl.value = URL.createObjectURL(file)
 }
 
 async function handleSubmit() {
@@ -122,16 +110,14 @@ onMounted( () => {
     provisional_hub_name.value = params.get("provisional_hub_name");
 })
 </script>
-    
+
 <template>
 <div class="untree_co-hero" id="register-section">
   <div class="container">
-    <h3
-      class="heading" data-aos="fade-up">Publish Your Hub
-    </h3>
     <h3 class="heading" data-aos="fade-up">
-      <sub :style="{ color: themeColorOrange, 'font-size': '1.0rem' }">
-      NO PAYMENT REQUIRED.
+      Publish Your Hub
+      <sub class="no-payment-text">
+        NO PAYMENT REQUIRED.
       </sub>
     </h3>
     <form @submit.prevent="handleSubmit" data-aos="fade-up" data-aos-delay="100">
@@ -159,6 +145,46 @@ onMounted( () => {
         <p v-if="errors.password" class="error-text">{{ errors.password }}</p>
       </div>
       
+      <div class="form-group">
+        <label>Hub Name (Optional)</label>
+        <input v-model="form.provisional_hub_name" type="text" class="form-control" />
+      </div>
+            
+      <!-- Logo Upload -->
+      <div class="form-group">
+        <label>Upload your Logo (Optional - .png ONLY)</label>
+        
+        <div class="mb-3">
+          <!-- Hidden file input -->
+          <input
+            id="logo-upload"
+            type="file"
+            accept=".png,image/png"
+            class="hidden"
+            @change="handleLogoUpload"
+            />
+        </div>
+        <!-- Visible upload button -->
+        <label for="logo-upload" class="upload-button">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke-width="1.5"
+               :stroke="themeColor"
+               style="width: 32px; height: 32px;">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
+          </svg>
+        </label>
+        
+        <div v-if="previewUrl" class="preview">
+          <img :src="previewUrl" alt="Logo preview" />
+        </div>
+        <p v-if="errors.logo" class="error-text">{{ errors.logo }}</p>
+      </div>
+
+
       <!-- Toggle Optional -->
       <div class="form-group">
         <a href="#" @click.prevent="showOptional = !showOptional">
@@ -166,46 +192,7 @@ onMounted( () => {
         </a>
       </div>
       
-      <!-- Optional Fields -->
       <div v-if="showOptional">
-        <!-- Logo Upload -->
-        
-        
-        <!-- Logo Upload -->
-        <div class="form-group">
-          <label>Upload your Logo (.PNG Only - Optional)</label>
-          
-          <div class="mb-3">
-            <!-- Hidden file input -->
-            <input
-              id="logo-upload"
-              type="file"
-              accept=".png,image/png"
-              class="hidden"
-              @change="handleLogoUpload"
-              />
-          </div>
-          <!-- Visible upload button -->
-          <label for="logo-upload" class="upload-button">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke-width="1.5"
-                 :stroke="themeColor"
-                 style="width: 32px; height: 32px;">
-              <path stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
-            </svg>
-          </label>
-          
-          <div v-if="previewUrl" class="preview">
-            <img :src="previewUrl" alt="Logo preview" />
-          </div>
-          <p v-if="errors.logo" class="error-text">{{ errors.logo }}</p>
-        </div>
-
-        <!-- Phone -->
         <div class="form-group">
           <label>Phone Number (Optional)</label>
           <input v-model="form.phone_number" type="text" class="form-control" />
@@ -259,36 +246,44 @@ onMounted( () => {
     background: white;
     border: 1px solid #ccc;
     border-radius: 8px;
-  padding: 10px;
-  cursor: pointer;
-  transition: background 0.2s;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
 .upload-button:hover {
-  transform: translateY(3px);
-  cursor: pointer;
+    transform: translateY(3px);
+    cursor: pointer;
 }
 
 .preview {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 .preview img {
-  max-width: 120px;
-  max-height: 120px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
 }
 
 .form-control {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.no-payment-text {
+    position: absolute;
+    bottom: 8;      /* Align to bottom */
+    right: 0;       /* Align to right */
+    color: v-bind(themeColorOrange); /* Or use themeColorOrange */
+    font-size: 1rem;
 }
 
 .error-text {
-  color: red;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
 }
 </style>

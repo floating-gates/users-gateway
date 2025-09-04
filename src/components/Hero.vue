@@ -3,7 +3,9 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import mainPhoto from "../assets/images/hero_pic.webp";
 import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
 
-const heroHeading = "Host your Manufacturing to Elevate and Automate Customers'Projects";
+// const heroHeading = "Host your Manufacturing to Elevate and Automate Customers'Projects";
+// const heroHeading = "Take your Manufacturing online. Customers design, you deliver."
+const heroHeading = "Move Manufacturing Online: Customers ask. We Automate. You deliver."
 
 // User input state
 const userAddress = ref("");
@@ -20,82 +22,82 @@ let activeTimers = [];
 
 // Sequential typewriter effect
 function autoFillMultiple(textList, delayBetween) {
-  let current = 0;
-
-  function typeText() {
-    if (typingStopped) return; // stop typing if user interacts
-
-    placeholder.value = "";
-    userAddress.value = ""; // clear input
-    const text = textList[current];
-    let index = 0;
-
-    const interval = setInterval(() => {
-      if (typingStopped) {
-        clearInterval(interval);
-        return;
-      }
-      if (index < text.length) {
-        userAddress.value += text[index];
-        index++;
-      } else {
-        clearInterval(interval);
-        const timer = setTimeout(() => {
-          current = (current + 1) % textList.length;
-          typeText();
-        }, delayBetween);
-        activeTimers.push(timer);
-      }
-    }, 160);
-    activeTimers.push(interval);
-  }
-
-  typeText();
+    let current = 0;
+    
+    function typeText() {
+        if (typingStopped) return; // stop typing if user interacts
+        
+        placeholder.value = "";
+        userAddress.value = ""; // clear input
+        const text = textList[current];
+        let index = 0;
+        
+        const interval = setInterval(() => {
+            if (typingStopped) {
+                clearInterval(interval);
+                return;
+            }
+            if (index < text.length) {
+                userAddress.value += text[index];
+                index++;
+            } else {
+                clearInterval(interval);
+                const timer = setTimeout(() => {
+                    current = (current + 1) % textList.length;
+                    typeText();
+                }, delayBetween);
+                activeTimers.push(timer);
+            }
+        }, 160);
+        activeTimers.push(interval);
+    }
+    
+    typeText();
 }
 
 onMounted(() => {
-  const timer = setTimeout(() => {
-    autoFillMultiple(suggestedText, 2500);
-  }, 2000);
-  activeTimers.push(timer);
+    const timer = setTimeout(() => {
+        autoFillMultiple(suggestedText, 2500);
+    }, 2000);
+    activeTimers.push(timer);
 });
 
 // stop typewriter when user types or focuses
 function stopTyping() {
-  typingStopped = true;
-  activeTimers.forEach(clearInterval);
-  activeTimers.forEach(clearTimeout);
-  activeTimers = [];
+    typingStopped = true;
+    activeTimers.forEach(clearInterval);
+    activeTimers.forEach(clearTimeout);
+    activeTimers = [];
 }
 
 // Form submission
 function submitAddress() {
-  if (!userAddress.value) return;
-
-  stopTyping();
-
-  // STYLED COUNTDOWN
-  const duration = 1200;
+    if (!userAddress.value) return;
+    
+    stopTyping();
+    
+    // STYLED COUNTDOWN
+    const duration = 1200;
     const step = 50;
     const interval = setInterval(() => {
-      progress.value += (step / duration) * 100;
-    if (progress.value >= 100) {
-      clearInterval(interval);
-        window.location.href = "/login?provisional_hub_name=" + userAddress.value;
-    }
-  }, step);
-
+        progress.value += (step / duration) * 100;
+        if (progress.value >= 100) {
+            clearInterval(interval);
+            window.location.href = "/login?provisional_hub_name=" + userAddress.value;
+        }
+    }, step);
+    
     isSubmitting.value = true;
-
+    
     // // Set cookie (expires in 30 days)
     // const days = 30;
     // const expires = new Date(Date.now() + days * 864e5).toUTCString();
     // document.cookie = `host_address=${encodeURIComponent(userAddress.value)}; expires=${expires}; path=/`;
-
+    
     
     setTimeout(() => {
         // window.location.href = "/login?provisional_hub_name=" + userAddress.value;
-  }, duration);
+    }, duration);
 }
 
 onBeforeUnmount(() => stopTyping()); // cleanup timers
@@ -103,18 +105,18 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
 
 <template>
 <div class="untree_co-hero py-lg-8" id="hero">
-<div class="container wider-container">
-  <div class="row align-items-center">
+  <div class="container wider-container">
+    <div class="row align-items-center">
       <div class="col-12">
         <div class="dots"></div>
         <div class="row align-items-center">
           <div class="col-lg-6 ml-auto order-lg-2" data-aos="fade-right" data-aos-delay="400">
-            <img :src="mainPhoto" alt="Technology Proxy in action" class="img-fluid" />
+            <img :src="mainPhoto" alt="Technology Proxy  in action" class="img-fluid" />
           </div>
           
-          <div class="col-lg-5 ps-lg-5">
+          <div class="col-lg-5 ps-lg-5" id="header">
             <h1 class="heading"
-                style="font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.2; max-width: 100%;"
+                style="font-size: 3.6rem; line-height: 1.2; max-width: 100%;"
                 data-aos="fade-up"
                 data-aos-delay="100">
               {{ heroHeading }}
@@ -122,46 +124,35 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
             <div class="excerpt"
                  data-aos="fade-up"
                  data-aos-delay="100">
-              <p> Publish your platform at <strong :style="{ color: themeColorOrange }">YourName.com</strong>. Understand, qualify, and estimate order inquiries, delivering them without needing to spend time on sales or feasability checks.
+              <p> Publish your HUB at <strong :style="{ color: themeColorOrange }">YourCompany.com</strong>. Understand, qualify, and estimate order inquiries, delivering them without needing to spend time on sales or feasability checks.
               </p>
             </div>
             
-            <form v-if="!isSubmitting"
-                  @submit.prevent="submitAddress"
-                  class="address-form d-flex align-items-center"
-                  data-aos="fade-up"
-                  data-aos-delay="200">
-              <input required
-                     v-model="userAddress"
-                     type="text"
-                     :placeholder="placeholder"
-                     @focus="stopTyping"
-                     @input="stopTyping"
-                     class="form-control address-input" />
-              <button
-                type="submit"
-                class="btn btn-primary address-submit"
-                style="[{ background: themeColor }, { borderColor: themeColor }]
-                       @click = submitAddress">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     stroke-width="1.5" stroke="currentColor" class="size-6">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                        d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"/>
+            <form v-if="!isSubmitting" @submit.prevent="submitAddress" class="address-form" data-aos="fade-up" data-aos-delay="200">
+              <input
+                v-model="userAddress"
+                type="text"
+                :placeholder="placeholder"
+                @focus="stopTyping"
+                @input="stopTyping"
+                class="address-input"
+                />
+              <button type="submit" class="btn address-submit">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"/>
                 </svg>
               </button>
             </form>
-            
-            <!-- Progress button when submitting -->
-            <div v-else class="address-form d-flex align-items-center">
-              <button type="submit"
-                      class="btn btn-primary progress-btn w-100"
+            <div v-else class="address-form">
+              <button type="button" class="progress-btn w-100"
                       :style="{ 
-                        background: `linear-gradient(90deg, ${themeColorOrange} ${progress}%, ${themeColor} ${progress}%)`,
-                        borderColor: themeColorOrange 
-                      }">
-                <span class="loading"> Setting up the hub... {{ Math.floor(progress) }}%</span>
+                              background: `linear-gradient(90deg, ${themeColorOrange} ${progress}%, ${themeColor} ${progress}%)`,
+                              borderColor: themeColorOrange 
+                              }">
+                Setting up hub... {{ Math.floor(progress) }}%
               </button>
             </div>
+            
           </div>
         </div>
       </div>
@@ -177,8 +168,8 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
 }
 
 .wider-container {
-  max-width: 1420px; /* Bootstrap’s xl is 1140px, this gives you extra room */
-  margin: 0 auto;
+    max-width: 1420px; /* Bootstrap’s xl is 1140px, this gives you extra room */
+    margin: 0 auto;
 }
 
 .address-form {

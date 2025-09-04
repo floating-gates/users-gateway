@@ -1,8 +1,8 @@
 <script setup>
 import { ref, computed } from "vue";
 import { themeColor, themeColorOrange, themeColorLille, themeColorWhite } from "../data/items.js";
-import Header from "../components/Header.vue"
-import { articles } from "../data/articles.js"
+import Header from "../components/Header.vue";
+import { articles } from "../data/articles.js";
 
 // Pagination
 const currentPage = ref(1);
@@ -26,6 +26,7 @@ const closeArticle = () => {
   selectedArticle.value = null;
 };
 </script>
+
 
 <template>
   <Header :context="'landing-page'" />
@@ -122,42 +123,51 @@ const closeArticle = () => {
     </div>
 
     <!-- Modal for Full Article -->
-    <div
-      v-if="selectedArticle"
-      class="modal-overlay"
-      @click="closeArticle"
-    >
-      <div
-        class="modal-content"
-        :style="{ backgroundColor: themeColorWhite, color: themeColor }"
-        @click.stop
+<div
+  v-if="selectedArticle"
+  class="modal-overlay"
+  @click="closeArticle"
+>
+  <div
+    class="modal-content"
+    :style="{ backgroundColor: themeColorWhite, color: themeColor }"
+    @click.stop
+  >
+    <div class="modal-header">
+      <h2 class="modal-title">{{ selectedArticle.title }}</h2>
+      <button
+        class="modal-close"
+        :style="{ backgroundColor: themeColorOrange, color: themeColorWhite }"
+        @click="closeArticle"
       >
-        <div class="modal-header">
-          <h2 class="modal-title">{{ selectedArticle.title }}</h2>
-          <button
-            class="modal-close"
-            :style="{ backgroundColor: themeColorOrange, color: themeColorWhite }"
-            @click="closeArticle"
-          >
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="close-icon">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-        
-        <div class="modal-body">
-          <img
-            v-if="selectedArticle.image"
-            :src="selectedArticle.image"
-            :alt="selectedArticle.title"
-            class="modal-image"
-          />
-          <div class="modal-text">
-            <p>{{ selectedArticle.content }}</p>
-          </div>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="close-icon">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <img
+        v-if="selectedArticle.image"
+        :src="selectedArticle.image"
+        :alt="selectedArticle.title"
+        class="modal-image"
+      />
+
+      <div class="modal-text">
+        <div
+          v-for="(section, idx) in selectedArticle.content"
+          :key="idx"
+          class="article-section"
+        >
+          <h3 class="section-title">{{ section.sub_title }}</h3>
+          <p class="section-text">{{ section.sub_content }}</p>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
   </div>
 </template>
 
