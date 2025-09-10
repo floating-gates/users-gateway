@@ -5,26 +5,31 @@ import Header from "./Header.vue";
 import ShippingDetails from "./ShippingDetails.vue";
 import PricingDetails  from "./PricingDetails.vue"; 
 import OrderDetails    from "./OrderDetails.vue";
+import EnrollToSub     from "./EnrollToSub.vue"
 
 import { create_project, get_project, count_project_states,
          delete_project, get_progress } from '../project_handler/project.js';
 import { handle_price_allocation } from '../price_handler/price_setting.js'
-import { get_user_details } from '../user_handler/user_info.js';
-import { verify_jwt, verify_admin }   from '../user_handler/login.js';
-import { themeColor, themeColorOrange, themeColorLille, themeColorWhite, price_status } from "../data/items.js";
+import { get_user_details } from '../user_handler/user_details.js';
+import { verify_user_credentials }       from '../user_handler/login.js';
+import { themeColor, themeColorOrange, themeColorLille, themeColorWhite,
+         price_status } from "../data/items.js";
 
 // Dashboard data
 const project_in_scope = ref(null)
-const project_list = ref([])
+const project_list    = ref([])
 const isAuthenticated = ref(false)
+const isAdmin         = ref(false)
+
 const showConfirmation = ref(false)
 const showPricingDetails = ref(false)
 const showShippingDetails = ref(false)
 const showOrderInfo = ref(false)
-const isAdmin = ref(false);
 
 const error = ref('');
+const hasError = ref(false)
 const user_details = ref('');
+const subscriptionToBeActivated = ref(false);
 
 // Use computed for reactive counts
 const activeProjects = computed(() => project_list.value.length);
@@ -69,7 +74,7 @@ async function handleDelete(proj_id) {
     
     try {
         const res = await delete_project(proj_id);
-        if (res.status !== 204) { throw new Error('Failed to delete project');  }
+        if (res.status !== 204) throw new Error('Failed to delete project');
         
         // Remove from list
         project_list.value = project_list.value.filter(p => p.id !== proj_id);
@@ -79,16 +84,24 @@ async function handleDelete(proj_id) {
     }
 }
 
-onMounted(async () => {
+onMounted(
+    async () => {
+
+    const credentials = await verify_user_credentials();
     
-    isAuthenticated.value = await verify_jwt();
+    const isAuthenticated = credentials.is_authenticated;
+    isAdmin.value         = credentials.is_admin;
     
-    if (!isAuthenticated.value) { window.location.replace("/login") }
-    
-    isAdmin.value = await verify_admin()
-    
+    if ( !isAuthenticated) { window.location.replace("/login") }
+        
     try {
         user_details.value = await get_user_details();
+
+        const sub_status = user_details.value.subscription_status
+    
+        if ( sub_status === "inactive" || sub_status === "demo") {
+            subscriptionToBeActivated.value = true;
+        }
         
         const res_prj = await get_project();
         if (!res_prj.ok) {
@@ -97,13 +110,28 @@ onMounted(async () => {
         project_list.value = await res_prj.json();
         
     } catch (e) {
+        hasError.value = true
         error.value = e.message;
     }
 })
 </script>
 
 <template>
-<Header context="dashboard" :is_admin='isAdmin' :host_address='user_details.host_address' />
+<Header
+  context="dashboard"
+  :host_address="user_details.host_address" />
+
+<!-- Error message -->
+<div v-if="hasError" class="error-box">
+  <p>{{ error }}</p>
+</div>
+
+<!-- Subscription --> 
+<div v-if="subscriptionToBeActivated" class="sub-wrapper">
+  <EnrollToSub
+    :provisional_hub_name="user_details.provisional_hub_name"
+    :discount="user_details.discount" />
+</div>
 <div class="untree_co-hero dashboard-section" id="dashboard-section">
   <div class="container">
     <div class="row align-items-center">
@@ -140,6 +168,12 @@ onMounted(async () => {
                   <div class="stats-card">
                     <h3 class="stats-number">{{ completedSimulations }}</h3>
                     <p class="stats-label">Orders Completed</p>
+                  </div>
+                </div>
+                <!-- Admin button fixed in top-right -->
+                <div v-if="isAdmin" class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                  <div class="stats-card">
+                    <a href="/admin-dashboard">Admin Dashboard</a>
                   </div>
                 </div>
               </div>
@@ -297,6 +331,10 @@ onMounted(async () => {
     margin-top: 10px;
 }
 
+.sub-wrapper {
+  padding-top: 3rem; /* creates space below nav */
+}
+
 .stats-card {
     background-color: white;
     border-radius: 10px;
@@ -353,9 +391,14 @@ onMounted(async () => {
     padding: 14px;
 }
 
-/* .project-item:last-child { */
-/*     border-bottom: none; */
-/* } */
+.error-box {
+  background: #ffe6e6;
+  border: 1px solid #ff4d4d;
+  color: #b30000;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
 
 .project-info {
     flex: 1;

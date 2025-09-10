@@ -1,16 +1,16 @@
-import { logout_api_endpoint, COOKIE_NAME } from "../data/items.js";
+import { logout_referral_api_endpoint, COOKIE_NAME } from "../data/items.js";
 
 export async function logout() {
 
     try {
-        await fetch( logout_api_endpoint, {
+        await fetch( logout_referral_api_endpoint, {
             method: 'POST',
             credentials: 'include',
         });
         localStorage.removeItem(COOKIE_NAME);
-        window.location.replace("/");
         
     } catch (error) {
         console.error("Logout failed: ", error);
-    }
-} 
+        
+    } 
+}

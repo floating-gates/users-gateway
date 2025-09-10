@@ -1,16 +1,20 @@
 import { create_subscription_endpoint,
-         delete_subscription_endpoint,
-         price_list } from '../data/items.js'
+         delete_subscription_endpoint } from '../data/items.js'
 
 
-export async function create_subscription( subscription_plan, host_address ) {
-
-    const monthly_price = price_list[subscription_plan]
+export async function create_subscription(
+    subscription_plan,
+    host_address,
+    monthly_price ) {
 
     const response = await fetch( create_subscription_endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify( { subscription_plan, monthly_price, host_address } ),
+        body: JSON.stringify( {
+            subscription_plan,
+            monthly_price,
+            host_address
+        } ),
         credentials: 'include', })
         return response
 }

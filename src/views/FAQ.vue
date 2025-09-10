@@ -4,24 +4,25 @@ import { ref } from "vue";
 import Header from "../components/Header.vue";
 
 const faqs = [
- {
-    question: "What is Floating Gates?",
-    answer: "A technology infrastructure provider. That connects manufacturers reality with their existing and new customers base, providing additional technology."
+{
+  question: "What does Gates actually do?",
+  answer: "It provides to manufacturers a 3D online platform accessible through a web address of your choice. The platform enables manufacturers' end-users to issue orders and at the sime time the the advantage of running automated feasibility checks, receive instant quotes, and apply design optimizations. In the meantime, manufacturers gain tools gain new customers thanks to renwed visibility and track existing clients, uncertain prospects and streamline interactions with their customer base."
 },
 {
- question: "What it actaully does?",
-answer: "It hosts an 3D online platform at an URL of your choice, capable of funneling your customers effectively. It provides to your end-users automations such as feasibility checks, instant quotes, and design optimizations. Meanwhile, manufacturers can monitor doubtful clients and standardize their existing customer base."  },
+  question: "What is Floating Gates Srl?",
+  answer: "Floating Gates is more than a software development studio. It is a technology infrastructure partner for manufacturers. We help businesses connect with both new and existing customers by providing advanced digital tools that establish a strong online presence, streamline operations, and enable growth. Our solutions empower manufacturers to expand their reach, optimize workflows, and leverage data-driven insights to stay competitive in an increasingly digital market."
+},
   {
     question: "Who is it for?",
-    answer: "We serve everyone from 3D printing hobbyists to enterprises with manufacturing capabilities—such as CNC workshops and 3D printing farms. Our solution is especially valuable for those with well-established production methods who struggle to fully utilize their machines due to cumbersome order inquiries."
+    answer: "Gates serve reality that owns just a 3D printer to big plants that have a high volume production, such such as Plastic Injection facilities. Our solution is especially valuable for those with well-established production methods who struggle to fully utilize their machines due to cumbersome order inquiries."
   },
   {
     question: "What problem does it solve?",
-    answer: "We help manufacturers increase the number of actual orders through a an automated screening process and a smart assessments of the requests by the end customer. This enables unused capacity to be turned into revenue by automating quotes, technical checks, and customer engagement."
+    answer: "Low sales. Floating Gates increase actual orders by spreading, assessing and expowerinf new customer requests. Gates streamlines quotes, performs technical checks, and enhances customer engagement, allowing manufacturers to operate more efficiently and focus on what they do best: build!."
   },
   {
     question: "What differentiates it from competitors?",
-    answer: "Unlike standalone tools, we provide a complete infrastructure that connects manufacturers into a shared pool, maximizing visibility and utilization for you. We do not interfere with your business decisions, instead, we provide a framework that enhances customer service and operational efficiency."
+    answer: "Unlike standalone tools, we provide a complete infrastructure that connects manufacturers into a shared pool, maximizing visibility and utilization for you. We do not interfere with your business decisions, instead we provide a framework around it, with the goal of improving operational efficiency."
   },
   {
     question: "Can I be listed into one of the Certified Manufactured list?",
@@ -33,7 +34,7 @@ answer: "It hosts an 3D online platform at an URL of your choice, capable of fun
   },
   {
     question: "How does it work the custom address?",
-    answer: "Floating Gates is cloud-based and it is going to host a server for the infrastructrure and its'services. For the Basic and Standard programme we are going to use the suffix floating-gates.com while for Enterprise customer we purchase a stand alone domain name"
+    answer: "Gates is a managed cloud service and it is going to host a server for the infrastructrure and its'services. For the Basic and Standard programme we are going to use the suffix floating-gates.com while for Enterprise customer we purchase a stand alone domain name"
   },
   {
     question: "Do you offer affiliate programs?",
@@ -66,7 +67,7 @@ const isOpen = (index) => openItems.value.has(index);
   <div class="faq-section">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-lg-8">
+        
           
           <!-- Enhanced Header Section -->
           <div class="faq-header">
@@ -112,7 +113,6 @@ const isOpen = (index) => openItems.value.has(index);
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
@@ -155,13 +155,14 @@ const isOpen = (index) => openItems.value.has(index);
   color: #6c757d;
   margin-bottom: 2rem;
   line-height: 1.5;
-  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .faq-container {
-  max-width: 100%;
+    
+  max-width: 800px;
+    
   position: relative;
 }
 
@@ -169,7 +170,7 @@ const isOpen = (index) => openItems.value.has(index);
   background: white;
   border-radius: 16px;
   margin-bottom: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   border: 2px solid transparent;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -190,7 +191,7 @@ const isOpen = (index) => openItems.value.has(index);
 }
 
 .faq-item:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
 }
 
@@ -309,7 +310,7 @@ const isOpen = (index) => openItems.value.has(index);
   background: white;
   padding: 2rem;
   border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 28px 50px rgba(0, 0, 0, 0.1);
   border: 2px solid v-bind(themeColorLille);
   position: relative;
   overflow: hidden;

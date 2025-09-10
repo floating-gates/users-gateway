@@ -1,30 +1,33 @@
 <script setup>
-import RegistrationForm from "../components/RegistrationForm.vue";
-import LoginForm from "../components/LoginForm.vue";
+import ReferralRegistrationForm from "../components/ReferralRegistrationForm.vue";
+import ReferralLoginForm from "../components/ReferralLoginForm.vue";
 import Header from "../components/Header.vue";
-import { verify_user_credentials } from "../user_handler/login.js"
 
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
+import { verify_referral_credentials } from "../referral_handler/login.js"
 
 const showLoginForm = ref(false);
+const isAuthenticated = ref(false);
 
 function toggleLoginForm() {
   showLoginForm.value = !showLoginForm.value;
 }
 
-onMounted(async () => {
-    const credentials = await verify_user_credentials();
-    if ( credentials.is_authenticated ) {
-        { window.location.replace("/dashboard") }
- 
-    }
-})
+
+onMounted(
+    async () => {
+        const credentials = await verify_referral_credentials();
+        
+        if ( credentials.is_authenticated ) { window.location.replace("/referral-dashboard")}
+        }
+        
+)
 </script>
 
 <template>
-  <Header :context="'login'" />
+<Header :context="'login'" />
 
-  <div class="untree_co-hero" id="auth-section">
+  <div class="untree_co-hero" id="-refferral-auth-section">
     <!-- <div class="container"> -->
      <div class="container-fluid login-container container">
 
@@ -32,10 +35,10 @@ onMounted(async () => {
         <!-- Form column -->
         <div class="col-lg-5">
           <div v-if="showLoginForm">
-            <LoginForm @switch-to-register="toggleLoginForm" />
+            <ReferralLoginForm @switch-to-register="toggleLoginForm" />
           </div>
           <div v-else>
-            <RegistrationForm @switch-to-login="toggleLoginForm"/>
+            <ReferralRegistrationForm @switch-to-login="toggleLoginForm"/>
           </div>
         </div>
 
@@ -58,8 +61,6 @@ onMounted(async () => {
           <a href="/privacy-policy"> Privacy Policy</a>
         </p>
       </div>
-
-        
     </div>
   </div>
 </template>
@@ -88,12 +89,6 @@ onMounted(async () => {
   margin-top: 1rem;
 }
 
-/* .toggle-link a { */
-/*   color: #007bff; */
-/*   text-decoration: underline; */
-/*   cursor: pointer; */
-/* } */
-
 
 .login-container {    
     padding-left: 5%;
@@ -103,10 +98,10 @@ onMounted(async () => {
 }
 
 
-/* .img-fluid { */
-/*   max-width: 100%; */
-/*   height: auto; */
-/* } */
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
 
 .register-footer {
   text-align: center;

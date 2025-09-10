@@ -9,6 +9,7 @@ const showOptional = ref(false)
 const submitted = ref(false)
 const previewUrl = ref(null)
 const provisional_hub_name = ref('')
+const referral_code = ref(null)
 
 const form = reactive({
     full_name: '',
@@ -18,7 +19,7 @@ const form = reactive({
     email: '',
     password: '',
     logo: null,
-    referral_code: null,
+    referral_code: referral_code,
     provisional_hub_name: provisional_hub_name
 })
 
@@ -108,6 +109,7 @@ async function handleSubmit() {
 onMounted( () => {
     const params = new URLSearchParams(window.location.search);
     provisional_hub_name.value = params.get("provisional_hub_name");
+    referral_code.value = params.get("referral_code");
 })
 </script>
 
@@ -115,7 +117,7 @@ onMounted( () => {
 <div class="untree_co-hero" id="register-section">
   <div class="container">
     <h3 class="heading" data-aos="fade-up">
-      Publish Your Hub
+      Get Your Hub
       <sub class="no-payment-text">
         NO PAYMENT REQUIRED.
       </sub>

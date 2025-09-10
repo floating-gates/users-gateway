@@ -1,7 +1,8 @@
-import { login_user_api_endpoint, auth_api_endpoint } from '../data/items.js';
+import { login_referral_api_endpoint,
+         referral_auth_api_endpoint } from '../data/items.js';
 
-export async function user_login( email, password ) {
-    const response = await fetch( login_user_api_endpoint, {
+export async function referral_login( email, password ) {
+    const response = await fetch( login_referral_api_endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -10,12 +11,14 @@ export async function user_login( email, password ) {
     return response;
 }
 
-async function get_user_credentials() {
+
+async function get_referral_credentials() {
     try {
-        const response = await fetch( auth_api_endpoint, {
+        const response = await fetch( referral_auth_api_endpoint, {
             method: 'POST',
             credentials: 'include',
         });
+
         return response;
     } catch (err) {
         console.error('Cookie verification failed', err);
@@ -24,9 +27,10 @@ async function get_user_credentials() {
 }
 
 
-export async function verify_user_credentials() {
+export async function verify_referral_credentials() {
     try {
-        const response = await get_user_credentials();
+        const response = await get_referral_credentials();
+
         if (!response.ok) {
             return { is_authenticated: false, is_admin: false };
         }
@@ -36,7 +40,7 @@ export async function verify_user_credentials() {
 
         return {
             is_authenticated: true,
-            is_admin: !!user.is_admin, // ensure it's boolean
+            is_admin: false
         };
 
     } catch (err) {

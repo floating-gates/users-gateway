@@ -1,6 +1,5 @@
 <script setup>
-import { ref, onMounted, defineProps } from "vue";
-import { verify_jwt } from "../user_handler/login.js"
+import { ref, defineProps } from "vue";
 import { logout } from "../user_handler/logout.js"
 import { themeColor, base_url, demo_url } from "../data/items.js";
 
@@ -8,17 +7,13 @@ defineProps({
   context: {
     type: String,
   },
-  is_admin: {
-    type: Boolean,
-    default: false
-  },
   host_address: {
     type: String,
     default: demo_url
   }
 })
 
-const isAuthenticated = ref(false);
+// const isAuthenticated = ref(false);
 const isMenuOpen      = ref(false);
 
 async function platform_logout() {
@@ -26,10 +21,6 @@ async function platform_logout() {
     isAuthenticated.value = false;
     window.location.href = "/login"
 };
-
-onMounted(async () => {
-    isAuthenticated.value = await verify_jwt();
-})
 </script>
 
 <template>
@@ -61,14 +52,9 @@ onMounted(async () => {
               </ul>
 
               <div class="button-group">
-                <ul v-if="isAuthenticated" class="site-menu button-menu">
+                <ul  class="site-menu button-menu">
                   <li class="cta-button-outline">
-                    <a href="/dashboard">Dashboard</a>
-                  </li>
-                </ul>
-                <ul v-else class="site-menu button-menu">
-                  <li class="cta-button-outline">
-                    <a href="/login">Sign in</a>
+                    <a href="/login">Log in</a>
                   </li>
                   <li class="cta-primary">
                     <a :href="demo_url" :style="{ backgroundColor: themeColor }">Demo</a>
@@ -81,9 +67,7 @@ onMounted(async () => {
             <template v-else-if="context === 'dashboard'">
               <div class="button-group">
                 <ul class="site-menu button-menu">
-                  <li v-if="is_admin" class="cta-button-outline">
-                    <a href="/admin_dashboard">Admin Dashboard</a>
-                  </li>
+                  
                   <li class="cta-button-outline">
                     <a :href='host_address'>Your Hub Client</a>
                   </li>
@@ -110,8 +94,19 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;       /* ensure full width */
+  z-index: 2000;
+  /* background: white; */
+}
+
 .site-nav .container {
-  max-width: 1550px; 
+  max-width: 1550px;
+  margin: 0 auto;    /* centers the container inside nav */
   padding-left: 5%;
   padding-right: 5%;
 }

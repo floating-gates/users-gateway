@@ -1,28 +1,24 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import Header from "../components/Header.vue"
-import { themeColorOrange } from "../data/items.js";
+import Header from "../components/Header.vue";
 import { get_users_list } from "../user_handler/list_user.js";
-import { verify_admin } from "../user_handler/login.js"
+import { verify_user_credentials } from "../user_handler/login.js";
 
-const isAdmin = ref(false);
 const error = ref('');
 const user_list = ref([]);
 
-
 onMounted(async () => {
-
-    isAdmin.value = await verify_admin();
+    const credentials = await verify_user_credentials();
     
-    if (!isAdmin.value) {
+    // Redirect if not admin
+    if (!credentials.is_admin) {
         window.location.replace("/dashboard");
+        return; // stop execution
     }
-    
+
     try {
         const res = await get_users_list();
-        if (!res.ok) {
-            throw new Error("Failed to fetch users");
-        }
+        if (!res.ok) throw new Error("Failed to fetch users");
         user_list.value = await res.json();
     } catch (e) {
         error.value = e.message;

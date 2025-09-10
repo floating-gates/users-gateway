@@ -1,8 +1,8 @@
 <script setup>
 import { ref, watch, onMounted, nextTick } from 'vue';
-import { get_user_details } from '../user_handler/user_info.js';
+import { get_user_details } from '../user_handler/user_details.js';
 import { themeColor, themeColorWhite } from '../data/items.js';
-import { verify_jwt } from '../user_handler/login.js';
+import { verify_user_credentials } from '../user_handler/login.js';
 import { getMachineList, updateMachineList } from "../user_handler/machine.js";
 import { getMaterials } from "../user_handler/materials.js"
 
@@ -10,7 +10,6 @@ import Header from "./Header.vue";
 import Summary from "./Summary.vue";
 import FeatureList from "./FeatureList.vue";
 import Machines from "./Machines.vue";
-import EnrollToSub from "./EnrollToSub.vue";
 import ReportIssue from "./ReportIssue.vue";
 import SubscriptionStatus from "./SubscriptionStatus.vue";
 import Materials from "./Materials.vue";
@@ -30,8 +29,7 @@ const machines    = ref([]);
 const materials   = ref([]);
 
 const error = ref('');
-const showHubForm = ref(false);
-const isAuthenticated = ref(false);
+const subscriptionToBeActivated = ref(false);
 
 const tabRefs = ref([]);
 const indicatorStyle = ref({});
@@ -64,9 +62,6 @@ function moveIndicator(index) {
 
 
 onMounted(async () => {
-
-    isAuthenticated.value = await verify_jwt();
-    if (!isAuthenticated.value) { window.location.replace("/login") };
     
     userDetails.value = await get_user_details();
     machines.value    = await getMachineList();
@@ -75,7 +70,7 @@ onMounted(async () => {
     const sub_status = userDetails.value.subscription_status
     
     if ( sub_status === "inactive" || sub_status === "demo") {
-        showHubForm.value = true;
+        subscriptionToBeActivated.value = true;
     }
     
     // initialize indicator after DOM renders
@@ -92,13 +87,6 @@ onMounted(async () => {
 <div class="untree_co-section">
   <div class="row justify-content-center">
     <div class="col-md-12 col-lg-8">
-      
-      <div v-if="showHubForm">
-        <EnrollToSub
-          :provisional_hub_name="userDetails.provisional_hub_name"/>
-      </div>
-      
-      <div  v-else >        
         <div class="tab-menu-container text-center mb-6">
           <div class="tab-menu">
             <div class="tab-indicator" :style="indicatorStyle"></div>
@@ -156,7 +144,7 @@ onMounted(async () => {
         
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 </div>
 </template>
 

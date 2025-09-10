@@ -2,32 +2,11 @@
 import Header from '../components/Header.vue'
 
 import { themeColor, themeColorOrange,
-         themeColorWhite, price_list } from "../data/items";
+         themeColorWhite, display_price_list } from "../data/items";
 
 const heading = "Plans and Pricing";
-const subHeading = "Pricing refer only to the hosting services (GATES). You choose the final price to charge the customer to manufacture their devices";
+const subHeading = "Pricing refer only to the hosting services (GATES). You always choose the final price to charge the customer to manufacture their devices. We just suggest.";
 const startButtonName = "Get Started";
-
-const package_names_vec = Object.keys(price_list)
-
-function capitalizeWord(word) {
-    return  word.charAt(0).toUpperCase() + word.slice(1)
-}
-
-const packages = [
-    {
-        name: capitalizeWord(package_names_vec[0]),
-        price: price_list[package_names_vec[0]],
-    },
-    {
-        name: capitalizeWord(package_names_vec[1]),
-        price: "Coming Soon...",
-    },
-    {
-        name: capitalizeWord(package_names_vec[2]),
-        price: "Request a Quote",
-    },
-];
 </script>
 
 
@@ -53,24 +32,24 @@ const packages = [
             <div class="pricing">
               <div class="body">
                 <div class="price">
-                  <span class="d-block plan">{{ packages[0].name }}</span>
+                  <span class="d-block plan">{{ display_price_list[0].name }}</span>
                   <span class="price" :style="[{ color: themeColor }]"
-                        >{{ packages[0].price }}<sup>€/Month</sup></span>
+                        >{{ display_price_list[0].price }}<sup>€/Month</sup></span>
                 </div>
                 <pre></pre>
                 <ul class="list-unstyled ul-check primary mb-5">
-                  <li> Up to 20 Active Projects</li>
+                  <li> Up to 50 Active Projects</li>
                   <li> Automatic Quotations </li>
-                  <li> Your Brand in Display </li> 
+                  <li> Your Brand in Display </li>
                 </ul>
                 <p class="text-center mb-0">
                   <a
-                    href="/profile"
+                    href="/login"
                     class="btn btn-outline-primary btn-hovered"
                     :style="[ { backgroundColor: themeColorWhite },
                             { borderColor: themeColorWhite },
                             { color: themeColor }]">
-                    {{ startButtonName }}</a >
+                    Get Started </a >
                 </p>
               </div>
             </div>
@@ -79,26 +58,23 @@ const packages = [
             <div class="pricing active">
               <div class="body">
                 <div class="price">
-                  <span class="d-block plan">{{ packages[1].name }}</span>
+                  <span class="d-block plan">{{ display_price_list[1].name }}</span>
                   <span class="price" :style="[{ color: themeColor }]"
-                        ><span><sup>{{ packages[1].price }}</sup></span></span
-                                                                          >
+                        ><span><sup>{{ display_price_list[1].price }}</sup></span></span>
                 </div>
                 <ul class="list-unstyled ul-check primary mb-5">
                   <li>Unlimited Project Number</li>
-                  <li>Customer data Ownership</li>
                   <li>Manufacturing Checks</li>
-                  <li>Shape Modifier</li>
+                  <li>Structural Integrity simulation engine</li>
                 </ul>
                 <p class="text-center mb-0">
                   <a
-                    href="/profile"
+                    href="/login"
                     class="btn btn-primary"
                     :style="[
                             { backgroundColor: themeColor },
                             { borderColor: themeColor },
-                            ]" >{{ startButtonName }}</a
-                                                       >
+                            ]" > Check Out What's Boiling</a>
                 </p>
               </div>
             </div>
@@ -107,26 +83,26 @@ const packages = [
             <div class="pricing">
               <div class="body">
                 <div class="price">
-                  <span class="d-block plan">{{ packages[2].name }}</span>
+                  <span class="d-block plan">{{ display_price_list[2].name }}</span>
                   <span class="price" :style="[{ color: themeColor }]">
                     
-                    <span><sup>{{ packages[2].price }}</sup></span></span
-                                                                     >
+                    <span><sup>{{ display_price_list[2].price }}</sup></span></span >
                 </div>
                 <ul class="list-unstyled ul-check primary mb-5">
                   <li>Proprietary URL</li>
+                  <li>Shape Optimization </li>
+                  <li>Customer data Ownership</li>
                   <li>Parametric CAD of your best product</li>
-                  <li>Non subscription package</li>
+                  <!-- <li>Non subscription package</li> -->
                 </ul>
                 <p class="text-center mb-0">
                   <a
-                    href="/profile"
+                    href="/services"
                     class="btn btn-outline-primary btn-hovered"
                     :style="[ { backgroundColor: themeColorWhite },
                             { borderColor: themeColorWhite },
                             { color: themeColor }]">
-                    {{ startButtonName }}</a
-                                           >
+                    Check Out our Services</a>
                 </p>
               </div>
             </div>
@@ -219,6 +195,16 @@ const packages = [
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
     z-index: 2; /* ensures it overlays above neighbors */
 }
+
+.price {
+  font-size: 1rem; /* smaller than before, adjust as needed */
+  font-weight: 500;
+}
+
+.price sup {
+  font-size: 0.7rem; /* smaller superscript for €/Month */
+}
+
 
 .ul-check.primary li {
   position: relative;

@@ -4,14 +4,14 @@ import Header from "../components/Header.vue";
 import { ref } from "vue";
 
 const phone =  contactInfo["phone"].replace(/[\s+]/g, "");
-const message = "Hi! I'm interested in one of Floating Gates services"
+const message = "Hi! I'm interested in one of your enterprise services"
 const whatsAppUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
 const services = [
   {
     name: "Scientific Software Development",
     description:
-      "As manufacturing becomes more complex, we design predictive software to model system behavior using proven numerical methods. Examples include structural integrity, fatigue, vibrations, heat exchange, and magnetic properties.",
+      "As manufacturing becomes more complex, we design predictive software to model system behavior using proven numerical methods. Examples include structural integrity, fatigue, vibrations and heat exchange forecasts.",
     advantages: [
       "Explore a wide variety of designs without costly experiments.",
       "Make measurements in locations otherwise inaccessible, e.g., inside a combustion chamber."
@@ -36,7 +36,7 @@ const services = [
     description:
       "By integrating ML with physics-based simulations, we analyze a broader range of design options efficiently and at lower cost.",
     advantages: [
-      "Predict complex system behavior with minimal data.",
+      "Predict complex systems behavior with minimal data.",
       "Perform hundreds of virtual experiments with minimal computational cost."
     ],
       outcome: [
@@ -44,9 +44,9 @@ const services = [
     ]
   },
   {
-    name: "Provider of Informatic Infrastructure",
+    name: "Installation in Loco",
     description:
-      "We build scalable, tailored IT infrastructure for simulation and data processing—on-premise or in the cloud.",
+      "We build scalable, tailored IT infrastructure for running gates locally.We can use use your infrastructure or build a new one from scratch. In case you are cloud first, we can also provide solution based on AWS, Google Cloud etc...",
     advantages: [
       "Hardware customized to your workload.",
       "Full data ownership.",
@@ -62,12 +62,13 @@ const selectedIndex = ref(0);
 </script>
 
 <template>
-  <Header :context="'profile'" />
+  <Header :context="'landing-page'" />
+
   <div class="untree_co-hero">
     <div class="container">
       <div class="row align-items-center">
 
-        <h1 class="page-title">Services</h1>
+        <h1 class="page-title">Enterprise Services</h1>
               
         <div class="col-12">
           <div class="dots"></div>

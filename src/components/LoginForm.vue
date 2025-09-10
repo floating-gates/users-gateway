@@ -55,10 +55,7 @@ async function handleLogin() {
 
 <template>
   <h2 class="heading" data-aos="fade-up">Login</h2>
-  
-  <!-- Debug: Show error state -->
-  <!-- <div>Debug - Error: "{{ error }}" (Length: {{ error.length }})</div> -->
-  
+    
   <div v-if="error" class="error-text" data-testid="error-message">
     {{ error }}
   </div>

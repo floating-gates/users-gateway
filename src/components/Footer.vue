@@ -44,13 +44,13 @@ const socialItems = [
           </div>
           <div class="col-lg-6">
             <div class="widget">
-              <h3> Services </h3>
-              <ul class="list-unstyled float-left links">
-                <li><a href="/services">Scientific Software Dev.</a></li>
-                <li><a href="/services">Mechanical Design</a></li>
-                <li><a href="/services">Data Pipeline</a></li>
-                <li><a href="/services">Physics with Machine Learning</a></li>
-              </ul>
+              <a href="/services"> <h3>Enterprise Serivices</h3> </a>
+              <p> List of additional services we work on specifically for Enterprise customer </p>
+            </div>
+            <div class="widget">
+              <a href="/referral-login"> <h3>Become a Partner</h3> </a>
+              <p> Get you hands dirt and come join us, it is going to be a rollercoaster. </p>
+              <!-- <a href="/referral-dashboard"> <h3>Partner Profile</h3> </a> -->
             </div>
           </div>
         </div>
