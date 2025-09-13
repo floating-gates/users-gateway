@@ -25,8 +25,8 @@ const startButtonName = "Get Started";
         <p>{{ subHeading }}</p>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-lg-10">
+    <div class="col-lg-12">
+      <div class="row justify-content-center">
         <div class="row">
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             <div class="pricing">
@@ -38,7 +38,8 @@ const startButtonName = "Get Started";
                 </div>
                 <pre></pre>
                 <ul class="list-unstyled ul-check primary mb-5">
-                  <li> Up to 50 Active Projects</li>
+                  <li> Customer's 3D Platform </li>
+                  <li> Manufacturing Hub for You </li>
                   <li> Automatic Quotations </li>
                   <li> Your Brand in Display </li>
                 </ul>
@@ -63,9 +64,9 @@ const startButtonName = "Get Started";
                         ><span><sup>{{ display_price_list[1].price }}</sup></span></span>
                 </div>
                 <ul class="list-unstyled ul-check primary mb-5">
-                  <li>Unlimited Project Number</li>
+                  <li>All 'Basic' features</li>
                   <li>Manufacturing Checks</li>
-                  <li>Structural Integrity simulation engine</li>
+                  <li>Structural Integrity simulations</li>
                 </ul>
                 <p class="text-center mb-0">
                   <a
@@ -225,6 +226,7 @@ const startButtonName = "Get Started";
 .pricing {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 2rem; /* keep it smooth */
+    width: 100%;
 }
 
 .pricing:hover {

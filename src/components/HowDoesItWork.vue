@@ -10,14 +10,14 @@ import { themeColor, themeColorOrange, themeColorLille,
 const items = [
     {
         id: 1,
-        name: "Publish the Platform with your Brand",
-        des: "Deploy your manufacturing facilities online with your name and assets.",
+        name: "Set Up Your Manufacturing Hub",
+        des: "Configure your machines and manufacturing methods, then start receiving orders.",
         pic: dashboard_empty,
         alt: "Publish Hub"
     },
     {
         id: 2,
-        name: "Your Customers can access Your Hub",
+        name: "Publish the 3D app for your customers",
         des: "Your customers car run Manufacturing Checks, Automatic Quotation and Shape Optimizations. While you are informed at every step.",
         pic: platform_with_pump,
         alt: "Services"
@@ -25,15 +25,15 @@ const items = [
     },
     {
         id: 3,
-        name: "Wait for Orders to come to you",
-        des: "Your customers will funnel models to be printed by your machine.",
+        name: "Receive Orders Directly",
+        des: "Customers can send their models to be produced on your machines.",
         pic: product_pic,
         alt: "Wait Orders"
     },
     {
         id: 4,
-        name: "No more Idle time for your Machines",
-        des: "Now it time to make use of your facilities to produce the devices and ship it.",
+        name: "Keep Your Machines Productive",
+        des: "Put your facilities to work—produce the devices and ship them with no downtime.",
         pic: printer_pic,
         alt: "Use the machinery"
     },
@@ -47,7 +47,7 @@ const total = 4;
   <div class="container">
     <h1 class="heading" data-aos="fade-up">
       <span class="enhance-sequential">
-        <span v-for="(letter, index) in 'Enhance and Automate Customers'.split('')" 
+        <span v-for="(letter, index) in 'Go Digital with Your Machines'.split('')" 
               :key="index"
               class="letter"
               :style="{ '--delay': index + 's' }">
@@ -56,7 +56,7 @@ const total = 4;
       </span>
       
       <sub :style="{ color: themeColorOrange, 'font-size': '1.3rem' }">
-        WITH GATES
+        USING GATES
     </sub></h1>
     <div class="row justify-content-between d-flex align-items-center">
       
@@ -65,7 +65,7 @@ const total = 4;
           class="service link horizontal d-flex active"
           data-aos="fade-left"
           >
-          <div class="service-icon  mb-4" :style="{ backgroundColor: themeColorWhite }">
+          <div class="service-icon mb-4" :style="{ backgroundColor: themeColorWhite }">
             <svg
               class="bi bi-app-indicator"
               width="1em"
@@ -97,7 +97,7 @@ const total = 4;
               width="1em"
               height="1em"
               viewBox="0 0 16 16"
-              fill="{{themeColor}}"
+              :fill="themeColor"
               xmlns="http://www.w3.org/2000/svg"
               >
               <path
@@ -126,7 +126,7 @@ const total = 4;
               width="1em"
               height="1em"
               viewBox="0 0 16 16"
-              fill="{{themeColor}}"
+              :fill="themeColor"
               xmlns="http://www.w3.org/2000/svg"
               >
               <path
@@ -155,7 +155,7 @@ const total = 4;
               width="1em"
               height="1em"
               viewBox="0 0 16 16"
-              fill="{{themeColor}}"
+              :fill="themeColor"
               xmlns="http://www.w3.org/2000/svg"  >
               <path
                 fill-rule="evenodd"

@@ -3,16 +3,12 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import mainPhoto from "../assets/images/hero_pic.webp";
 import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
 
-// const heroHeading = "Host your Manufacturing to Elevate and Automate Customers'Projects";
-// const heroHeading = "Take your Manufacturing online. Customers design, you deliver."
-// const heroHeading = "Move Manufacturing Online: Customers ask. We Automate. You deliver."
-
 // Instead of a single string, make it a list
 const heroHeading = [
-  "Move Manufacturing Online",
-  "Customers ask.",
-  "We Automate.",
-  "You deliver."
+    "Move Manufacturing Online",
+    "Customers ask.",
+    "We Automate.",
+    "You deliver."
 ];
 
 // User input state
@@ -22,7 +18,9 @@ const progress = ref(0);
 const placeholder = ref("Choose your hub name (e.g. Smith-Machining)");
 
 // Suggested auto-fill text
-const suggestedText = ["John-Smith-Machining", "Makers-Of-The-Worls-Inc", "Looney-Red-Hub"];
+const suggestedText = ["John-Smith-Machining",
+                       "Makers-Of-The-Worls-Inc",
+                       "Looney-Red-Hub"];
 
 // state for controlling typewriter
 let typingStopped = false;
@@ -97,11 +95,6 @@ function submitAddress() {
     
     isSubmitting.value = true;
     
-    // // Set cookie (expires in 30 days)
-    // const days = 30;
-    // const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    // document.cookie = `host_address=${encodeURIComponent(userAddress.value)}; expires=${expires}; path=/`;
-    
     setTimeout(() => {
     }, duration);
 }
@@ -120,24 +113,24 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
             <img :src="mainPhoto" alt="Technology Proxy  in action" class="img-fluid" />
           </div>
           
-          <div class="col-lg-5 ps-lg-5" id="header">
+          <div class="col-lg-5 ps-lg-5 intro" id="header">
             <h1 class="heading"
                 style="font-size: 2.9rem; line-height: 1.2; max-width: 100%;"
                 data-aos="fade-up"
                 data-aos-delay="100">
-              <span v-for="(line, idx) in heroHeading" :key="idx" class="block">
+              <span v-for="(line, idx) in heroHeading" :key="idx" :style="{ color: themeColor }" class="block">
                 {{ line }}
               </span>
             </h1>
-
+            
             <div class="excerpt"
                  data-aos="fade-up"
                  data-aos-delay="100">
-<p>
-  Publish your HUB at <strong :style="{ color: themeColorOrange }">YourCompany.com</strong>.  
-  Get customer requests, check if they fit, and send quotes automatically — without wasting time on sales calls or manual checks.
-</p>
-
+              <p>
+                Publish your HUB at <strong :style="{ color: themeColorOrange }">YourCompany.com</strong>.  
+                Get customer requests, check if they fit, and send quotes automatically — without wasting time on sales calls or manual checks.
+              </p>
+              
             </div>
             
             <form v-if="!isSubmitting" @submit.prevent="submitAddress" class="address-form" data-aos="fade-up" data-aos-delay="200">
@@ -164,7 +157,6 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
                 Setting up hub... {{ Math.floor(progress) }}%
               </button>
             </div>
-            
           </div>
         </div>
       </div>
@@ -174,9 +166,12 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
 </template>
 
 <style scoped>
+.intro {
+     margin-top: 4rem;
+}
 
 .heading .block {
-  display: block;
+    display: block;
 }
 
 .btn-hover:hover {
