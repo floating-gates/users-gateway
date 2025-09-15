@@ -86,6 +86,15 @@ async function platform_logout() {
                 </ul>
               </div>
             </template>
+
+            <template v-else-if="context === 'referral'">
+              <div class="button-group">
+                <ul class="site-menu button-menu">
+                  <!-- <li class="cta-button-outline"><a href="/dashboard">Dashboard</a></li> -->
+                  <li class="cta-primary"><a @click="platform_logout" :style="{ backgroundColor: themeColor }">Logout</a></li>
+                </ul>
+              </div>
+            </template>
           </div>
         </div>
       </div>

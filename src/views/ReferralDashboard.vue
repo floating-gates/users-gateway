@@ -36,7 +36,7 @@ const activeReferrals = computed(() =>
 </script>
 
 <template>
-  <Header :context="'login'" />
+  <Header :context="'referral'" />
 
   <div class="referral-container">
     
@@ -48,7 +48,6 @@ const activeReferrals = computed(() =>
 
     <!-- Error State -->
     <div v-else-if="error" class="error-card">
-      <div class="error-icon">⚠️</div>
       <h3 class="error-title">Error</h3>
       <p class="error-message">{{ error }}</p>
       <button class="retry-button" @click="$router.go(0)">
@@ -69,12 +68,6 @@ const activeReferrals = computed(() =>
           <div class="code-value">
             {{ referral_details.referral_code }}
           </div>
-          <button @click="copyReferralLink" class="copy-code-btn">
-            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-            </svg>
-            Copy
-          </button>
         </div>
       </div>
 
@@ -104,7 +97,8 @@ const activeReferrals = computed(() =>
         <div class="stat-card">
           <div class="stat-icon compensation">💎</div>
           <div class="stat-content">
-            <span class="stat-number">{{ referral_details.compensation || 0 }}%</span>
+            <span class="stat-number">
+              {{ referral_details.compensation || 0 }}%</span>
             <span class="stat-label">Your Reward</span>
           </div>
         </div>
@@ -234,11 +228,6 @@ const activeReferrals = computed(() =>
   border-left: 4px solid #ef4444;
 }
 
-.error-icon {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
 .error-title {
   color: #dc2626;
   font-size: 1.25rem;
@@ -325,25 +314,6 @@ const activeReferrals = computed(() =>
   color: #1e293b;
   flex: 1;
   letter-spacing: 0.1em;
-}
-
-.copy-code-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 0.875rem 1.25rem;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.copy-code-btn:hover {
-  background: #2563eb;
-  transform: translateY(-1px);
 }
 
 /* Stats Section */
