@@ -44,11 +44,12 @@ async function platform_logout() {
           <div class="menu-container" :class="{ 'mobile-open': isMenuOpen }">
             <!-- LANDING PAGE HEADER -->
             <template v-if="context === 'landing-page'">
-              <ul class="site-menu main-menu">
+              <ul class="site-menu main-menu"   :style="{ color: themeColor, fontWeight: '500', fontSize: '1.05rem' }">
                 <li><a href="/" class="nav-link">Home</a></li>
                 <li><a href="/pricing" class="nav-link">Pricing</a></li>
                 <li><a href="/mission" class="nav-link">Mission</a></li>
                 <li><a href="/faq" class="nav-link">FAQ</a></li>
+                <li><a href="/case-studies" class="nav-link">Resources</a></li>
               </ul>
 
               <div class="button-group">

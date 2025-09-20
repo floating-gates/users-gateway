@@ -329,6 +329,7 @@ onMounted(
 .welcome-message {
     font-size: 18px;
     margin-top: 10px;
+    text-align: left;
 }
 
 .sub-wrapper {

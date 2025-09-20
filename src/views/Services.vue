@@ -168,8 +168,6 @@ const selectedIndex = ref(0);
   transition: all 0.2s ease;
   font-weight: 500;
   border-bottom: 1px solid v-bind(themeColoLille);
-  position: relative;
-  background: white;
 }
 
 .service-item:hover {
@@ -220,9 +218,9 @@ const selectedIndex = ref(0);
 }
 
 .section-title::before {
-  content: '●';
-  margin-right: 0.5rem;
+  margin-right: 1rem;
   color: v-bind(themeColorOrange);
+  font-size: 1.5rem;
 }
 
 .service-benefits {
@@ -259,7 +257,6 @@ const selectedIndex = ref(0);
 
 .whatsapp-btn:hover {
   transform: translateY(-2px);
-  /* box-shadow: 0 4px 12px v-bind(themeColor); */
   text-decoration: none;
 }
 
