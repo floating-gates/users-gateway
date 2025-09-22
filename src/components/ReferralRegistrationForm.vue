@@ -128,6 +128,9 @@ async function handleSubmit() {
     <h3 class="heading" data-aos="fade-up">
       Register as a Partner
     </h3>
+    <p>
+A member of our team will reach out to discuss an exciting affiliation opportunity. As a partner, you’ll benefit from a 5-30% revenue share on the sales you help generate—creating a win-win collaboration for both of us.
+    </p>
     
     <form @submit.prevent="handleSubmit" data-aos="fade-up" data-aos-delay="100">
       <!-- General error -->

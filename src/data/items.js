@@ -30,6 +30,7 @@ const register_referral_api_endpoint = base_url + '/api/referral/register';
 const login_referral_api_endpoint    = base_url + '/api/referral/login';
 const logout_referral_api_endpoint   = base_url + '/api/referral/logout';
 const referral_details_api_endpoint  = base_url + '/api/referral/details';
+const update_referral_api_endpoint  = base_url + '/api/referral/update';
 
 const update_feature_endpoint    = base_url + '/api/user/update-feature';
 const get_logo_endpoint          = base_url + '/api/user/get_logo'
@@ -185,6 +186,6 @@ export {
     update_feature_endpoint, post_payment_information_endpoint,
     get_logo_endpoint, upload_logo_endpoint, referral_auth_api_endpoint,
     register_referral_api_endpoint, login_referral_api_endpoint,
-    logout_referral_api_endpoint,
+    logout_referral_api_endpoint, update_referral_api_endpoint,
     referral_details_api_endpoint
 };

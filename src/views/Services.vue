@@ -13,8 +13,10 @@ const services = [
     description:
       "As manufacturing becomes more complex, we design predictive software to model system behavior using proven numerical methods. Examples include structural integrity, fatigue, vibrations and heat exchange forecasts.",
     advantages: [
-      "Explore a wide variety of designs without costly experiments.",
-      "Make measurements in locations otherwise inaccessible, e.g., inside a combustion chamber."
+        "Explore a variety of designs without costly experiments.",
+        "Make measurements in locations otherwise inaccessible, e.g., inside a mixer, oil channels etc.",
+        "Physics-informed, data-driven design decisions.",
+
     ],
      outcome: [
       "Software able to explore/measure physics of a specific phenomenon you want from the device."]
@@ -22,9 +24,8 @@ const services = [
    {
     name: "Parametric Mechanical Design",
     description:
-      "We use CAD and automation to rapidly iterate on designs. Our parametric workflows help you reach optimal solutions driven by physical and measurable objectives.",
+       "We use CAD and automation to rapidly iterate on designs. Our parametric workflows help you reach optimal solutions driven by physical and measurable objectives.",
     advantages: [
-      "Physics-informed, data-driven design decisions.",
       "Quick design updates through parameter adjustments."
     ],
    outcome: [
@@ -36,11 +37,11 @@ const services = [
     description:
       "By integrating ML with physics-based simulations, we analyze a broader range of design options efficiently and at lower cost.",
     advantages: [
-      "Predict complex systems behavior with minimal data.",
+      "Predict complex systems behavior.",
       "Perform hundreds of virtual experiments with minimal computational cost."
     ],
       outcome: [
-      "Software able to explore physics from a starting point and insight modification."
+      "Insight and previosion of performances of complex systems."
     ]
   },
   {
