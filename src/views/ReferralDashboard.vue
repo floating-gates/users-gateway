@@ -31,22 +31,35 @@ const activeReferrals = computed(() =>
 );
 
 const savePaymentDetails = async () => {
-    // Basic IBAN validation
-    if (!iban.value || !/^([A-Z]{2}\d{2}[A-Z0-9]{1,30})$/.test(iban.value.replace(/\s+/g, ''))) {
-        ibanError.value = 'Invalid IBAN format';
-        return;
-    }
-    ibanError.value = '';
+  const cleanedIban = iban.value.replace(/\s+/g, '');
 
-    //Basic SWIFT/BIC validation (8 or 11 characters, letters/numbers)
-    if (swift.value && !/^[A-Z0-9]{8}([A-Z0-9]{3})?$/.test(swift.value)) {
-        swiftError.value = 'Invalid SWIFT/BIC format';
-        return;
-    }
-    swiftError.value = '';
+  // IBAN format (EU/UK, etc.)
+  const ibanRegex = /^([A-Z]{2}\d{2}[A-Z0-9]{1,30})$/;
+  // Pakistan-style account number (10–14 digits)
+  const accountRegex = /^[0-9]{10,14}$/;
 
-    update_referral_details(iban.value, swift.value)
-}
+  if (!ibanRegex.test(cleanedIban) && !accountRegex.test(cleanedIban)) {
+    ibanError.value = 'Enter a valid IBAN or local account number';
+    return;
+  }
+  ibanError.value = '';
+
+  // Basic SWIFT/BIC validation (8 or 11 chars, alphanumeric)
+  if (swift.value && !/^[A-Z0-9]{8}([A-Z0-9]{3})?$/.test(swift.value)) {
+    swiftError.value = 'Invalid SWIFT/BIC format';
+    return;
+  }
+  swiftError.value = '';
+
+  try {
+    const updated = await update_referral_details(iban.value, swift.value );
+
+    editingPayment.value = false;
+
+  } catch (err) {
+    ibanError.value = "Could not save details, please try again";
+  }
+};
 
 onMounted(async () => {
     try {
@@ -101,15 +114,16 @@ onMounted(async () => {
     
     <!-- Payment Details Section -->
 <div class="code-section">
-  <label class="code-label">Your IBAN</label>
+  <label class="code-label">Your IBAN (preferred) or Account code  and SWIFT code</label>
   
   <div class="code-container" v-if="!editingPayment">
     <div class="code-value">{{ iban || '-' }}</div>
+    <div class="code-value">{{ swift || '-' }}</div>
     <button class="share-btn primary" @click="editingPayment = true">Modify</button>
   </div>
 
   <div class="code-container" v-else>
-    <input type="text" v-model="iban" placeholder="Enter your IBAN" class="iban-input" />
+    <input type="text" v-model="iban" placeholder="Enter your IBAN or Code account" class="iban-input" />
     <p v-if="ibanError" class="error-message">{{ ibanError }}</p>
     
     <label class="code-label">Your SWIFT/BIC</label>
@@ -509,8 +523,7 @@ onMounted(async () => {
   color: white;
 }
 
-.share-btn.primary:hover {
-  background: #2563eb;
+.share-btn.primary.whatsapp:hover {
   transform: translateY(-1px);
 }
 
@@ -519,11 +532,6 @@ onMounted(async () => {
   color: white;
 }
 
-.share-btn.whatsapp:hover {
-  transform: translateY(-1px);
-}
-
-/* Users Section */
 .users-section {
   padding: 2rem;
 }
@@ -536,7 +544,6 @@ onMounted(async () => {
 }
 
 .user-count {
-  /* background: #e0e7ff; */
   color: #3730a3;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
@@ -556,7 +563,6 @@ onMounted(async () => {
 }
 
 .users-table th {
-  /* background: #f9fafb; */
   padding: 1rem;
   text-align: left;
   font-weight: 600;
@@ -572,10 +578,6 @@ onMounted(async () => {
 
 .users-table tbody tr:last-child td {
   border-bottom: none;
-}
-
-.users-table tbody tr:hover {
-  /* background: #f8fafc; */
 }
 
 .user-info {
