@@ -15,6 +15,8 @@ import CaseStudies       from '../views/CaseStudies.vue'
 import PrivacyPolicy     from '../views/PrivacyPolicy.vue'
 import ReferralLogin     from '../views/ReferralLogin.vue'
 import ReferralDashboard from '../views/ReferralDashboard.vue'
+import SetNewPasswd      from '../views/SetNewPasswd.vue'
+import SetNewReferralPasswd from '../views/SetNewReferralPasswd.vue'
 
 const routes = [
     { path: '/', component: LandingPage },
@@ -28,6 +30,8 @@ const routes = [
     { path: '/terms_and_services', component: TermsService },
     { path: '/privacy-policy', component: PrivacyPolicy },
     { path: '/guide', component: Guide },
+    { path: '/recover-email', component: SetNewPasswd },
+    { path: '/recover-referral-email', component: SetNewReferralPasswd },
     { path: '/faq',   component: FAQ },
     { path: '/pricing', component: Pricing },
     { path: '/case-studies', component: CaseStudies },

@@ -91,10 +91,12 @@ async function handleLogin() {
     </button>
   </form>
   
-  <div class="toggle-link mt-3">
-    Don't have an account?
-    <a href="#" @click.prevent="$emit('switch-to-register')">Register</a>
-  </div>
+<div class="toggle-link mt-3">
+  Don't have an account?
+  <a href="#" @click.prevent="$emit('switch-to-register')">Register</a>
+  \  Do you need to
+  <a href="#" @click.prevent="$emit('switch-to-recovery')">Recover Password</a>?
+</div>
 </template>
 
 <style scoped>
