@@ -5,7 +5,6 @@ import { user_login } from '../user_handler/login.js'
 import { register_user } from '../user_handler/registration.js'
 import { validate_logo } from '../user_handler/logo.js'
 
-const showOptional = ref(false)
 const submitted = ref(false)
 const previewUrl = ref(null)
 const provisional_hub_name = ref('')
@@ -151,7 +150,7 @@ onMounted( () => {
         <label>Hub Name (Optional)</label>
         <input v-model="form.provisional_hub_name" type="text" class="form-control" />
       </div>
-            
+      
       <!-- Logo Upload -->
       <div class="form-group">
         <label>Upload your Logo (Optional - .png ONLY)</label>
@@ -185,32 +184,24 @@ onMounted( () => {
         </div>
         <p v-if="errors.logo" class="error-text">{{ errors.logo }}</p>
       </div>
-
-
-      <!-- Toggle Optional -->
+      
+      
+      
       <div class="form-group">
-        <a href="#" @click.prevent="showOptional = !showOptional">
-          {{ showOptional ? 'Hide optional fields ▲' : 'Show optional fields ▼' }}
-        </a>
+        <label>Phone Number (Optional)</label>
+        <input v-model="form.phone_number" type="text" class="form-control" />
       </div>
       
-      <div v-if="showOptional">
-        <div class="form-group">
-          <label>Phone Number (Optional)</label>
-          <input v-model="form.phone_number" type="text" class="form-control" />
-        </div>
-        
-        <!-- Post Code -->
-        <div class="form-group">
-          <label>Post Code (Optional)</label>
-          <input v-model="form.postal_code" type="text" class="form-control" />
-        </div>
-        
-        <!-- Referral -->
-        <div class="form-group mb-3">
-          <label>Referral Code (Optional)</label>
-          <input v-model="form.referral_code" type="text" class="form-control" />
-        </div>
+      <!-- Post Code -->
+      <div class="form-group">
+        <label>Post Code (Optional)</label>
+        <input v-model="form.postal_code" type="text" class="form-control" />
+      </div>
+      
+      <!-- Referral -->
+      <div class="form-group mb-3">
+        <label>Referral Code (Optional)</label>
+        <input v-model="form.referral_code" type="text" class="form-control" />
       </div>
       
       <!-- Submit -->

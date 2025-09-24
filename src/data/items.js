@@ -24,13 +24,17 @@ const register_user_api_endpoint = base_url + '/api/user/register';
 const login_user_api_endpoint    = base_url + '/api/user/login';
 const logout_api_endpoint        = base_url + '/api/user/logout';
 const user_details_api_endpoint  = base_url + '/api/user/details';
+const user_recovery_api_endpoint = base_url + '/api/user/recovery';
+const set_new_usr_passwd_endpoint = base_url + '/api/user/set_new_password';
 
 const referral_auth_api_endpoint     = base_url + '/api/referral/me'
 const register_referral_api_endpoint = base_url + '/api/referral/register';
 const login_referral_api_endpoint    = base_url + '/api/referral/login';
 const logout_referral_api_endpoint   = base_url + '/api/referral/logout';
 const referral_details_api_endpoint  = base_url + '/api/referral/details';
-const update_referral_api_endpoint  = base_url + '/api/referral/update';
+const update_referral_api_endpoint   = base_url + '/api/referral/update';
+const referral_recovery_api_endpoint = base_url + '/api/referral/recovery'
+const set_new_referral_passwd_endpoint = base_url + '/api/referral/set_new_password'
 
 const update_feature_endpoint    = base_url + '/api/user/update-feature';
 const get_logo_endpoint          = base_url + '/api/user/get_logo'
@@ -42,6 +46,8 @@ const get_machine_endpoint    = base_url + '/api/user/get-machines'
 const update_materials_endpoint = base_url + '/api/user/update-materials'
 const get_materials_endpoint    = base_url + '/api/user/get-materials'
 
+const get_param_model_endpoint      = base_url + '/api/param-model/get_parametric_model'
+const get_model_parameters_endpoint = base_url + '/api/param-model/get_parametric_model_params' 
 // Subscription API Endpoints
 // const get_subscription_endpoint    = base_url + '/api/subscription';          // NOT USED
 const create_subscription_endpoint = base_url + '/api/subscription/create';
@@ -174,18 +180,20 @@ export {
     themeColorGold, base_url, demo_url, COOKIE_NAME, price_status_api_endpoint,
     auth_api_endpoint, register_user_api_endpoint, login_user_api_endpoint,
     logout_api_endpoint, user_details_api_endpoint, MAX_MB_PDF,
-    // get_subscription_endpoint,
+    // get_subscription_endpoint, 
     create_subscription_endpoint, delete_subscription_endpoint,
-    get_project_endpoint,
+    get_project_endpoint, user_recovery_api_endpoint,
+    set_new_usr_passwd_endpoint,
     create_project_endpoint, delete_project_endpoint,
     pricing_proj_api_endpoint, download_api_endpoint,
     price_status, price_list, display_price_list, contactInfo,
-    get_machine_endpoint,
-    update_machine_endpoint, get_materials_endpoint,
+    get_machine_endpoint, update_machine_endpoint, get_materials_endpoint,
     update_materials_endpoint, list_users_api_endpoint,
     update_feature_endpoint, post_payment_information_endpoint,
     get_logo_endpoint, upload_logo_endpoint, referral_auth_api_endpoint,
     register_referral_api_endpoint, login_referral_api_endpoint,
     logout_referral_api_endpoint, update_referral_api_endpoint,
-    referral_details_api_endpoint
+    referral_details_api_endpoint, set_new_referral_passwd_endpoint,
+    referral_recovery_api_endpoint,
+    get_param_model_endpoint, get_model_parameters_endpoint
 };
