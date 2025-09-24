@@ -109,6 +109,7 @@ onMounted(async () => {
         <div class="code-value">
           {{ referral_details.referral_code }}
         </div>
+        <a href="/value-proposition" class="share-btn primary">Check the Value Proposition</a>
       </div>
     </div>
     
