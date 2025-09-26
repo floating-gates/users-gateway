@@ -46,8 +46,16 @@ const get_machine_endpoint    = base_url + '/api/user/get-machines'
 const update_materials_endpoint = base_url + '/api/user/update-materials'
 const get_materials_endpoint    = base_url + '/api/user/get-materials'
 
-const get_param_model_endpoint      = base_url + '/api/param-model/get_parametric_model'
-const get_model_parameters_endpoint = base_url + '/api/param-model/get_parametric_model_params' 
+const update_parametric_model_endopoint      = base_url + '/api/param-model/update-parametric-model'
+const delete_parametric_model_endopoint      = base_url + '/api/param-model/delete-parametric-model'
+const get_complete_parametric_model_endpoint = base_url + '/api/param-model/get-parametric-model'
+const get_parametric_models_vec_endpoint     = base_url + '/api/param-model/get-parametric-models-vec'
+
+const update_parametric_params_endpoint  = base_url + '/api/param-model/update-parametric-params'
+const delete_parametric_params_endpoint  = base_url + '/api/param-model/delete-parametric-params'
+const get_parametric_params_vec_endpoint = base_url + '/api/param-model/get-parametric-params-vec'
+
+
 // Subscription API Endpoints
 // const get_subscription_endpoint    = base_url + '/api/subscription';          // NOT USED
 const create_subscription_endpoint = base_url + '/api/subscription/create';
@@ -180,7 +188,6 @@ export {
     themeColorGold, base_url, demo_url, COOKIE_NAME, price_status_api_endpoint,
     auth_api_endpoint, register_user_api_endpoint, login_user_api_endpoint,
     logout_api_endpoint, user_details_api_endpoint, MAX_MB_PDF,
-    // get_subscription_endpoint, 
     create_subscription_endpoint, delete_subscription_endpoint,
     get_project_endpoint, user_recovery_api_endpoint,
     set_new_usr_passwd_endpoint,
@@ -195,5 +202,8 @@ export {
     logout_referral_api_endpoint, update_referral_api_endpoint,
     referral_details_api_endpoint, set_new_referral_passwd_endpoint,
     referral_recovery_api_endpoint,
-    get_param_model_endpoint, get_model_parameters_endpoint
+    update_parametric_model_endopoint, get_complete_parametric_model_endpoint,
+    get_parametric_models_vec_endpoint,
+    get_parametric_params_vec_endpoint,  update_parametric_params_endpoint,
+    delete_parametric_model_endopoint, delete_parametric_params_endpoint
 };
