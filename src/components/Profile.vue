@@ -13,13 +13,15 @@ import Machines from "./Machines.vue";
 import ReportIssue from "./ReportIssue.vue";
 import SubscriptionStatus from "./SubscriptionStatus.vue";
 import Materials from "./Materials.vue";
-import BrandDetails from "./BrandDetails.vue"
+import BrandDetails from "./BrandDetails.vue";
+import ParametricModel from "./ParametricModel.vue";
 
 const activeTab = ref('Summary');
 const tabs = ['Summary',
               'Machines',
               'Materials',
               'Features',
+              'Devices',
               'Subscription',
               'Details',
               'Issues'];
@@ -108,20 +110,20 @@ onMounted(async () => {
             @go_to_machines="changeMenuTab('Machines', 1)"/>
         </div>
         
-        <div v-if="activeTab === 'Machines'">
+        <div v-else-if="activeTab === 'Machines'">
           <Machines
             :machines="machines"
             @update_machine="(mac) => machines = mac"/>
         </div>
         
-        <div v-if="activeTab === 'Materials'">
+        <div v-else-if="activeTab === 'Materials'">
           <Materials
             :machines="machines"
             :materials="materials"
             @update_materials="(mats) => materials = mats"/>
         </div>
         
-        <div v-if="activeTab === 'Subscription'">
+        <div v-else-if="activeTab === 'Subscription'">
           <SubscriptionStatus
             :user="userDetails" />
         </div>
@@ -133,6 +135,10 @@ onMounted(async () => {
             />
         </div>
 
+        <div v-else-if="activeTab === 'Devices'">
+          <ParametricModel />
+        </div>
+        
         <div v-else-if="activeTab === 'Details'">
           <BrandDetails
             :user="userDetails" />
@@ -144,13 +150,11 @@ onMounted(async () => {
         
       </div>
     </div>
-  <!-- </div> -->
 </div>
 </template>
 
 
 <style scoped>
-
 .tab-menu-container {
   margin-top: 2rem; /* push below header */
   overflow-x: auto; /* allow horizontal scroll if too many tabs */
