@@ -109,8 +109,8 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
       <div class="col-12">
         <div class="dots"></div>
         <div class="row align-items-center">
-          <div class="col-lg-6 ml-auto order-lg-2" data-aos="fade-right" data-aos-delay="400">
-            <img :src="mainPhoto" alt="Technology Proxy  in action" class="img-fluid" />
+          <div class="col-lg-7 ml-auto order-lg-2 image-col">
+            <img :src="mainPhoto" alt="Technology Proxy in action" class="img-fluid hero-image" />
           </div>
           
           <div class="col-lg-5 ps-lg-5 intro" id="header">
@@ -130,7 +130,6 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
                 Publish your HUB at <strong :style="{ color: themeColorOrange }">YourCompany.com</strong>.  
                 Get customer requests, check if they fit, and send quotes automatically — without wasting time on sales calls or manual checks.
               </p>
-              
             </div>
             
             <form v-if="!isSubmitting" @submit.prevent="submitAddress" class="address-form" data-aos="fade-up" data-aos-delay="200">
@@ -167,7 +166,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
 
 <style scoped>
 .intro {
-     margin-top: 4rem;
+    margin-top: 4rem;
 }
 
 .heading .block {
@@ -247,8 +246,8 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
 
 
 .address-submit svg {
-  width: 24px;
-  height: 24px;
+    width: 24px;
+    height: 24px;
   stroke: white;
 }
 </style>

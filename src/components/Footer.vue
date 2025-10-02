@@ -1,6 +1,7 @@
 w<script setup>
 import { contactInfo, themeColorOrange } from "../data/items";
 import iconGithub from "../assets/images/github-logo.svg";
+import iconSubstack from "../assets/images/substack-logo.png";
 
 
 const copyrightText = "Copyright 2025, All rights reserved.";
@@ -14,6 +15,11 @@ const socialItems = [
         link: "https://github.com/floating-gates/",
         icon: iconGithub,
     },
+    {
+        link: "https://floatinggates.substack.com/profile/posts",
+        icon: iconSubstack,
+    },
+
 ];
 </script>
 
@@ -38,6 +44,12 @@ const socialItems = [
                     <a :href="socialItems[0].link">
                       <img :src="socialItems[0].icon"
                            alt="Go to Github" class="img-fluid" />
+                    </a>
+                  </li>
+                  <li>
+                    <a :href="socialItems[1].link">
+                      <img :src="socialItems[1].icon"
+                           alt="Go to Substack" class="img-fluid" />
                     </a>
                   </li>
                 </ul>
@@ -139,5 +151,18 @@ const socialItems = [
   width: auto;       /* keep aspect ratio */
   color: var(--themeColorOrange); /* use your theme variable */
   flex-shrink: 0;    /* prevent squishing */
+}
+
+.social {
+  display: flex;
+  gap: 1rem; /* adjust space as needed */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.social li img {
+  height: 32px; /* keep consistent size */
+  width: auto;
 }
 </style>

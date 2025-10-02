@@ -50,9 +50,10 @@ import mailLogo from "../assets/images/mail-logo.svg";
     background-color: v-bind(themeColorWhite);
     border-radius: 25px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-    padding: 3rem 2rem;
-    margin: 3rem auto; 
-    max-width: 700px;
+    padding: 2rem;
+    margin: 3rem;
+    max-width: 1200px;
+    text-align: center;
 }
 
 .report-issue-title {
