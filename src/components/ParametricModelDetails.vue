@@ -9,113 +9,80 @@ const props = defineProps({
     model_body: String
 })
 
-// local editable copy of model_body
 const editableModelBody = ref(props.model_body)
-
-// keep editableModelBody in sync if parent updates the prop
-watch(() => props.model_body, (newVal) => {
-    editableModelBody.value = newVal
-})
+watch(() => props.model_body, (newVal) => editableModelBody.value = newVal)
 
 const expanded = ref(false)
 const loading = ref(false)
-const error_message = ref('')
+const error = ref('')
 const model_details = ref(null)
 const params = ref([])
-const params_loading = ref(false)
-const params_error = ref('')
 const newParam = ref({ name: '', value: 0 })
 
-// Toggle details view
 async function toggleDetails() {
     expanded.value = !expanded.value
-
     if (expanded.value && !model_details.value) {
-        loading.value = true
-        error_message.value = ''
-
-        try {
-            const response = await get_complete_model(props.model_name)
-            if (response.ok) {
-                model_details.value = await response.json()
-            } else {
-                const err = await response.json()
-                error_message.value = err?.message || 'Failed to load model details.'
-            }
-        } catch (err) {
-            error_message.value = err?.message || 'Failed to load model details.'
-        } finally {
-            loading.value = false
-        }
-
-        await loadParameters()
+        await loadModelData()
     }
 }
 
-// Load model parameters
-async function loadParameters() {
-    params_loading.value = true
-    params_error.value = ''
+async function loadModelData() {
+    loading.value = true
+    error.value = ''
     try {
-        const res = await get_model_parameters(props.model_name)
-        if (res.ok) {
-            params.value = await res.json()
-        } else {
-            const err = await res.json()
-            params_error.value = err?.message || 'Failed to load parameters.'
+        const [modelRes, paramsRes] = await Promise.all([
+            get_complete_model(props.model_name),
+            get_model_parameters(props.model_name)
+        ])
+        
+        if (modelRes.ok) model_details.value = await modelRes.json()
+        if (paramsRes.ok) params.value = await paramsRes.json()
+        
+        if (!modelRes.ok || !paramsRes.ok) {
+            error.value = 'Failed to load data'
         }
     } catch (err) {
-        params_error.value = err?.message || 'Failed to load parameters.'
+        error.value = err.message
     } finally {
-        params_loading.value = false
+        loading.value = false
     }
 }
 
-// Update both model body + parameters
 async function updateModel() {
+    loading.value = true
+    error.value = ''
     try {
-        const payload = {
+        const res = await update_params({
             model_name: props.model_name,
-            model_body: editableModelBody.value, // updated body
-            vec: params.value                   // updated params
-        }
-        const res = await update_params(payload)
-        if (!res.ok) {
-            const err = await res.json()
-            error_message.value = err?.message || 'Failed to update model.'
-        } else {
-            // refresh everything so UI matches backend
-            await Promise.all([loadParameters(), toggleDetails(), toggleDetails(          )])
-        }
+            model_body: editableModelBody.value,
+            vec: params.value
+        })
+        if (!res.ok) error.value = 'Failed to update'
     } catch (err) {
-        error_message.value = err?.message || 'Failed to update model.'
+        error.value = err.message
+    } finally {
+        loading.value = false
     }
 }
 
-// Add new parameter (only local, persisted on update)
-function addParameter() {
-    if (!newParam.value.name.trim()) {
-        params_error.value = "Parameter name cannot be empty"
-        return
-    }
-    params.value.push({ name: newParam.value.name.trim(), value: newParam.value.value })
-    newParam.value.name = ''
-    newParam.value.value = 0
-    params_error.value = ''
+async function addParameter() {
+    if (!newParam.value.name.trim()) return
+    
+    params.value.push({ ...newParam.value, name: newParam.value.name.trim() })
+    await updateModel()
+    newParam.value = { name: '', value: 0 }
 }
 
-// Delete a parameter (persisted immediately)
 async function removeParameter(paramName) {
+    loading.value = true
     try {
         const res = await delete_parameter(props.model_name, paramName)
-        if (res.ok) {
-            params.value = params.value.filter(p => p.name !== paramName)
-        } else {
-            const err = await res.json()
-            params_error.value = err?.message || `Failed to delete parameter ${paramName}.`
-        }
+        if (res.ok) params.value = params.value.filter(p => p.name !== paramName)
+        else error.value = 'Failed to delete'
     } catch (err) {
-        params_error.value = err?.message || `Failed to delete parameter ${paramName}.`
+        error.value = err.message
+    } finally {
+        loading.value = false
     }
 }
 </script>
@@ -123,7 +90,7 @@ async function removeParameter(paramName) {
 <template>
 <div class="complete-model">
     <div class="model-header" @click="toggleDetails">
-        <strong>{{ props.model_name }}</strong>
+        <h3>{{ props.model_name }}</h3>
         <span>{{ expanded ? "▲" : "▼" }}</span>
     </div>
 
@@ -134,15 +101,15 @@ async function removeParameter(paramName) {
             <pre>{{ model_details?.model_header }}</pre>
 
             <!-- Editable body -->
-            <textarea rows="10" cols="50" v-model="editableModelBody"></textarea>
+            <textarea class="code-editor" rows="20" cols="80" v-model="editableModelBody"></textarea>
 
             <h3>Parameters</h3>
             <div v-if="params_loading">Loading parameters...</div>
             <div v-else-if="params_error" class="error-box">{{ params_error }}</div>
             <div v-else>
-                <div v-for="(param, index) in params" :key="index" class="param-item">
+                <div v-for="param in params" :key="param.name" class="param-item">
                     <label>{{ param.name }}:</label>
-                    <input type="number" v-model="params[index].value" />
+                    <input type="number" v-model="param.value" />
                     <button class="delete-btn" @click="removeParameter(param.name)">Delete</button>
                 </div>
 
@@ -150,11 +117,13 @@ async function removeParameter(paramName) {
                 <div class="param-add">
                     <input type="text" v-model="newParam.name" placeholder="Parameter name" />
                     <input type="number" v-model="newParam.value" placeholder="Value" />
-                    <button @click="addParameter">Add Parameter</button>
+                    <button class="primary-btn" @click="addParameter" :disabled="params_loading">Add Parameter</button>
                 </div>
             </div>
 
-            <button @click="updateModel">Update Model</button>
+            <button class="primary-btn" @click="updateModel" :disabled="loading || params_loading">
+                Update Model
+            </button>
         </div>
     </div>
 </div>
@@ -162,64 +131,130 @@ async function removeParameter(paramName) {
 
 <style scoped>
 .complete-model {
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding: 10px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.complete-model:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+
+/* Header */
 .model-header {
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: v-bind(themeColor);
+  cursor: pointer;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #f2f2f2;
+  padding-bottom: 0.5rem;
 }
 
+.model-header h3 {
+  margin: 0;
+}
+
+/* Model content */
 .model-details {
-    margin-top: 10px;
+  margin-top: 1rem;
 }
 
+.code-editor {
+  width: 100%;
+  min-height: 200px;
+  resize: vertical;
+  padding: 10px;
+  margin-bottom: 1rem;
+  font-family: monospace;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+/* Error box */
 .error-box {
-    color: red;
-    margin-top: 5px;
+  background: #ffecec;
+  border: 1px solid #f5a5a5;
+  color: #d9534f;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
 }
 
+/* Parameter list */
 .param-item {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 5px;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid #f5f5f5;
 }
 
-.param-item button {
-    padding: 2px 6px;
-    font-size: 0.9rem;
-    color: white;
-    background: red;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.param-item button:hover {
-    background: darkred;
+.param-item label {
+  font-weight: 600;
+  min-width: 100px;
 }
 
 .param-add {
-    display: flex;
-    gap: 5px;
-    margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1rem;
 }
 
 .param-add input {
-    padding: 3px;
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Buttons */
+.primary-btn {
+  background-color: v-bind(themeColor);
+  color: v-bind(themeColorWhite);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.primary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .delete-btn {
   background-color: v-bind(themeColorOrange);
-  color: v-bind(themeColor);
+  color: v-bind(themeColorWhite);
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 0.4rem 1rem;
+  border-radius: 16px;
   font-weight: 600;
+  cursor: pointer;
+  min-width: 90px;
+  text-align: center;
+  transition: opacity 0.2s ease;
 }
+
+.delete-btn:hover {
+  opacity: 0.85;
+}
+
 </style>

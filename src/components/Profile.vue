@@ -20,8 +20,8 @@ const activeTab = ref('Summary');
 const tabs = ['Summary',
               'Machines',
               'Materials',
-              'Features',
               'Devices',
+              'Features',
               'Subscription',
               'Details',
               'Issues'];
@@ -132,6 +132,7 @@ onMounted(async () => {
           <FeatureList
             :independent_payment="userDetails.payment_independent"
             :automatic_quotation="userDetails.automatic_quotation"
+            :parametric_design="userDetails.parametric_design"
             />
         </div>
 

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, defineProps } from "vue";
 import { logout } from "../user_handler/logout.js"
-import { themeColor, base_url, demo_url } from "../data/items.js";
+import { themeColor, demo_url } from "../data/items.js";
 
 defineProps({
   context: {

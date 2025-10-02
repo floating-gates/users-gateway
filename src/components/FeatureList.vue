@@ -5,36 +5,53 @@ import { updateFeature } from '../user_handler/feature.js'
 
 // Props from parent
 const props = defineProps({
-  independent_payment: Boolean,
-  automatic_quotation: Boolean,
+    independent_payment: Boolean,
+    automatic_quotation: Boolean,
+    parametric_design: Boolean
 })
 
 const indep_pay = ref(null)
 const auto_quote = ref(null)
+const param_design = ref(null)
 
-// Toggle automatic quotation
-async function toggleAutomaticQuotation() {
-  auto_quote.value = !auto_quote.value
-  await updateFeature(!!indep_pay.value, !!auto_quote.value)
-}
-
-// Toggle independent payment
-async function togglePaymentIndependent() {
-  indep_pay.value = !indep_pay.value
-  await updateFeature(!!indep_pay.value, !!auto_quote.value)
-}
-
-// Computed object for automatic quotes
+// Computed wrappers
 const automatic_quote = computed(() => ({
-  name: 'Automatic Quotes',
   enabled: auto_quote.value
 }))
 
+const parametric_design_state = computed(() => ({
+  enabled: param_design.value
+}))  
+
+// Toggle features
+async function update() {
+    await updateFeature(
+        !!indep_pay.value,
+        !!auto_quote.value,
+        !!param_design.value
+    )
+}
+
+async function toggleAutomaticQuotation() {
+    auto_quote.value = !auto_quote.value
+    update()
+}
+
+async function toggleParametricDesign() {
+    param_design.value = !param_design.value
+    update()
+}
+
+async function togglePaymentIndependent() {
+    indep_pay.value = !indep_pay.value
+    update()
+}
 
 // Initialize state from props
 onMounted(() => {
-  indep_pay.value = props.independent_payment
-  auto_quote.value = props.automatic_quotation
+    indep_pay.value = props.independent_payment
+    auto_quote.value = props.automatic_quotation
+    param_design.value = props.parametric_design
 })
 </script>
 
@@ -44,7 +61,7 @@ onMounted(() => {
 
     <div class="features-list">
       <div class="feature-item">
-        <span class="feature-label">{{ automatic_quote.name }}</span>
+        <span class="feature-label"> Automatic Quotes </span>
         <button
           class="feature-toggle"
           :style="automatic_quote.enabled
@@ -52,6 +69,18 @@ onMounted(() => {
             : { background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }"
           @click="toggleAutomaticQuotation" >
           {{ automatic_quote.enabled ? 'ON' : 'OFF' }}
+        </button>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-label"> Parametric Design </span>
+        <button
+          class="feature-toggle"
+          :style="parametric_design_state.enabled
+            ? { background: themeColor, borderColor: themeColor, color: themeColorWhite }
+            : { background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }"
+          @click="toggleParametricDesign" >
+          {{ parametric_design_state.enabled ? 'ON' : 'OFF' }}
         </button>
       </div>
     </div>

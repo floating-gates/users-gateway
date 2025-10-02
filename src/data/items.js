@@ -6,7 +6,7 @@ const themeColorLille  = '#D8D3D8';
 const themeColorGold   = '#D8B4A0';
 
 // URLs and Tokens
-const base_url                   = import.meta.env.VITE_API_URL;
+const api_url                   = import.meta.env.VITE_API_URL;
 const demo_url                   = import.meta.env.VITE_DEMO_URL;
 
 const gocardless_token           = import.meta.env.VITE_GOCARDLESS_TOKEN
@@ -19,62 +19,62 @@ const gocardless_link_basic_plan_80 = import.meta.env.VITE_GOCARDLESS_LINK_BASIC
 const COOKIE_NAME = "fg_cookie_token";
 
 // User API Endpoints
-const auth_api_endpoint          = base_url + '/api/user/me';
-const register_user_api_endpoint = base_url + '/api/user/register';
-const login_user_api_endpoint    = base_url + '/api/user/login';
-const logout_api_endpoint        = base_url + '/api/user/logout';
-const user_details_api_endpoint  = base_url + '/api/user/details';
-const user_recovery_api_endpoint = base_url + '/api/user/recovery';
-const set_new_usr_passwd_endpoint = base_url + '/api/user/set_new_password';
+const auth_api_endpoint          = api_url + '/user/me';
+const register_user_api_endpoint = api_url + '/user/register';
+const login_user_api_endpoint    = api_url + '/user/login';
+const logout_api_endpoint        = api_url + '/user/logout';
+const user_details_api_endpoint  = api_url + '/user/details';
+const user_recovery_api_endpoint = api_url + '/user/recovery';
+const set_new_usr_passwd_endpoint = api_url + '/user/set_new_password';
 
-const referral_auth_api_endpoint     = base_url + '/api/referral/me'
-const register_referral_api_endpoint = base_url + '/api/referral/register';
-const login_referral_api_endpoint    = base_url + '/api/referral/login';
-const logout_referral_api_endpoint   = base_url + '/api/referral/logout';
-const referral_details_api_endpoint  = base_url + '/api/referral/details';
-const update_referral_api_endpoint   = base_url + '/api/referral/update';
-const referral_recovery_api_endpoint = base_url + '/api/referral/recovery'
-const set_new_referral_passwd_endpoint = base_url + '/api/referral/set_new_password'
+const referral_auth_api_endpoint     = api_url + '/referral/me'
+const register_referral_api_endpoint = api_url + '/referral/register';
+const login_referral_api_endpoint    = api_url + '/referral/login';
+const logout_referral_api_endpoint   = api_url + '/referral/logout';
+const referral_details_api_endpoint  = api_url + '/referral/details';
+const update_referral_api_endpoint   = api_url + '/referral/update';
+const referral_recovery_api_endpoint = api_url + '/referral/recovery'
+const set_new_referral_passwd_endpoint = api_url + '/referral/set_new_password'
 
-const update_feature_endpoint    = base_url + '/api/user/update-feature';
-const get_logo_endpoint          = base_url + '/api/user/get_logo'
-const upload_logo_endpoint       = base_url + '/api/user/upload_logo'
+const update_feature_endpoint    = api_url + '/user/update-feature';
+const get_logo_endpoint          = api_url + '/user/get_logo'
+const upload_logo_endpoint       = api_url + '/user/upload_logo'
 
-const update_machine_endpoint = base_url + '/api/user/update-machine'
-const get_machine_endpoint    = base_url + '/api/user/get-machines'
+const update_machine_endpoint = api_url + '/user/update-machine'
+const get_machine_endpoint    = api_url + '/user/get-machines'
 
-const update_materials_endpoint = base_url + '/api/user/update-materials'
-const get_materials_endpoint    = base_url + '/api/user/get-materials'
+const update_materials_endpoint = api_url + '/user/update-materials'
+const get_materials_endpoint    = api_url + '/user/get-materials'
 
-const update_parametric_model_endopoint      = base_url + '/api/param-model/update-parametric-model'
-const delete_parametric_model_endopoint      = base_url + '/api/param-model/delete-parametric-model'
-const get_complete_parametric_model_endpoint = base_url + '/api/param-model/get-parametric-model'
-const get_parametric_models_vec_endpoint     = base_url + '/api/param-model/get-parametric-models-vec'
+const update_parametric_model_endopoint      = api_url + '/param-model/update-parametric-model'
+const delete_parametric_model_endopoint      = api_url + '/param-model/delete-parametric-model'
+const get_complete_parametric_model_endpoint = api_url + '/param-model/get-parametric-model'
+const get_parametric_models_vec_endpoint     = api_url + '/param-model/get-parametric-models-vec'
 
-const update_parametric_params_endpoint  = base_url + '/api/param-model/update-parametric-params'
-const delete_parametric_params_endpoint  = base_url + '/api/param-model/delete-parametric-params'
-const get_parametric_params_vec_endpoint = base_url + '/api/param-model/get-parametric-params-vec'
+const update_parametric_params_endpoint  = api_url + '/param-model/update-parametric-params'
+const delete_parametric_params_endpoint  = api_url + '/param-model/delete-parametric-params'
+const get_parametric_params_vec_endpoint = api_url + '/param-model/get-parametric-params-vec'
 
 
 // Subscription API Endpoints
-// const get_subscription_endpoint    = base_url + '/api/subscription';          // NOT USED
-const create_subscription_endpoint = base_url + '/api/subscription/create';
-const delete_subscription_endpoint = base_url + '/api/subscription/delete';
+// const get_subscription_endpoint    = api_url + '/subscription';          // NOT USED
+const create_subscription_endpoint = api_url + '/subscription/create';
+const delete_subscription_endpoint = api_url + '/subscription/delete';
 
 // Project API Endpoints
-const get_project_endpoint      = base_url + '/api/project';
-const create_project_endpoint   = base_url + '/api/project/create';
-const delete_project_endpoint   = base_url + '/api/project/delete';
-const pricing_proj_api_endpoint = base_url + '/api/project/set_price';
-const price_status_api_endpoint = base_url + '/api/project/set_price_status';
-const download_api_endpoint     = base_url + '/api/project/download';
+const get_project_endpoint      = api_url + '/project';
+const create_project_endpoint   = api_url + '/project/create';
+const delete_project_endpoint   = api_url + '/project/delete';
+const pricing_proj_api_endpoint = api_url + '/project/set_price';
+const price_status_api_endpoint = api_url + '/project/set_price_status';
+const download_api_endpoint     = api_url + '/project/download';
 
 // Admin API Endpoints
-const list_users_api_endpoint     = base_url + '/api/admin/list_platform_user';
-const get_admin_name_api_endpoint = base_url + '/api/admin/get_admin_name';
+const list_users_api_endpoint     = api_url + '/admin/list_platform_user';
+const get_admin_name_api_endpoint = api_url + '/admin/get_admin_name';
 
 
-const post_payment_information_endpoint = base_url + '/api/payment/info';
+const post_payment_information_endpoint = api_url + '/payment/info';
 
 const price_status = {  // DB interface
     1: 'pending',
@@ -185,7 +185,7 @@ const MAX_MB_PDF = 5;
 // Exporting all
 export {
     themeColor, themeColorOrange, themeColorWhite, themeColorLille,
-    themeColorGold, base_url, demo_url, COOKIE_NAME, price_status_api_endpoint,
+    themeColorGold, demo_url, COOKIE_NAME, price_status_api_endpoint,
     auth_api_endpoint, register_user_api_endpoint, login_user_api_endpoint,
     logout_api_endpoint, user_details_api_endpoint, MAX_MB_PDF,
     create_subscription_endpoint, delete_subscription_endpoint,
