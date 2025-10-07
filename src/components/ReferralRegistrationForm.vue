@@ -16,6 +16,7 @@ const form = reactive({
     email: '',
     password: '',
     country: '',
+    provisional_hub_name: ''
 })
 
 const errors = reactive({
@@ -27,6 +28,7 @@ const errors = reactive({
     email: '',
     password: '',
     country: '',
+    provisional_hub_name: '',
     general: ''
 })
 
@@ -50,6 +52,11 @@ async function handleSubmit() {
     
     if (!form.full_name) {
         errors.full_name = 'Full name is required.'
+        hasError = true
+    }
+
+    if (!form.provisional_hub_name) {
+        errors.provisional_hub_name = 'Hub Name is required to publish the platform as an Enterprise user.'
         hasError = true
     }
     
@@ -155,6 +162,11 @@ A member of our team will reach out to discuss an exciting affiliation opportuni
         <label>Password</label>
         <input v-model="form.password" type="password" class="form-control" />
         <p v-if="errors.password" class="error-text">{{ errors.password }}</p>
+      </div>
+
+      <div class="form-group">
+        <label>Hub Name</label>
+        <input v-model="form.provisional_hub_name" type="text" class="form-control" />
       </div>
       
       <!-- Is Private -->
