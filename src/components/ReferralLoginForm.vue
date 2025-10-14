@@ -1,8 +1,9 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { themeColor, auth_api_endpoint} from '../data/items'
 import { referral_login } from '../referral_handler/login.js'
 import { useRouter } from 'vue-router'
+import { COOKIE_NAME } from "../data/items.js";
 
 // Form state
 const login_form = ref({ email: '', password: '' })
@@ -35,21 +36,32 @@ async function handleLogin() {
         if (response.status === 202) {
             router.push('/referral-dashboard');
         } else {
-            
-            error.value = `Registration failed. Return status: ${response.status}`;
-            
-            const errorData = await response.json(); // <-- parse backend JSON
-            if (errorData.message) {
-                error.value = errorData.message;
-            }
-            
-        }
-    } catch (e) {
-        error.value = e.message || 'Network error. Please check your connection.';
-    } finally {
-        isLoading.value = false;
-    }   
+    const data = await response.json().catch(() => ({})); // safely parse JSON
+
+    if (response.status === 401) { error.value = 'Invalid email or password. Please try again.'; }
+    else if (response.status === 400) { error.value = 'No user found.';  }
+    else if (response.status === 403 && data.error_code === 'EMAIL_NOT_VERIFIED') {
+      error.value = 'Your email is not verified. Please check your inbox for the verification link.';
+    } else if (response.status === 403) {
+      error.value = 'Account access forbidden. Please contact support.';
+    } else if (response.status >= 500) {
+      error.value = 'Server error. Please try again later.';
+    } else {
+      error.value = data.message || 'Unknown error. Please try again.';
+    }
+  }
+}  catch (e) {
+    console.error('Login error:', e);
+    error.value = e.message || 'Network error. Please check your connection.';
+  } finally {
+    isLoading.value = false;
+  }
 }
+
+
+onMounted(async () => {
+    localStorage.removeItem(COOKIE_NAME);
+});
 </script>
 
 <template>

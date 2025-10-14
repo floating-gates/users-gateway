@@ -5,6 +5,7 @@ import { update_referral_details } from '../referral_handler/update.js'
 import { verify_referral_credentials } from '../referral_handler/login.js';
 import { themeColor, themeColorOrange, themeColorLille,
          themeColorWhite } from "../data/items.js";
+import { logout } from "../user_handler/logout.js"
 
 import Header from "../components/Header.vue";
 
@@ -62,16 +63,39 @@ const savePaymentDetails = async () => {
 };
 
 onMounted(async () => {
-    try {
-        isAuthenticated.value = await verify_referral_credentials();
-        referral_details.value = await get_referral_details();
-        iban.value = referral_details.value?.iban || '';
-        swift.value = referral_details.value?.swift || '';
-    } catch (e) {
-        error.value = e.message;
-    } finally {
-        isLoading.value = false;
+  try {
+    isAuthenticated.value = await verify_referral_credentials();
+
+    if (!isAuthenticated.value.is_authenticated) {
+      window.location.replace("/referral-login");
+      return;
     }
+
+    referral_details.value = await get_referral_details();
+    iban.value = referral_details.value?.iban || '';
+    swift.value = referral_details.value?.swift || '';
+  } catch (e) {
+    error.value = e.message;
+  } finally {
+    isLoading.value = false;
+  }
+
+  // Add logout on page exit
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (_) {}
+  };
+
+  // Fires on tab close, refresh, or navigation away
+  window.addEventListener("pagehide", handleLogout);
+  window.addEventListener("beforeunload", handleLogout);
+
+  // Clean up the listener when component unmounts
+  onUnmounted(() => {
+    window.removeEventListener("pagehide", handleLogout);
+    window.removeEventListener("beforeunload", handleLogout);
+  });
 });
 </script>
 
@@ -86,16 +110,7 @@ onMounted(async () => {
     <div class="loading-spinner"></div>
     <p class="loading-text">Loading referral details...</p>
   </div>
-  
-  <!-- Error State -->
-  <div v-else-if="error" class="error-card">
-    <h3 class="error-title">Error</h3>
-    <p class="error-message">{{ error }}</p>
-    <button class="retry-button" @click="$router.go(0)">
-      Try Again
-    </button>
-  </div>
-  
+    
   <!-- Success State -->
   <div v-else-if="referral_details" class="referral-card">
     <div class="card-header">
@@ -109,7 +124,7 @@ onMounted(async () => {
         <div class="code-value">
           {{ referral_details.referral_code }}
         </div>
-        <a href="/value-proposition" class="share-btn primary">Check the Value Proposition</a>
+        <!-- <a href="/value-proposition" class="share-btn primary">Check the Value Proposition</a> -->
       </div>
     </div>
     

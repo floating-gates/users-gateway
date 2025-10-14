@@ -29,23 +29,28 @@ async function handleLogin() {
   
   isLoading.value = true
   
-  try {
-    const response = await user_login(login_form.value.email, login_form.value.password);
-    
-    if (response.status === 202) {
-      router.push('/dashboard');
+try {
+  const response = await user_login(login_form.value.email, login_form.value.password);
+
+  if (response.status === 202) {
+    router.push('/dashboard');
+  } else {
+    const data = await response.json().catch(() => ({})); // safely parse JSON
+
+    if (response.status === 401) { error.value = 'Invalid email or password. Please try again.'; }
+    else if (response.status === 400) { error.value = 'No user found.';  }
+    else if (response.status === 403 && data.error_code === 'EMAIL_NOT_VERIFIED') {
+      error.value = 'Your email is not verified. Please check your inbox for the verification link.';
+    } else if (response.status === 403) {
+      error.value = 'Account access forbidden. Please contact support.';
+    } else if (response.status >= 500) {
+      error.value = 'Server error. Please try again later.';
     } else {
-      // Handle different error statuses
-      if (response.status === 401) {
-        error.value = 'Invalid email or password. Please try again.';
-      } else if (response.status === 403) {
-        error.value = 'Account access forbidden. Please contact support.';
-      } else if (response.status >= 500) {
-        error.value = 'Server error. Please try again later.';
-      } 
+      error.value = data.message || 'Unknown error. Please try again.';
     }
-  } catch (e) {
-    console.error('Login error:', e); // Debug log
+  }
+}  catch (e) {
+    console.error('Login error:', e);
     error.value = e.message || 'Network error. Please check your connection.';
   } finally {
     isLoading.value = false;

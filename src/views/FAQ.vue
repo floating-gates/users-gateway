@@ -6,19 +6,19 @@ import Header from "../components/Header.vue";
 const faqs = [
 {
   question: "What does Gates actually do?",
-  answer: "It provides to manufacturers a 3D online platform accessible through a web address of your choice. The platform enables manufacturers' end-users to issue orders and at the sime time the the advantage of running automated feasibility checks, receive instant quotes, and apply design optimizations. In the meantime, manufacturers gain tools gain new customers thanks to renwed visibility and track existing clients, uncertain prospects and streamline interactions with their customer base."
+    answer: "It provides to Your Customers a 3D online platform to funnel orders while it provides to the manufacturer (You) a web app to monitor what's happing in the client side. The platform enables end-users to issue orders and to take the advantage of feasibility checks, instant quotes, and design optimizations. In the meantime, manufacturers can gain new customers and track existing clients thanks to renwed visibility, avoiding uncertain prospects and streamline interactions with their customer base."
 },
 {
-  question: "What is Floating Gates Srl?",
-  answer: "Floating Gates is more than a software development studio. It is a technology infrastructure partner for manufacturers. We help businesses connect with both new and existing customers by providing advanced digital tools that establish a strong online presence, streamline operations, and enable growth. Our solutions empower manufacturers to expand their reach, optimize workflows, and leverage data-driven insights to stay competitive in an increasingly digital market."
+  question: "What is Floating Gates?",
+  answer: "Floating Gates is a technology partner for manufacturers. We help businesses connect with new and existing customers by providing digital tools to establish a strong online presence, and enable growth. Our solutions empower manufacturers to expand their reach to stay competitive in an increasingly digital market."
 },
   {
     question: "Who is it for?",
-    answer: "Gates serve reality that owns just a 3D printer to big plants that have a high volume production, such such as Plastic Injection facilities. Our solution is especially valuable for those with well-established production methods who struggle to fully utilize their machines due to cumbersome order inquiries."
+    answer: "Gates serves from big manufacturing lines (i.g. plastic injection) to small workshops that owns just a 3D printer. Our solution is especially valuable for those with well-established production methods who struggle to fully utilize their machines due to cumbersome order inquiries."
   },
   {
     question: "What problem does it solve?",
-    answer: "Low sales. Floating Gates increase actual orders by spreading, assessing and expowerinf new customer requests. Gates streamlines quotes, performs technical checks, and enhances customer engagement, allowing manufacturers to operate more efficiently and focus on what they do best: build!."
+    answer: "Low sales and time spent on preliminaries studies. Gates increase actual orders by spreading and assessing new customer requests. Gates streamlines quotes and performs technical checks, allowing manufacturers to operate more efficiently and focus on what they do best: build!"
   },
   {
     question: "What differentiates it from competitors?",

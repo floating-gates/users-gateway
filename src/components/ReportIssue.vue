@@ -20,7 +20,7 @@ import mailLogo from "../assets/images/mail-logo.svg";
     <li>
       <img :src="githubLogo" alt="GitHub" class="icon" />
       <a 
-        href="https://github.com/floating-gates/users-gateway/issues" 
+        href="https://github.com/floating-gates/users-gateway/issues/new" 
         target="_blank" >
         Report an issue
       </a>

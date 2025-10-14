@@ -15,12 +15,12 @@ const heroHeading = [
 const userAddress = ref("");
 const isSubmitting = ref(false);
 const progress = ref(0);
-const placeholder = ref("Choose your hub name (e.g. Smith-Machining)");
+const placeholder = ref("Choose your hub address");
 
 // Suggested auto-fill text
-const suggestedText = ["John-Smith-Machining",
-                       "Makers-Of-The-Worls-Inc",
-                       "Looney-Red-Hub"];
+const suggestedText = ["Gears-Maker",
+                       "Smith-Machining",
+                       "Medical-Machine-Hub"];
 
 // state for controlling typewriter
 let typingStopped = false;
@@ -141,7 +141,8 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
                 @input="stopTyping"
                 class="address-input"
                 />
-              <button type="submit" class="btn address-submit">
+              <button type="submit" class="address-submit" Start Here >
+                <span>Launch Your App</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"/>
                 </svg>
@@ -200,8 +201,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
     font-size: 1.05rem;
     border: none;
     border-radius: 8px;
-    outline: none;
-    background-color: #f7f7f7;
+    background-color: v-bind(themeColorWhite);
     transition: background-color 0.3s ease;
 }
 
@@ -211,24 +211,41 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
 }
 
 .address-submit {
-    padding: 0.9rem 1.2rem;
-    min-width: 56px;
-    min-height: 56px;
-    border: none;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    color: white;
-    background-color: v-bind(themeColor);
+  padding: 0.9rem 1.6rem;
+  min-width: 56px;
+  min-height: 56px;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px; /* ⬅️ Adds clear horizontal space between text and icon */
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+  color: v-bind(themeColorWhite);
+  background-color: v-bind(themeColor);
 }
 
 .address-submit:hover {
-    background-color: v-bind(themeColorOrange);
-    transform: translateY(-1px);
-    cursor: pointer;
+  background-color: v-bind(themeColorOrange);
+  color: v-bind(themeColor);
+  transform: translateY(-1px);
+  cursor: pointer;
 }
+
+.address-submit svg {
+  width: 1.2em; /* ⬅️ Makes the icon match text size */
+  height: 1.2em;
+  stroke: v-bind(themeColorWhite);
+  transition: stroke 0.3s ease, transform 0.3s ease;
+}
+
+.address-submit:hover svg {
+  stroke: v-bind(themeColor); /* stays white on orange bg */
+  transform: translateX(4px); /* ⬅️ slight movement forward on hover */
+}
+
 
 .progress-btn {
     padding: 0.9rem 1.2rem;

@@ -5,11 +5,11 @@ import { user_login } from '../user_handler/login.js'
 import { register_user } from '../user_handler/registration.js'
 import { validate_logo } from '../user_handler/logo.js'
 
-const submitted = ref(false)
 const previewUrl = ref(null)
 const provisional_hub_name = ref('')
 const referral_code = ref(null)
-
+const showEmailCheck = ref(false)
+      
 const form = reactive({
     full_name: '',
     company: '',
@@ -43,8 +43,7 @@ function handleLogoUpload(event) {
 }
 
 async function handleSubmit() {
-    submitted.value = false
-    Object.keys(errors).forEach(key => errors[key] = '')
+    Object.keys(errors).forEach( key => errors[key] = '' )
     
     let hasError = false
     
@@ -88,16 +87,10 @@ async function handleSubmit() {
             } else {
                 errors.general = 'Registration failed. Return status: ' + response.status
             }
-            return
         }
-        
-        const login_response = await user_login(form.email, form.password)
-        if (login_response.ok) {
-            submitted.value = true
-            window.location.replace("/dashboard")
-        } else {
-            alert('Login failed after registration.')
-        }
+                
+        showEmailCheck.value = true
+        // await user_login(form.email, form.password)
         
     } catch (error) {
         console.error('Submission error: ', error)
@@ -115,13 +108,26 @@ onMounted( () => {
 <template>
 <div class="untree_co-hero" id="register-section">
   <div class="container">
-    <h3 class="heading" data-aos="fade-up">
-      Get Your Hub
-      <sub class="no-payment-text">
-        NO PAYMENT REQUIRED.
-      </sub>
-    </h3>
-    <form @submit.prevent="handleSubmit" data-aos="fade-up" data-aos-delay="100">
+    <div v-if="showEmailCheck" class="email-check-container" data-aos="fade-up">
+      <h3 class="heading" data-aos="fade-up">Check your inbox!</h3>
+      <p>
+        We’ve sent a confirmation link to <strong>{{ form.email }}</strong>.
+        Please verify your email to activate your account.
+      </p>
+      <p class="small mt-2">
+        Didn’t receive the email? Check your spam folder.
+      </p>
+    </div>
+    
+    <div v-else>
+      <h3 class="heading" data-aos="fade-up">
+        Get Your Hub
+        <sub class="no-payment-text">
+          NO PAYMENT REQUIRED.
+        </sub>
+      </h3>
+      
+      <form @submit.prevent="handleSubmit" data-aos="fade-up" data-aos-delay="100">
       <!-- General error -->
       <p v-if="errors.general" class="error-text">{{ errors.general }}</p>
       
@@ -184,9 +190,7 @@ onMounted( () => {
         </div>
         <p v-if="errors.logo" class="error-text">{{ errors.logo }}</p>
       </div>
-      
-      
-      
+            
       <div class="form-group">
         <label>Phone Number (Optional)</label>
         <input v-model="form.phone_number" type="text" class="form-control" />
@@ -214,6 +218,7 @@ onMounted( () => {
         </button>
       </div>
     </form>
+    </div>
   </div>  
 </div>
 </template>

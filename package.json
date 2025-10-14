@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "confirm": "read -p 'Are you sure you want to deploy to PRODUCTION? (y/N) ' ans && [ \"$ans\" = y ]",
-    "build-local": "vite build --mode development && cp -r dist/* /gates-stack-structure/data/landing-page",
-    "build-staging": "vite build --mode staging",
+    "build-local":      "vite build --mode development",
+    "build-staging":    "vite build --mode staging",
     "build-production": "vite build --mode production",
-    "deploy-staging": "npm run build-staging && scp -r dist/* mattia@192.168.1.99:/shared_fs/data/landing-page",
+    "deploy-local":      "npm run build-local                         &&  cp -r dist/* /gates-stack-structure/data/landing-page",
+    "deploy-staging":    "npm run build-staging                       && scp -r dist/* mattia@192.168.1.99:/shared_fs/data/landing-page",
     "deploy-production": "npm run confirm && npm run build-production && scp -r dist/* mattia@192.168.1.100:/shared_fs/data/landing-page"
   },
   "dependencies": {

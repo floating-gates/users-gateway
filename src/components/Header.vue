@@ -13,14 +13,13 @@ defineProps({
   }
 })
 
-// const isAuthenticated = ref(false);
 const isMenuOpen      = ref(false);
 
 async function platform_logout() {
     await logout(); 
     isAuthenticated.value = false;
     window.location.href = "/login"
-};
+}
 </script>
 
 <template>
@@ -109,9 +108,8 @@ async function platform_logout() {
   top: 0;
   left: 0;
   right: 0;
-  width: 100%;       /* ensure full width */
+  width: 100%;       
   z-index: 2000;
-  /* background: white; */
 }
 
 .site-nav .container {
