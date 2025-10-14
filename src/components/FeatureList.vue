@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, defineProps, onMounted } from 'vue'
+import { ref, computed, defineProps, defineEmits, onMounted } from 'vue'
 import { themeColor, themeColorWhite, themeColorOrange } from '../data/items.js'
 import { updateFeature } from '../user_handler/feature.js'
 
@@ -7,8 +7,10 @@ import { updateFeature } from '../user_handler/feature.js'
 const props = defineProps({
     independent_payment: Boolean,
     automatic_quotation: Boolean,
-    parametric_design: Boolean
+    parametric_design:   Boolean
 })
+
+const emit = defineEmits(['refresh-features'])
 
 const indep_pay = ref(null)
 const auto_quote = ref(null)
@@ -23,13 +25,20 @@ const parametric_design_state = computed(() => ({
   enabled: param_design.value
 }))  
 
-// Toggle features
 async function update() {
     await updateFeature(
         !!indep_pay.value,
         !!auto_quote.value,
         !!param_design.value
-    )
+    );
+
+    // Passing by properties works onlu Parent -> Child
+    // To refresh menu emit does the Child -> Parent
+    emit("refresh-features", {
+        independent_payment: !!indep_pay.value,
+        automatic_quotation: !!auto_quote.value,
+        parametric_design: !!param_design.value
+    });
 }
 
 async function toggleAutomaticQuotation() {

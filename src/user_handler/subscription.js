@@ -26,3 +26,24 @@ export async function delete_subscription() {
     });
     return response;
 }
+
+
+/*
+Only possible feature_list:
+['payment_independent', 'manufacturing_checks', 'top_opt', 'parametric_design']
+*/
+export function derive_menu_from_features( feature_dict ) {
+    const menu = [
+        'Summary',
+        'Machines',
+        'Materials',
+        'Features',
+        'Subscription',
+        'Details',
+        'Issues' ];
+
+    // if (feature_dict["automatic_quotation"])  menu.push('Quotation')
+    if (feature_dict["parametric_design"])    menu.push('Devices')
+    // if (feature_dict["payment_independent"])  menu.push('Payment')
+    return menu
+}

@@ -1,8 +1,9 @@
 <script setup>
-import { ref, watch, onMounted, nextTick } from 'vue';
+import { ref, reactive, onMounted, nextTick } from 'vue';
 import { get_user_details } from '../user_handler/user_details.js';
 import { themeColor, themeColorWhite } from '../data/items.js';
 import { verify_user_credentials } from '../user_handler/login.js';
+import { derive_menu_from_features } from '../user_handler/subscription.js';
 import { getMachineList, updateMachineList } from "../user_handler/machine.js";
 import { getMaterials } from "../user_handler/materials.js"
 
@@ -16,15 +17,8 @@ import Materials from "./Materials.vue";
 import BrandDetails from "./BrandDetails.vue";
 import ParametricModel from "./ParametricModel.vue";
 
-const activeTab = ref('Summary');
-const tabs = ['Summary',
-              'Machines',
-              'Materials',
-              'Devices',
-              'Features',
-              'Subscription',
-              'Details',
-              'Issues'];
+const activeTab = ref('');
+const tabs = ref([]);
 
 const userDetails = ref({});
 const machines    = ref([]);
@@ -41,7 +35,6 @@ function changeMenuTab(selected_menu_tab, idx) {
     activeTab.value = selected_menu_tab
     setActiveTab(selected_menu_tab, idx)
 }
-
 
 // --------------------
 // Style needed function
@@ -62,23 +55,49 @@ function moveIndicator(index) {
     }
 }
 
+function refresh_menu(updatedFeatures) {
+    
+    // Update userDetails so we have the latest state
+    Object.assign(userDetails.value, updatedFeatures);
+
+    // Recompute tabs
+    const features = {
+        automatic_quotation: userDetails.value.automatic_quotation,
+        parametric_design: userDetails.value.parametric_design,
+        // optional: payment_independent: userDetails.value.payment_independent
+    }
+
+    console.log("refresh menu", features)
+    tabs.value = derive_menu_from_features(features);
+    
+    if (!tabs.value.includes(activeTab.value)) {
+        activeTab.value = tabs.value[0];
+    }
+
+    nextTick(() => {
+        const idx = tabs.value.indexOf(activeTab.value);
+        moveIndicator(idx);
+    });
+}
 
 onMounted(async () => {
-    
+
     userDetails.value = await get_user_details();
     machines.value    = await getMachineList();
     materials.value   = await getMaterials();
-    
     const sub_status = userDetails.value.subscription_status
     
     if ( sub_status === "inactive" || sub_status === "demo") {
         subscriptionToBeActivated.value = true;
     }
     
-    // initialize indicator after DOM renders
+    refresh_menu();
+    
     await nextTick();
-    const initialIndex = tabs.indexOf(activeTab.value);
-    moveIndicator(initialIndex);
+    if (tabs.value.length > 0) {
+        activeTab.value = tabs.value[0];
+        moveIndicator(0);
+    }
 });
 </script>
 
@@ -133,6 +152,7 @@ onMounted(async () => {
             :independent_payment="userDetails.payment_independent"
             :automatic_quotation="userDetails.automatic_quotation"
             :parametric_design="userDetails.parametric_design"
+            @refresh-features="refresh_menu"
             />
         </div>
 
