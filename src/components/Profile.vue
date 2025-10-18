@@ -16,6 +16,7 @@ import SubscriptionStatus from "./SubscriptionStatus.vue";
 import Materials from "./Materials.vue";
 import BrandDetails from "./BrandDetails.vue";
 import ParametricModel from "./ParametricModel.vue";
+import AutoQuote from "./AutoQuote.vue";
 
 const activeTab = ref('');
 const tabs = ref([]);
@@ -36,9 +37,6 @@ function changeMenuTab(selected_menu_tab, idx) {
     setActiveTab(selected_menu_tab, idx)
 }
 
-// --------------------
-// Style needed function
-// --------------------
 function setActiveTab(tab, index) {
     activeTab.value = tab;
     moveIndicator(index);
@@ -55,20 +53,17 @@ function moveIndicator(index) {
     }
 }
 
-function refresh_menu(updatedFeatures) {
+// Recompute availble tabs
+function refresh_menu( updatedFeatures ) {
     
-    // Update userDetails so we have the latest state
     Object.assign(userDetails.value, updatedFeatures);
 
-    // Recompute tabs
     const features = {
         automatic_quotation: userDetails.value.automatic_quotation,
-        parametric_design: userDetails.value.parametric_design,
-        // optional: payment_independent: userDetails.value.payment_independent
+        parametric_design: userDetails.value.parametric_design
     }
 
-    console.log("refresh menu", features)
-    tabs.value = derive_menu_from_features(features);
+    tabs.value = derive_menu_from_features(features); // This control menu
     
     if (!tabs.value.includes(activeTab.value)) {
         activeTab.value = tabs.value[0];
@@ -156,6 +151,10 @@ onMounted(async () => {
             />
         </div>
 
+        <div v-else-if="activeTab === 'AutoQuote'">
+          <AutoQuote />
+        </div>
+        
         <div v-else-if="activeTab === 'Devices'">
           <ParametricModel />
         </div>

@@ -42,7 +42,7 @@ export function derive_menu_from_features( feature_dict ) {
         'Details',
         'Issues' ];
 
-    // if (feature_dict["automatic_quotation"])  menu.push('Quotation')
+    if (feature_dict["automatic_quotation"])  menu.push('AutoQuote')
     if (feature_dict["parametric_design"])    menu.push('Devices')
     // if (feature_dict["payment_independent"])  menu.push('Payment')
     return menu

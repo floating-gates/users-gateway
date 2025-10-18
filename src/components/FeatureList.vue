@@ -1,7 +1,8 @@
 <script setup>
 import { ref, computed, defineProps, defineEmits, onMounted } from 'vue'
-import { themeColor, themeColorWhite, themeColorOrange } from '../data/items.js'
-import { updateFeature } from '../user_handler/feature.js'
+import { themeColor, themeColorWhite,
+         themeColorOrange } from '../data/items.js'
+import { update_features } from '../feature_handling/features_handling.js'
 
 // Props from parent
 const props = defineProps({
@@ -26,7 +27,7 @@ const parametric_design_state = computed(() => ({
 }))  
 
 async function update() {
-    await updateFeature(
+    await update_features(
         !!indep_pay.value,
         !!auto_quote.value,
         !!param_design.value

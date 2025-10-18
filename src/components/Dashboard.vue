@@ -405,8 +405,8 @@ onMounted(
     flex: 1;
     min-width: 300px;
     margin-bottom: 15px;
+    text-align: left;
 }
-
 
 .proj-detail {
     font-size: 14px;

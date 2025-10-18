@@ -5,45 +5,45 @@ import Header from "../components/Header.vue";
 
 const faqs = [
 {
-  question: "What does Gates actually do?",
-    answer: "It provides to Your Customers a 3D online platform to funnel orders while it provides to the manufacturer (You) a web app to monitor what's happing in the client side. The platform enables end-users to issue orders and to take the advantage of feasibility checks, instant quotes, and design optimizations. In the meantime, manufacturers can gain new customers and track existing clients thanks to renwed visibility, avoiding uncertain prospects and streamline interactions with their customer base."
+  question: "What does Gates provides to Your Business?",
+    answer: "Gates provides to You a Manufacturing Hub to funnel orders, while it host publicly a CAD Online to permit Your customers to engineer/price the devices ahead of time. The platform enables your customer to issue orders and to take the advantage of feasibility checks, instant quotes, and design optimizations. The advantage is that manufacturers can gain new customers and track existing clients thanks to renwed visibility, avoid uncertain prospects and streamline interactions with their customer base."
+},
+{
+    question: "Who is it for?",
+    answer: "Gates serves from big manufacturing lines (i.g. plastic injection) to small workshops that owns just a 3D printer. Our solution is especially valuable for those with well-established production methods who struggle to fully utilize their machines due to cumbersome order inquiries."
 },
 {
   question: "What is Floating Gates?",
-  answer: "Floating Gates is a technology partner for manufacturers. We help businesses connect with new and existing customers by providing digital tools to establish a strong online presence, and enable growth. Our solutions empower manufacturers to expand their reach to stay competitive in an increasingly digital market."
+  answer: "Floating Gates is a technology Partner for manufacturers. We help businesses connect with new and existing customers by providing digital tools to establish a strong online presence, and enable growth. Our solutions empower manufacturers to expand their reach to stay competitive in an increasingly digital market."
 },
-  {
-    question: "Who is it for?",
-    answer: "Gates serves from big manufacturing lines (i.g. plastic injection) to small workshops that owns just a 3D printer. Our solution is especially valuable for those with well-established production methods who struggle to fully utilize their machines due to cumbersome order inquiries."
-  },
-  {
-    question: "What problem does it solve?",
-    answer: "Low sales and time spent on preliminaries studies. Gates increase actual orders by spreading and assessing new customer requests. Gates streamlines quotes and performs technical checks, allowing manufacturers to operate more efficiently and focus on what they do best: build!"
-  },
-  {
-    question: "What differentiates it from competitors?",
-    answer: "Unlike standalone tools, we provide a complete infrastructure that connects manufacturers into a shared pool, maximizing visibility and utilization for you. We do not interfere with your business decisions, instead we provide a framework around it, with the goal of improving operational efficiency."
-  },
-  {
-    question: "Can I be listed into one of the Certified Manufactured list?",
-    answer: "Yes, we are starting a programme to collect a list a company who prefer to be listed into a wider network of makers so they can reach a wider customer base. Send us an email at contact@floating-gates.com if you would like a preview of the service."
-  },
-  {
-    question: "How is data handled and stored?",
-    answer: "For the Basic and Standard plans, we offer secure cloud access as well as on-premise options, with all data protected under GDPR-compliant practices. For enterprise customers, software and data governance are fully transferred to the purchaser."
-  },
-  {
-    question: "How does it work the custom address?",
-    answer: "Gates is a managed cloud service and it is going to host a server for the infrastructrure and its'services. For the Basic and Standard programme we are going to use the suffix floating-gates.com while for Enterprise customer we purchase a stand alone domain name"
-  },
-  {
-    question: "Do you offer affiliate programs?",
-    answer: "Yes. Creators and manufacturers can earn commissions by bringing new customers to the platform. By subscribing at: https://floating-gates.com/referral_login"
-  },
-  {
-    question: "What is your refund policy?",
-    answer: "If your account remains inactive during a billing cycle—meaning there is no activity from you or your potential customers—you will automatically receive a full refund. Refunds are processed at the end of the month and issued within 5–10 business days."
-  }
+{
+  question: "What problem does it solve?",
+  answer: "Low sales and a high amount of time spent on preliminaries studies. Gates increase actual orders by spreading and assessing new customer requests. It streamlines quotes and performs technical checks, allowing manufacturers to operate more efficiently and focus on what they do best: build."
+},
+{
+  question: "What differentiates it from competitors?",
+  answer: "Unlike standalone tools, we provide a complete infrastructure that connects manufacturers directly with the customers, maximizing visibility and utilization. We do not interfere with your business decisions, instead we provide a framework around it, with the goal of improving operational efficiency."
+},
+{
+  question: "Can I be listed into one of the Certified Manufactured list?",
+  answer: "Yes, we are starting a programme to collect a list a company who prefer to be listed into a wider network of makers so they can reach a wider customer base. Send us an email at contact@floating-gates.com if you would like a preview of the service."
+},
+{
+  question: "How is data handled and stored?",
+  answer: "For the Basic and Standard plans, we offer secure cloud access as well as on-premise options, with all data protected under GDPR-compliant practices. For enterprise customers, software and data governance are fully transferred to the purchaser."
+},
+{
+  question: "How does it work the custom address?",
+  answer: "Gates is a managed cloud service and it is going to host a server for the infrastructrure and its'services. For the Basic and Standard programme we are going to use the suffix floating-gates.com while for Enterprise customer we purchase a stand alone domain name"
+},
+{
+  question: "Do you offer affiliate programs?",
+  answer: "Yes. Creators and manufacturers can earn commissions by bringing new customers to the platform. By subscribing at: https://floating-gates.com/referral_login"
+},
+{
+  question: "What is your refund policy?",
+  answer: "If your account remains inactive during a billing cycle—meaning there is no activity from you or your potential customers—you will automatically receive a full refund. Refunds are processed at the end of the month and issued within 5–10 business days."
+}
 ];
 
 

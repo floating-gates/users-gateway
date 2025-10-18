@@ -37,8 +37,8 @@ const referral_recovery_api_endpoint = api_url + '/referral/recovery'
 const set_new_referral_passwd_endpoint = api_url + '/referral/set_new_password'
 
 const update_feature_endpoint    = api_url + '/user/update-feature';
-const get_logo_endpoint          = api_url + '/user/get_logo'
-const upload_logo_endpoint       = api_url + '/user/upload_logo'
+const get_logo_endpoint          = api_url + '/user/get_logo';
+const upload_logo_endpoint       = api_url + '/user/upload_logo';
 
 const update_machine_endpoint = api_url + '/user/update-machine'
 const get_machine_endpoint    = api_url + '/user/get-machines'
@@ -73,7 +73,10 @@ const download_api_endpoint     = api_url + '/project/download';
 const list_users_api_endpoint     = api_url + '/admin/list_platform_user';
 const get_admin_name_api_endpoint = api_url + '/admin/get_admin_name';
 
-
+// Features API Endpoint
+const get_autoquote_endpoint    = api_url + '/features/get-autoquote-details';
+const update_autoquote_endpoint = api_url + '/features/update-autoquote-details'
+// Payment handling API endpoint
 const post_payment_information_endpoint = api_url + '/payment/info';
 
 const price_status = {  // DB interface
@@ -201,9 +204,9 @@ export {
     register_referral_api_endpoint, login_referral_api_endpoint,
     logout_referral_api_endpoint, update_referral_api_endpoint,
     referral_details_api_endpoint, set_new_referral_passwd_endpoint,
-    referral_recovery_api_endpoint,
+    referral_recovery_api_endpoint, get_autoquote_endpoint,
     update_parametric_model_endopoint, get_complete_parametric_model_endpoint,
-    get_parametric_models_vec_endpoint,
+    update_autoquote_endpoint, get_parametric_models_vec_endpoint,
     get_parametric_params_vec_endpoint,  update_parametric_params_endpoint,
     delete_parametric_model_endopoint, delete_parametric_params_endpoint
 };
