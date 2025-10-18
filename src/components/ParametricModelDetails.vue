@@ -89,10 +89,14 @@ async function removeParameter(paramName) {
 
 <template>
 <div class="complete-model">
-    <div class="model-header" @click="toggleDetails">
-        <h3>{{ props.model_name }}</h3>
-        <span>{{ expanded ? "▲" : "▼" }}</span>
-    </div>
+  <div class="model-header" @click="toggleDetails">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+    </svg>
+
+    <h3>{{ props.model_name }}</h3>
+    <span>{{ expanded ? "▲" : "▼" }}</span>
+  </div>
 
     <div v-if="expanded" class="model-details">
         <div v-if="loading">Loading model...</div>
@@ -144,13 +148,9 @@ async function removeParameter(paramName) {
   box-shadow: 0 10px 24px rgba(0,0,0,0.12);
 }
 
-/* Header */
 .model-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   color: v-bind(themeColor);
-  cursor: pointer;
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -159,7 +159,14 @@ async function removeParameter(paramName) {
 }
 
 .model-header h3 {
-  margin: 0;
+    padding: 0rem 1rem 1rem 0rem ;
+}
+
+.model-header svg {
+  height: 2rem;       /* match the font-size of the header text */
+  width: auto;       /* scale proportionally */
+  flex-shrink: 0;    /* don’t shrink when flex container squeezes */
+  margin-right: 0.5rem; /* optional spacing from text */
 }
 
 /* Model content */

@@ -4,11 +4,16 @@ import mainPhoto from "../assets/images/hero_pic.webp";
 import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
 
 // Instead of a single string, make it a list
+// const heroHeading = [
+//     "Move Manufacturing Online",
+//     "Customers ask.",
+//     "We Automate.",
+//     "You deliver."
+// ];
+
 const heroHeading = [
-    "Move Manufacturing Online",
-    "Customers ask.",
-    "We Automate.",
-    "You deliver."
+    "Invested in Manufacturing?",
+    "Let’s make sure your machines work at full capacity."
 ];
 
 // User input state

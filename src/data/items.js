@@ -6,11 +6,11 @@ const themeColorLille  = '#D8D3D8';
 const themeColorGold   = '#D8B4A0';
 
 // URLs and Tokens
-const api_url                   = import.meta.env.VITE_API_URL;
+const api_url                    = import.meta.env.VITE_API_URL;
 const demo_url                   = import.meta.env.VITE_DEMO_URL;
-
-const gocardless_token           = import.meta.env.VITE_GOCARDLESS_TOKEN
-const gocardless_secret          = import.meta.env.VITE_GOCARDLESS_SECRET
+const websocket_api_url          = import.meta.env.VITE_API_WS_URL;
+const gocardless_token           = import.meta.env.VITE_GOCARDLESS_TOKEN;
+const gocardless_secret          = import.meta.env.VITE_GOCARDLESS_SECRET;
 const gocardless_link_basic_plan = import.meta.env.VITE_GOCARDLESS_LINK_BASIC_PLAN
 const gocardless_link_basic_plan_20 = import.meta.env.VITE_GOCARDLESS_LINK_BASIC_PLAN_20
 const gocardless_link_basic_plan_50 = import.meta.env.VITE_GOCARDLESS_LINK_BASIC_PLAN_50
@@ -62,7 +62,7 @@ const create_subscription_endpoint = api_url + '/subscription/create';
 const delete_subscription_endpoint = api_url + '/subscription/delete';
 
 // Project API Endpoints
-const get_project_endpoint      = api_url + '/project';
+const get_project_endpoint      = websocket_api_url + '/project/list';
 const create_project_endpoint   = api_url + '/project/create';
 const delete_project_endpoint   = api_url + '/project/delete';
 const pricing_proj_api_endpoint = api_url + '/project/set_price';

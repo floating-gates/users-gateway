@@ -6,7 +6,7 @@ import Header from "../components/Header.vue";
 const faqs = [
 {
   question: "What does Gates provides to Your Business?",
-    answer: "Gates provides to You a Manufacturing Hub to funnel orders, while it host publicly a CAD Online to permit Your customers to engineer/price the devices ahead of time. The platform enables your customer to issue orders and to take the advantage of feasibility checks, instant quotes, and design optimizations. The advantage is that manufacturers can gain new customers and track existing clients thanks to renwed visibility, avoid uncertain prospects and streamline interactions with their customer base."
+    answer: "Gates provides to You a Manufacturing Hub to funnel orders, while it host publicly a CAD Online to permit Your customers to engineer/price the devices ahead of time. The platform enables your customer to issue orders and to take the advantage of feasibility checks, instant quotes, and design optimizations. The advantage is that manufacturers can gain new customers and track existing clients thanks to renewed visibility, avoid uncertain prospects and streamline interactions with their customer base."
 },
 {
     question: "Who is it for?",
@@ -25,7 +25,7 @@ const faqs = [
   answer: "Unlike standalone tools, we provide a complete infrastructure that connects manufacturers directly with the customers, maximizing visibility and utilization. We do not interfere with your business decisions, instead we provide a framework around it, with the goal of improving operational efficiency."
 },
 {
-  question: "Can I be listed into one of the Certified Manufactured list?",
+  question: "Can I be listed into one of the Certified Manufacturers list?",
   answer: "Yes, we are starting a programme to collect a list a company who prefer to be listed into a wider network of makers so they can reach a wider customer base. Send us an email at contact@floating-gates.com if you would like a preview of the service."
 },
 {

@@ -1,14 +1,15 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 
-import Header from "./Header.vue";
+import Header          from "./Header.vue";
 import ShippingDetails from "./ShippingDetails.vue";
 import PricingDetails  from "./PricingDetails.vue"; 
 import OrderDetails    from "./OrderDetails.vue";
 import EnrollToSub     from "./EnrollToSub.vue"
 
 import { create_project, get_project, count_project_states,
-         delete_project, get_progress } from '../project_handler/project.js';
+         connect_projects_via_ws, delete_project,
+         get_progress } from '../project_handler/project.js';
 import { handle_price_allocation } from '../price_handler/price_setting.js'
 import { get_user_details } from '../user_handler/user_details.js';
 import { verify_user_credentials }       from '../user_handler/login.js';
@@ -84,47 +85,31 @@ async function handleDelete(proj_id) {
     }
 }
 
-onMounted(
-    async () => {
 
+onMounted(async () => {
     const credentials = await verify_user_credentials();
-    
-    const isAuthenticated = credentials.is_authenticated;
-    isAdmin.value         = credentials.is_admin;
-    
-    if ( !isAuthenticated) { window.location.replace("/login") }
-        
-    try {
-        user_details.value = await get_user_details();
-
-        const sub_status = user_details.value.subscription_status
-    
-        if ( sub_status === "inactive" || sub_status === "demo") {
-            subscriptionToBeActivated.value = true;
-        }
-        
-        const res_prj = await get_project();
-        if (!res_prj.ok) {
-            throw new Error('Failed to fetch projects');
-        }
-        project_list.value = await res_prj.json();
-        
-    } catch (e) {
-        hasError.value = true
-        error.value = e.message;
+    isAdmin.value = credentials.is_admin;
+    if (!credentials.is_authenticated) {
+        window.location.replace("/login");
+        return;
     }
-})
+
+    user_details.value = await get_user_details();
+
+    const sub_status = user_details.value.subscription_status;
+    if (sub_status === "inactive" || sub_status === "demo") {
+        subscriptionToBeActivated.value = true;
+    }
+
+    // Important: pass the ref, not .value for reactivity
+    connect_projects_via_ws(project_list);
+});
 </script>
 
 <template>
 <Header
   context="dashboard"
   :host_address="user_details.host_address" />
-
-<!-- Error message -->
-<div v-if="hasError" class="error-box">
-  <p>{{ error }}</p>
-</div>
 
 <!-- Subscription --> 
 <div v-if="subscriptionToBeActivated" class="sub-wrapper">
@@ -151,30 +136,24 @@ onMounted(
           <!-- Dashboard Stats -->
           <div>
             <div class="col-lg-12 mb-5">
-              <div class="row">
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                  <div class="stats-card">
-                    <h3 class="stats-number">{{ activeProjects }}</h3>
-                    <p class="stats-label">Active Orders</p>
-                  </div>
+              <div class="stats-grid">
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="100">
+                  <h3 class="stats-number">{{ activeProjects }}</h3>
+                  <p class="stats-label">Active Orders</p>
                 </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                  <div class="stats-card">
-                    <h3 class="stats-number">{{ pendingSimulations }}</h3>
-                    <p class="stats-label">Customer Response Waiting</p>
-                  </div>
+
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="200">
+                  <h3 class="stats-number">{{ pendingSimulations }}</h3>
+                  <p class="stats-label">Customer Waiting</p>
                 </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                  <div class="stats-card">
-                    <h3 class="stats-number">{{ completedSimulations }}</h3>
-                    <p class="stats-label">Orders Completed</p>
-                  </div>
+
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="300">
+                  <h3 class="stats-number">{{ completedSimulations }}</h3>
+                  <p class="stats-label">Orders Completed</p>
                 </div>
-                <!-- Admin button fixed in top-right -->
-                <div v-if="isAdmin" class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                  <div class="stats-card">
-                    <a href="/admin-dashboard">Admin Dashboard</a>
-                  </div>
+
+                <div v-if="isAdmin" class="stats-card" data-aos="fade-up" data-aos-delay="400">
+                  <a class="stats-label" href="/admin-dashboard">Admin Dashboard</a>
                 </div>
               </div>
             </div>
@@ -182,6 +161,11 @@ onMounted(
           
           <!-- Main Dashboard Content -->
           <div class="col-12" data-aos="fade-up" data-aos-delay="400">
+          <!-- Error message -->
+          <div v-if="hasError" class="error-box">
+            <p>{{ error }}</p>
+          </div>
+          
             <div class="dashboard-main-content">
               
               <div class="content-header">
@@ -336,27 +320,44 @@ onMounted(
   padding-top: 3rem; /* creates space below nav */
 }
 
+.stats-grid {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 20px; /* space between cards */
+  margin-bottom: 40px;
+}
+
 .stats-card {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    height: 100%;
+  background-color: v-bind(themeColorWhite);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 200px;          /* fixed width */
+  height: 200px;         /* same height -> cube */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.15);
 }
 
 .stats-number {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: v-bind(themeColor);
+  font-size: 38px;
+  font-weight: bold;
+  color: v-bind(themeColor);
+  margin-bottom: 8px;
 }
 
-
 .stats-label {
-    font-size: 16px;
-    color: #666;
-    margin: 0;
+  font-size: 16px;
+  color: #666;
+  text-align: center;
 }
 
 .dashboard-main-content, .dashboard-sidebar {

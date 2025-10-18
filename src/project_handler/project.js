@@ -19,15 +19,48 @@ export async function create_project( proj_name,
         return response
 }
 
-export async function get_project() {
+export function connect_projects_via_ws( proj_list ) {
+    const socket = new WebSocket( get_project_endpoint );
 
-    const proj_list = await fetch( get_project_endpoint, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',  })
+    socket.onopen = () => {
+        console.log("Projects connected via WebSockets");
+    };
 
-    return proj_list
+    socket.onmessage = (event) => {
+        const msg = JSON.parse(event.data);
+
+        // Handle initial connection message
+        if (msg.event === "connected" && Array.isArray(msg.data)) {
+            proj_list.value = msg.data;
+        }
+
+        // Optionally handle future events
+        if (msg.event === "project_added") {
+            proj_list.value = msg.data;
+        }
+    };
+
+    socket.onclose = () => {
+        console.log("WebSocket closed, retrying in 3s...");
+        setTimeout(() => connect_projects_via_ws(proj_list), 3000);
+    };
+
+    socket.onerror = (err) => {
+        console.error("WebSocket error:", err);
+        socket.close();
+    };
 }
+
+
+// export async function get_project() {
+
+//     const proj_list = await fetch( get_project_endpoint, {
+//         method: 'GET',
+//         headers: { 'Content-Type': 'application/json' },
+//         credentials: 'include',  })
+
+//     return proj_list
+// }
 
 export async function delete_project(project_id) {
     const response = await fetch(`${delete_project_endpoint}/${project_id}`, {
