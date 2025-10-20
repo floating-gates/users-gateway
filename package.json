@@ -9,9 +9,11 @@
     "build-local":      "npm run test && vite build --mode development",
     "build-staging":    "npm run test && vite build --mode staging",
     "build-production": "npm run test && vite build --mode production",
-    "deploy-local": "npm run build-local                         &&  cp -r dist/* /gates-stack-structure/data/landing-page",
-    "deploy-staging": "npm run build-staging                       && scp -r dist/* mattia@192.168.1.99:/shared_fs/data/landing-page",
-    "deploy-production": "npm run confirm && npm run build-production && scp -r dist/* mattia@192.168.1.100:/shared_fs/data/landing-page"
+    "backup-staging": "ssh mattia@192.168.1.99  cp -r /shared_fs/data/landing-page/ /shared_fs/data/landing-page.bak",
+    "backup-prod":   "ssh mattia@192.168.1.100  cp -r /shared_fs/data/landing-page/ /shared_fs/data/landing-page.bak",
+    "deploy-local": "npm run build-local                                             &&  cp -r dist/* /gates-stack-structure/data/landing-page",
+      "deploy-staging": "npm run backup-staging                    && npm run build-staging    && scp -r dist/* mattia@192.168.1.99:/shared_fs/data/landing-page",
+    "deploy-production": "npm run confirm && npm run backup-prod && npm run build-production && scp -r dist/* mattia@192.168.1.100:/shared_fs/data/landing-page"
   },
   "dependencies": {
     "vue": "^3.5.22",

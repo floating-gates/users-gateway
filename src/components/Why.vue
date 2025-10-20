@@ -7,8 +7,8 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
 <div class="untree_co-section advantages-section" id="why">
   <div class="container-fluid login-container container">
     <div class="text-center" data-aos="fade-up">
-      <h1 class="section-title">Why Automation on Customer?</h1>
-      <p class="section-subtitle">One of the most promising discoveries in our journey has been realizing how much companies cares about how they are perceived. Hence we sat down and though how we can enable technologically the manufacturing plants in the most outraching way possible, give birth the idea of simply proxying our technology.</p>
+      <h1 class="section-title">Move Manufacturing Online. Customers ask. We Automate. You produce.</h1>
+      <p class="section-subtitle">One of the most promising discoveries in our journey has been realizing how much companies cares about how they are perceived. Hence we sat down and though how we can enable technologically the manufacturing plants in the most outraching way possible, give birth the idea of proxying our technology.</p>
     </div>
     
     <div class="row align-items-center">
@@ -103,8 +103,9 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
 
 .section-title {
     margin-bottom: 1.8rem;  /* adds vertical space below */
-    font-size: 3.0rem;   /* adjust to your design system */
+    font-size: 2.0rem;   /* adjust to your design system */
     font-weight: 650;
+    color: v-bind(themeColor);
     position: relative;
     display: inline-block;
 }
@@ -162,12 +163,6 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
     color: v-bind(themeColor);
     margin-bottom: 0.5rem;
 }
-
-/* .item-description { */
-/*   font-size: 0.95rem; */
-/*   margin-bottom: 0; */
-/*   line-height: 1.5; */
-/* } */
 
 
 .login-container {    

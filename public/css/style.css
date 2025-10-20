@@ -327,30 +327,35 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   .untree_co-hero {
     text-align: center; } }
 
-.untree_co-hero .heading {
-  font-size: 70px;
-  line-height: 1;
-  font-weight: 700;
-  color: #000000;
-  margin-bottom: 30px; }
-
-
 .untree_co-hero .dots {
   position: absolute;
   width: 100%;
-  height: 200%; }
-  .untree_co-hero .dots:before {
-    z-index: -1;
-    right: 0;
-    -webkit-transform: translateX(60%);
-    -ms-transform: translateX(60%);
-    transform: translateX(60%);
-    position: absolute;
-    content: "";
-    width: 304px;
-    height: 264px;
-    background: url("../images/dots.png") right top; }
+  height: 100%; /* ⬅️ was 200%, no need to overflow vertically */
+  overflow: hidden; /* ⬅️ ensure nothing leaks out visually */
+}
 
+.untree_co-hero .dots:before {
+  z-index: -1;
+  right: 0;
+  position: absolute;
+  content: "";
+  width: 304px;
+  height: 264px;
+  background: url("../images/dots.png") right top;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: translateX(20%); /* ⬅️ was 60%, reduce for mobile safety */
+}
+
+/* Optional: tighten further on small screens */
+@media (max-width: 768px) {
+  .untree_co-hero .dots:before {
+    transform: translateX(0);
+    width: 180px;
+    height: 150px;
+    opacity: 0.6; /* optional — tone down visual intensity */
+  }
+}
 .untree_co-hero .excerpt {
   margin-bottom: 30px; }
 

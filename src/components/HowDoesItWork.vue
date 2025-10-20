@@ -58,9 +58,8 @@ const total = 4;
       <sub :style="{ color: themeColorOrange, 'font-size': '1.3rem' }">
         USING GATES
     </sub></h1>
-    <div class="row justify-content-between d-flex align-items-center">
-      
-      <div class="col-lg-5 order-lg-2 js-custom-dots">
+    <div class="row align-items-center">
+      <div class="col-12 col-lg-5 order-lg-2 js-custom-dots">
         <a
           class="service link horizontal d-flex active"
           data-aos="fade-left"
@@ -168,7 +167,7 @@ const total = 4;
           </div>
         </a>
       </div>
-      <div class="col-lg-7">
+      <div class="col-12 col-lg-7">
         <div class="img-shadow">
           <div class="owl-single no-dots owl-carousel">
             <div class="item">
@@ -206,10 +205,15 @@ const total = 4;
     
 }
 
+.untree_co-section {
+  overflow-x: hidden; /* ✅ prevents horizontal scroll globally in section */
+  padding: 4rem 0;
+}
+
 .img {
     height: 30rem;      /* fixed height */
     width: auto;        /* adjust width automatically */
-    max-width: 100%;    /* prevent overflow */
+    max-width: 90%;    /* prevent overflow */
     object-fit: contain; /* keep aspect ratio */
     display: block;     /* avoid inline spacing issues */
     margin: 0 auto;     /* optional: center horizontally */
