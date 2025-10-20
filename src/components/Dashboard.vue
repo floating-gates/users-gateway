@@ -7,7 +7,7 @@ import PricingDetails  from "./PricingDetails.vue";
 import OrderDetails    from "./OrderDetails.vue";
 import EnrollToSub     from "./EnrollToSub.vue"
 
-import { create_project, get_project, count_project_states,
+import { create_project, count_project_states,
          connect_projects_via_ws, delete_project,
          get_progress } from '../project_handler/project.js';
 import { handle_price_allocation } from '../price_handler/price_setting.js'
@@ -128,7 +128,7 @@ onMounted(async () => {
             <div class="dashboard-header" data-aos="fade-up" data-aos-delay="0">
               <h1 class="heading">Manufacturing Hub</h1>
               <p class="welcome-message">
-                Welcome back, <span :style="{ color: themeColorOrange }">{{ user_details.full_name }}</span>
+                Welcome, <span :style="{ color: themeColorOrange }">{{ user_details.full_name }}</span>
               </p>
             </div>
           </div>
@@ -144,7 +144,7 @@ onMounted(async () => {
 
                 <div class="stats-card" data-aos="fade-up" data-aos-delay="200">
                   <h3 class="stats-number">{{ pendingSimulations }}</h3>
-                  <p class="stats-label">Customer Waiting</p>
+                  <p class="stats-label">Waiting Customer</p>
                 </div>
 
                 <div class="stats-card" data-aos="fade-up" data-aos-delay="300">
@@ -277,10 +277,8 @@ onMounted(async () => {
                       <div 
                         class="progress-bar" 
                         role="progressbar" 
-                        :style="{ 
-                                width: get_progress(project) + '%', 
-                                backgroundColor: get_progress(project) === 100 ? themeColorWhite : themeColor 
-                                }"
+                        :style="{ width: get_progress(project) + '%', 
+                                backgroundColor: get_progress(project) === 100 ? themeColorWhite : themeColor }"
                         :aria-valuenow="get_progress(project)"
                         aria-valuemin="0" 
                         aria-valuemax="100" >

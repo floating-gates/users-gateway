@@ -51,17 +51,6 @@ export function connect_projects_via_ws( proj_list ) {
     };
 }
 
-
-// export async function get_project() {
-
-//     const proj_list = await fetch( get_project_endpoint, {
-//         method: 'GET',
-//         headers: { 'Content-Type': 'application/json' },
-//         credentials: 'include',  })
-
-//     return proj_list
-// }
-
 export async function delete_project(project_id) {
     const response = await fetch(`${delete_project_endpoint}/${project_id}`, {
         method: 'DELETE',

@@ -53,7 +53,7 @@ const tableDefinitions = computed(() => ({
   'Urgency': {
     keyLabel: 'Urgent Delivery (days)',
     valueLabel: 'Price Increase (%)',
-    key_data_type: 'number',
+    key_data_type: 'integer',
     data: autoquote_config.value.urgency_multipliers,
   },
 }))
@@ -148,14 +148,19 @@ onMounted(async () => {
                   type="number"
                   v-model.number="row.key"
                   class="table-input"
-                  min="0.0001"
-                />
+                  min="0.0001"    />
                 <input
-                  v-else
+                  v-else-if="def.key_data_type === 'string'"
                   type="text"
                   v-model="row.key"
-                  class="table-input"
-                />
+                  class="table-input"    />
+                <input
+                  v-else-if="def.key_data_type === 'integer'"
+                  type="number"
+                  step="1"
+                  min="1"
+                  v-model="row.key"
+                  class="table-input" />
               </td>
 
               <td>

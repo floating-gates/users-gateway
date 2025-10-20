@@ -2,8 +2,39 @@
 import { defineProps, defineEmits } from 'vue';
 import { themeColor, themeColorOrange } from "../data/items.js";
 import { downloadFile } from '../project_handler/project.js';
+
+// pub struct ProjectDescription {
+//     pub id: String, // UUID text
+//     pub proj_name: String,
+//     pub description: Option<String>,
+//     pub status: String,
+//     pub updated_at: String,
+//     pub proj_url: String,
+//     pub customer_mail: String,
+//     pub shipping_address: String,
+//     pub city: String,
+//     pub postal_code: String,
+//     pub country: String,
+
+//     // From quotes (LEFT JOIN)
+//     pub price_status: Option<String>,
+//     pub price: Option<f64>,
+//     pub estimated_price: Option<f64>,
+//     pub quantity: Option<i64>,
+//     pub delivery_date: Option<String>,
+//     // From tolerance_multipliers (LEFT JOIN)
+//     pub tolerance: Option<f64>,
+//     // From surface_finish (LEFT JOIN)
+//     pub surface_finish: Option<String>,
+
+//     pub material: Option<String>,
+//     pub machine: Option<String>,
+// }
+
 const props = defineProps(['proj']);
 const emit  = defineEmits(['close']);
+const tol = props.proj.tolerance ? "±" + props.proj.tolerance + "mm" : "Not defined" 
+const surf = props.proj.surface_finish ? props.proj.surface_finish : "Not defined" 
 </script>
 
 <template>
@@ -28,12 +59,12 @@ const emit  = defineEmits(['close']);
 
       <div class="order-field">
         <span class="label">Surface finish:</span>
-        <span class="value status">{{ props.proj.surface_finish }}</span>
+        <span class="value status">{{ surf }}</span>
       </div>
 
       <div class="order-field">
         <span class="label">Tolerances:</span>
-        <span class="value status">{{ props.proj.tolerance }} mm</span>
+        <span class="value status">{{ tol }}</span>
       </div>
       
       <div class="price-highlight">
