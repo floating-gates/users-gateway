@@ -13,9 +13,7 @@ const isDragOver = ref(false)
 
 const fileInput = ref(null)
 
-function triggerFileInput() {
-  fileInput.value.click()
-}
+function triggerFileInput() { fileInput.value.click() }
 
 function handleLogoUpload(event) {
   const file = event.target.files[0]
@@ -31,26 +29,22 @@ function processFile(file) {
     logo.value = file
     logoUrl.value = URL.createObjectURL(file)
     hasLogo.value = true
+    uploadImmediately(file)  
   }
 }
 
-async function saveLogo() {
-  if (!logo.value) {
-    error.value = "Please select a logo before saving."
-    return
-  }
-  
+async function uploadImmediately(file) {
   isUploading.value = true
-  const success = await upload_logo(logo.value)
+  const success = await upload_logo(file)
 
   if (success) {
     error.value = ""
-    logoUrl.value = URL.createObjectURL(logo.value)
+    logoUrl.value = URL.createObjectURL(file)
     hasLogo.value = true
   } else {
     error.value = "Failed to upload logo. Please try again."
   }
-  
+
   isUploading.value = false
 }
 
@@ -178,22 +172,7 @@ onMounted(async () => {
     </div>
 
     <!-- Action Buttons -->
-    <div class="action-section">
-      <button 
-        class="action-button primary"
-        :class="{ 'loading': isUploading }"
-        :disabled="!logo || isUploading"
-        @click="saveLogo"
-      >
-        <svg v-if="isUploading" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="loading-icon">
-          <path d="M21 12a9 9 0 11-6.219-8.56"/>
-        </svg>
-        <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" class="button-icon">
-          <polyline points="20,6 9,17 4,12"/>
-        </svg>
-        {{ isUploading ? 'Saving...' : 'Save Logo' }}
-      </button>
-      
+    <div class="action-section">     
       <button 
         v-if="hasLogo"
         class="action-button secondary"

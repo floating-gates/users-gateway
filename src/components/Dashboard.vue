@@ -1,115 +1,89 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 
-import Header          from "./Header.vue";
+import Header from "./Header.vue";
 import ShippingDetails from "./ShippingDetails.vue";
-import PricingDetails  from "./PricingDetails.vue"; 
-import OrderDetails    from "./OrderDetails.vue";
-import EnrollToSub     from "./EnrollToSub.vue"
+import PricingDetails from "./PricingDetails.vue"; 
+import OrderDetails from "./OrderDetails.vue";
+import EnrollToSub from "./EnrollToSub.vue"
 
-import { create_project, count_project_states,
-         connect_projects_via_ws, delete_project,
-         get_progress } from '../project_handler/project.js';
+import { connect_projects_via_ws, delete_project, get_progress } from '../project_handler/project.js';
 import { handle_price_allocation } from '../price_handler/price_setting.js'
 import { get_user_details } from '../user_handler/user_details.js';
-import { verify_user_credentials }       from '../user_handler/login.js';
-import { themeColor, themeColorOrange, themeColorLille, themeColorWhite,
-         price_status } from "../data/items.js";
+import { verify_user_credentials } from '../user_handler/login.js';
+import { themeColor, themeColorOrange, themeColorLille, themeColorGold,
+         themeColorWhite, price_status } from "../data/items.js";
 
-// Dashboard data
+// State
 const project_in_scope = ref(null)
-const project_list    = ref([])
-const isAuthenticated = ref(false)
-const isAdmin         = ref(false)
-
-const showConfirmation = ref(false)
-const showPricingDetails = ref(false)
-const showShippingDetails = ref(false)
-const showOrderInfo = ref(false)
-
-const error = ref('');
+const project_list = ref([])
+const isAdmin = ref(false)
+const user_details = ref({})
+const subscriptionToBeActivated = ref(false)
+const error = ref('')
 const hasError = ref(false)
-const user_details = ref('');
-const subscriptionToBeActivated = ref(false);
 
-// Use computed for reactive counts
-const activeProjects = computed(() => project_list.value.length);
-const pendingSimulations = computed(() =>
-    count_project_states(project_list.value, price_status[2]));
-const completedSimulations = computed(() =>
-    count_project_states(project_list.value,price_status[3]) + 
-    count_project_states(project_list.value,price_status[7]) );
+// Modal visibility
+const modals = ref({
+  pricing: false,
+  shipping: false,
+  order: false
+})
 
-function handle_price_set_confirmation() { showConfirmation.value = true }
+// Computed stats
+const stats = computed(() => ({
+  active: project_list.value.length,
+  pending: project_list.value.filter(p => p.price_status === price_status[2]).length,
+  completed: project_list.value.filter(p => 
+    p.price_status === price_status[3] || p.price_status === price_status[7]
+  ).length
+}))
 
-function handle_showPricingDetails( proj_id ) {
-    project_in_scope.value = project_list.value.find( proj => proj.id === proj_id );
-    showPricingDetails.value = !showPricingDetails.value;
+// Modal handlers
+const toggleModal = (type, proj_id = null) => {
+  if (proj_id) {
+    project_in_scope.value = project_list.value.find(p => p.id === proj_id)
+  }
+  modals.value[type] = !modals.value[type]
 }
 
-function handle_showShippingDetails( proj_id ) {
-    project_in_scope.value = project_list.value.find( proj => proj.id === proj_id );
-    showShippingDetails.value = !showShippingDetails.value;
-}
-
-function handle_showOrderInfo( proj_id ) {
-    project_in_scope.value = project_list.value.find( proj => proj.id === proj_id );
-    showOrderInfo.value = !showOrderInfo.value
-}
-
-function handleGeneral_showShippingDetails() {
-    showShippingDetails.value = !showShippingDetails.value;
-}
-
-function handleGeneral_showOrderInfo() {
-    showOrderInfo.value = !showOrderInfo.value
-}
-
-function handleGeneral_showPricingDetails() {
-    showPricingDetails.value = !showPricingDetails.value;
-}
-
+// Delete handler
 async function handleDelete(proj_id) {
-    
-    if (!confirm("Are you sure you want to delete this project?")) return;
-    
-    try {
-        const res = await delete_project(proj_id);
-        if (res.status !== 204) throw new Error('Failed to delete project');
-        
-        // Remove from list
-        project_list.value = project_list.value.filter(p => p.id !== proj_id);
-        
-    } catch (err) {
-        alert("Error deleting project: " + err.message);
-    }
+  if (!confirm("Are you sure you want to delete this project?")) return;
+  
+  try {
+    const res = await delete_project(proj_id);
+    if (res.status !== 204) throw new Error('Failed to delete project');
+    project_list.value = project_list.value.filter(p => p.id !== proj_id);
+  } catch (err) {
+    alert("Error deleting project: " + err.message);
+  }
 }
 
+// Status badge helpers
+const isPriceAccepted = (status) => status === 'accepted'
+const isInvoiceSent = (status) => status === 'invoice_sent'
+const shouldShowShipping = (status) => isPriceAccepted(status) || isInvoiceSent(status)
 
 onMounted(async () => {
-    const credentials = await verify_user_credentials();
-    isAdmin.value = credentials.is_admin;
-    if (!credentials.is_authenticated) {
-        window.location.replace("/login");
-        return;
-    }
+  const credentials = await verify_user_credentials();
+  isAdmin.value = credentials.is_admin;
+  
+  if (!credentials.is_authenticated) {
+    window.location.replace("/login");
+    return;
+  }
 
-    user_details.value = await get_user_details();
+  user_details.value = await get_user_details();
+  const sub_status = user_details.value.subscription_status;
+  subscriptionToBeActivated.value = sub_status === "inactive" || sub_status === "demo";
 
-    const sub_status = user_details.value.subscription_status;
-    if (sub_status === "inactive" || sub_status === "demo") {
-        subscriptionToBeActivated.value = true;
-    }
-
-    // Important: pass the ref, not .value for reactivity
-    connect_projects_via_ws(project_list);
+  connect_projects_via_ws(project_list);
 });
 </script>
 
 <template>
-<Header
-  context="dashboard"
-  :host_address="user_details.host_address" />
+<Header context="dashboard" :host_address="user_details.host_address" />
 
 <!-- Subscription --> 
 <div v-if="subscriptionToBeActivated" class="sub-wrapper">
@@ -117,6 +91,7 @@ onMounted(async () => {
     :provisional_hub_name="user_details.provisional_hub_name"
     :discount="user_details.discount" />
 </div>
+
 <div class="untree_co-hero dashboard-section" id="dashboard-section">
   <div class="container">
     <div class="row align-items-center">
@@ -125,7 +100,7 @@ onMounted(async () => {
           
           <!-- Dashboard Header -->
           <div class="col-lg-12 mb-4">
-            <div class="dashboard-header" data-aos="fade-up" data-aos-delay="0">
+            <div class="dashboard-header" data-aos="fade-up">
               <h1 class="heading">Manufacturing Hub</h1>
               <p class="welcome-message">
                 Welcome, <span :style="{ color: themeColorOrange }">{{ user_details.full_name }}</span>
@@ -134,64 +109,45 @@ onMounted(async () => {
           </div>
           
           <!-- Dashboard Stats -->
-          <div>
-            <div class="col-lg-12 mb-5">
-              <div class="stats-grid">
-                <div class="stats-card" data-aos="fade-up" data-aos-delay="100">
-                  <h3 class="stats-number">{{ activeProjects }}</h3>
-                  <p class="stats-label">Active Orders</p>
-                </div>
+          <div class="col-lg-12 mb-5">
+            <div class="stats-grid">
+              <div v-for="(stat, i) in [
+                { value: stats.active, label: 'Active Orders' },
+                { value: stats.pending, label: 'Waiting Customer' },
+                { value: stats.completed, label: 'Orders Completed' }
+              ]" :key="i" class="stats-card" :data-aos-delay="i * 100" data-aos="fade-up">
+                <h3 class="stats-number">{{ stat.value }}</h3>
+                <p class="stats-label">{{ stat.label }}</p>
+              </div>
 
-                <div class="stats-card" data-aos="fade-up" data-aos-delay="200">
-                  <h3 class="stats-number">{{ pendingSimulations }}</h3>
-                  <p class="stats-label">Waiting Customer</p>
-                </div>
-
-                <div class="stats-card" data-aos="fade-up" data-aos-delay="300">
-                  <h3 class="stats-number">{{ completedSimulations }}</h3>
-                  <p class="stats-label">Orders Completed</p>
-                </div>
-
-                <div v-if="isAdmin" class="stats-card" data-aos="fade-up" data-aos-delay="400">
-                  <a class="stats-label" href="/admin-dashboard">Admin Dashboard</a>
-                </div>
+              <div v-if="isAdmin" class="stats-card" data-aos="fade-up" data-aos-delay="400">
+                <a class="stats-label" href="/admin-dashboard">Admin Dashboard</a>
               </div>
             </div>
           </div>
           
-          <!-- Main Dashboard Content -->
+          <!-- Main Content -->
           <div class="col-12" data-aos="fade-up" data-aos-delay="400">
-          <!-- Error message -->
-          <div v-if="hasError" class="error-box">
-            <p>{{ error }}</p>
-          </div>
+            <div v-if="hasError" class="error-box">
+              <p>{{ error }}</p>
+            </div>
           
             <div class="dashboard-main-content">
-              
               <div class="content-header">
                 <h2 class="section-title">Recent Orders</h2>
-                <div class="action-buttons">                  
-                  <a class="btn btn-primary"
-                     :href="user_details.host_address"
-                     style="margin-right: 5px"
-                     :style="{ background: themeColor, borderColor: themeColor }">
-                    Place an Order Yourself </a>
-                </div>
+                <a class="btn btn-primary"
+                   :href="user_details.host_address"
+                   :style="{ background: themeColor, borderColor: themeColor }">
+                  Place an Order Yourself
+                </a>
               </div>
               
               <!-- Projects List -->
               <div class="projects-list">
-                <div 
-                  v-for="project in project_list" 
-                  :key="project.id" 
-                  class="project-item" >
+                <div v-for="project in project_list" :key="project.id" class="project-item">
                   <div class="project-info">
-                    <p class="project-name">
-                      <h3>{{ project.proj_name }}</h3>
-                    </p>
-                    <p class="proj-detail">
-                      Status: {{ project.status }}
-                    </p>
+                    <h3>{{ project.proj_name }}</h3>
+                    <p class="proj-detail">Status: {{ project.status }}</p>
                     <p class="proj-detail">
                       <a :href="'mailto:' + project.customer_mail">Email customer</a>
                     </p>
@@ -200,89 +156,77 @@ onMounted(async () => {
                     </p>
                   </div>
                   
-                  <div class="project-actions ">
+                  <div class="project-actions">
                     <button
-                      @click="handle_showOrderInfo( project.id )" 
+                      @click="toggleModal('order', project.id)" 
                       class="btn btn-lille icon icon-info"
                       :style="{ borderColor: themeColorLille, color: themeColor }"
-                      title="Info on Order"
-                      ></button>
+                      title="Info on Order" />
                     
-                    
-                    <!-- Delete button -->
                     <button 
                       @click="handleDelete(project.id)" 
                       class="btn icon icon-trash"
                       :style="{ borderColor: themeColorOrange, color: themeColor }"
-                      title="Delete Project"  ></button>
+                      title="Delete Project" />
                     
-                    <!-- Price sets -->
+                    <!-- Price Form -->
                     <form v-if="project.price_status === 'pending'"
                           class="price-form"
-                          @submit.prevent="handle_price_allocation( project )">
-                      
+                          @submit.prevent="handle_price_allocation(project)">
                       <label>Set Price (€):</label>
-                      <input
-                        type="number"
-                        v-model="project.price" />
-                      <button
-                        type="submit"
-                        class="btn btn-primary btn-sm"
-                        :style="[{ background: themeColor, borderColor: themeColor }]" >
+                      <input type="number" v-model="project.price" />
+                      <button type="submit" class="btn btn-primary btn-sm"
+                        :style="{ background: themeColor, borderColor: themeColor }">
                         Send Quote
                       </button>
                     </form>
                     
-                    <button v-if="project.price_status === 'accepted'"
-                            @click="handle_showPricingDetails( project.id )"
+                    <!-- Payment Button -->
+                    <button v-if="isPriceAccepted(project.price_status)"
+                            @click="toggleModal('pricing', project.id)"
                             class="btn btn-primary btn-sm"
-                            :style="[{ background: themeColor, borderColor: themeColor, color: themeColorWhite }]" >
+                            :style="{ background: themeColor, borderColor: themeColor, color: themeColorWhite }">
                       Send Payment Details
                     </button>
-                    <button
-                      v-else-if="project.price_status === 'invoice_sent'"
-                      class="btn btn-success btn-sm d-flex align-items-center"
-                      disabled
-                      :style="[{ background: themeColorLille, color: themeColor }]"  >
+                    
+                    <!-- Invoice Status -->
+                    <button v-else-if="isInvoiceSent(project.price_status)"
+                            class="btn btn-success btn-sm d-flex align-items-center" disabled
+                            :style="{ background: themeColorLille, color: themeColor }">
                       <span class="me-1">Invoice Sent</span>
                       <i class="bi bi-check-circle-fill"></i>
                     </button>
                     
-                    <button v-if="project.price_status === 'accepted' || project.price_status === 'invoice_sent'"
-                            @click="handle_showShippingDetails( project.id )"
+                    <!-- Shipping Button -->
+                    <button v-if="shouldShowShipping(project.price_status)"
+                            @click="toggleModal('shipping', project.id)"
                             class="btn btn-primary btn-sm"
-                            :style="[{ background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }]" >
+                            :style="{ background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }">
                       Ship to {{ project.city }}, {{ project.country }}
                     </button>
                     
+                    <!-- Price Display -->
                     <div v-else class="d-flex align-items-center">
                       <h3 class="mb-0 me-3">{{ project.price }}€</h3>
-                      
                       <i v-if="project.price_status === price_status[3]" 
-                         class="icon icon-check-circle text-success" 
-                         ></i>
-                      
+                         class="icon icon-check-circle text-success" />
                       <i v-if="project.price_status === price_status[2]" 
-                         class="icon icon-spinner animate-spin text-secondary" 
-                         ></i>
-                      
-                      <i class="icon icon-cancel text-danger" 
-                         v-if="project.price_status === price_status[4]"  ></i>
+                         class="icon icon-spinner animate-spin text-secondary" />
+                      <i v-if="project.price_status === price_status[4]"
+                         class="icon icon-cancel text-danger" />
                     </div>
                   </div>
                   
-                  <!-- Progress bar -->
+                  <!-- Progress Bar -->
                   <div class="progress-container">
                     <div class="progress">
-                      <div 
-                        class="progress-bar" 
-                        role="progressbar" 
-                        :style="{ width: get_progress(project) + '%', 
-                                backgroundColor: get_progress(project) === 100 ? themeColorWhite : themeColor }"
+                      <div class="progress-bar" role="progressbar" 
+                        :style="{ 
+                          width: get_progress(project) + '%', 
+                          backgroundColor: get_progress(project) === 100 ? themeColorGold : themeColor 
+                        }"
                         :aria-valuenow="get_progress(project)"
-                        aria-valuemin="0" 
-                        aria-valuemax="100" >
-                      </div>
+                        aria-valuemin="0" aria-valuemax="100" />
                     </div>
                   </div>
                 </div>
@@ -290,16 +234,16 @@ onMounted(async () => {
             </div>
           </div>
           
-          <ShippingDetails v-if="showShippingDetails"
+          <!-- Modals -->
+          <ShippingDetails v-if="modals.shipping"
                            :proj="project_in_scope"
-                           @close="handleGeneral_showShippingDetails" />
-          <PricingDetails v-if="showPricingDetails"
+                           @close="toggleModal('shipping')" />
+          <PricingDetails v-if="modals.pricing"
                           :proj="project_in_scope"
-                          @close="handleGeneral_showPricingDetails" />
-          <OrderDetails v-if="showOrderInfo"
+                          @close="toggleModal('pricing')" />
+          <OrderDetails v-if="modals.order"
                         :proj="project_in_scope"
-                        @close="handleGeneral_showOrderInfo" />
-          
+                        @close="toggleModal('order')" />
         </div>
       </div>
     </div>
@@ -315,7 +259,7 @@ onMounted(async () => {
 }
 
 .sub-wrapper {
-  padding-top: 3rem; /* creates space below nav */
+  padding-top: 3rem;
 }
 
 .stats-grid {
@@ -323,7 +267,7 @@ onMounted(async () => {
   justify-content: center;
   align-items: stretch;
   flex-wrap: wrap;
-  gap: 20px; /* space between cards */
+  gap: 20px;
   margin-bottom: 40px;
 }
 
@@ -331,8 +275,8 @@ onMounted(async () => {
   background-color: v-bind(themeColorWhite);
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 200px;          /* fixed width */
-  height: 200px;         /* same height -> cube */
+  width: 200px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -358,12 +302,11 @@ onMounted(async () => {
   text-align: center;
 }
 
-.dashboard-main-content, .dashboard-sidebar {
+.dashboard-main-content {
     background-color: white;
     border-radius: 10px;
     padding: 25px;
     box-shadow: 0 4px 6px v-bind(themeColorLille);
-    height: 100%;
 }
 
 .content-header {
@@ -382,7 +325,6 @@ onMounted(async () => {
     padding: 15px 0;
     border-bottom: 1px solid v-bind(themeColorLille);
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
     flex-wrap: wrap;
 }
@@ -418,11 +360,6 @@ onMounted(async () => {
     align-items: center;
     gap: 15px;
     margin-bottom: 15px;
-}
-
-.action-buttons button,
-.action-buttons a {
-    margin-right: 10px;
 }
 
 .price-form {
@@ -470,5 +407,4 @@ onMounted(async () => {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
 </style>

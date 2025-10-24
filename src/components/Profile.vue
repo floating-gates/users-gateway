@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted, nextTick } from 'vue';
+import { ref, reactive, onMounted, nextTick, defineAsyncComponent } from 'vue';
 import { get_user_details } from '../user_handler/user_details.js';
 import { themeColor, themeColorWhite } from '../data/items.js';
 import { verify_user_credentials } from '../user_handler/login.js';
@@ -8,15 +8,15 @@ import { getMachineList, updateMachineList } from "../user_handler/machine.js";
 import { getMaterials } from "../user_handler/materials.js"
 
 import Header from "./Header.vue";
-import Summary from "./Summary.vue";
-import FeatureList from "./FeatureList.vue";
-import Machines from "./Machines.vue";
-import ReportIssue from "./ReportIssue.vue";
-import SubscriptionStatus from "./SubscriptionStatus.vue";
-import Materials from "./Materials.vue";
-import BrandDetails from "./BrandDetails.vue";
-import ParametricModel from "./ParametricModel.vue";
-import AutoQuote from "./AutoQuote.vue";
+const Summary   = defineAsyncComponent(() => import("./Summary.vue"));
+const Machines  = defineAsyncComponent(() => import("./Machines.vue"));
+const Materials = defineAsyncComponent(() => import("./Materials.vue"));
+const SubscriptionStatus = defineAsyncComponent(() => import("./SubscriptionStatus.vue"));
+const FeatureList = defineAsyncComponent(() => import("./FeatureList.vue"));
+const AutoQuote   = defineAsyncComponent(() => import("./AutoQuote.vue"));
+const ParametricModel = defineAsyncComponent(() => import("./ParametricModel.vue"));
+const BrandDetails = defineAsyncComponent(() => import("./BrandDetails.vue"));
+const ReportIssue  = defineAsyncComponent(() => import("./ReportIssue.vue"));
 
 const activeTab = ref('');
 const tabs = ref([]);
@@ -76,23 +76,28 @@ function refresh_menu( updatedFeatures ) {
 }
 
 onMounted(async () => {
+  const [user, machineList, materialList] = await Promise.all([
+    get_user_details(),
+    getMachineList(),
+    getMaterials()
+  ]);
 
-    userDetails.value = await get_user_details();
-    machines.value    = await getMachineList();
-    materials.value   = await getMaterials();
-    const sub_status = userDetails.value.subscription_status
-    
-    if ( sub_status === "inactive" || sub_status === "demo") {
-        subscriptionToBeActivated.value = true;
-    }
-    
-    refresh_menu();
-    
-    await nextTick();
-    if (tabs.value.length > 0) {
-        activeTab.value = tabs.value[0];
-        moveIndicator(0);
-    }
+  userDetails.value = user;
+  machines.value = machineList;
+  materials.value = materialList;
+
+  const sub_status = user.subscription_status;
+  if (sub_status === "inactive" || sub_status === "demo") {
+    subscriptionToBeActivated.value = true;
+  }
+
+  refresh_menu();
+  
+  await nextTick();
+  if (tabs.value.length > 0) {
+    activeTab.value = tabs.value[0];
+    moveIndicator(0);
+  }
 });
 </script>
 
@@ -102,6 +107,9 @@ onMounted(async () => {
 
 <div class="untree_co-section">
   <div class="row justify-content-center">
+<div v-if="!tabs.length">
+  <div class="skeleton-loader">Loading dashboard...</div>
+</div>
     <div class="col-md-12 col-lg-8">
         <div class="tab-menu-container text-center mb-6">
           <div class="tab-menu">

@@ -327,6 +327,10 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   .untree_co-hero {
     text-align: center; } }
 
+.heading {
+    font-weight: 650;
+}
+
 .untree_co-hero .dots {
   position: absolute;
   width: 100%;

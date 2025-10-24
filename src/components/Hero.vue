@@ -112,7 +112,6 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
   <div class="container wider-container">
     <div class="row align-items-center">
       <div class="col-12">
-        <!-- <div class="dots"></div> -->
         <div class="row align-items-center">
           <div class="col-lg-7 ml-auto order-lg-2 image-col">
             <img :src="mainPhoto" alt="Technology Proxy in action" class="img-fluid hero-image" />

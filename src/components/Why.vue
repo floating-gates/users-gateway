@@ -181,28 +181,10 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
     transform: scale(1.02);
 }
 
-@media (max-width: 991.98px) {
-    /* .section-title { */
-    /*   font-size: 2rem; */
-    /* } */
-    
-    .advantage-heading {
-        font-size: 1.75rem;
-    }
-    
-    .advantage-item {
-        padding: 1.25rem;
-    }
-}
-
 @media (max-width: 767.98px) {
     .section-title {
         font-size: 1.75rem;
     }
-    
-    /* .section-subtitle { */
-    /*   font-size: 1rem; */
-    /* } */
     
     .advantage-item {
         flex-direction: column;

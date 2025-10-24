@@ -12,8 +12,7 @@ const router = useRouter();
 const selectedArticle = ref(null);
 
 const currentPage = ref(1);
-const perPage = 2;
-
+const perPage = 4;
 
 const totalPages = computed(() => Math.ceil(articles.length / perPage));
 
@@ -168,16 +167,22 @@ const closeArticle = () => {
           class="modal-image"
           />
         
-        <div class="modal-text">
-          <div
-            v-for="(section, idx) in selectedArticle.content"
-            :key="idx"
-            class="article-section"
-            >
-            <h3 class="section-title">{{ section.sub_title }}</h3>
-            <p class="section-text">{{ section.sub_content }}</p>
-          </div>
-        </div>
+<div class="modal-text">
+  <div
+    v-for="(section, idx) in selectedArticle.content"
+    :key="idx"
+    class="article-section"
+  >
+    <h3 v-if="section.sub_title" class="section-title">{{ section.sub_title }}</h3>
+    <div class="section-text">
+      <template v-for="line in section.sub_content.split('\n')">
+        <p v-if="!line.trim().startsWith('•') && !line.match(/^\d+\./)">
+          {{ line }}
+        </p>
+      </template>
+    </div>
+  </div>
+</div>
 <a 
   v-if="selectedArticle.callToActionLink" 
   :href="selectedArticle.callToActionLink" 
@@ -490,6 +495,17 @@ const closeArticle = () => {
     font-size: 1.1rem;
     line-height: 1.7;
     width: 100%;
+}
+
+.modal-text ul {
+  padding-left: 1.5rem;
+  margin: 0.5rem 0 1rem;
+  list-style-type: disc;
+}
+
+.modal-text li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
 }
 
 /* Responsive Design */
