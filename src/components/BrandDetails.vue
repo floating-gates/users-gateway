@@ -16,36 +16,33 @@ const fileInput = ref(null)
 function triggerFileInput() { fileInput.value.click() }
 
 function handleLogoUpload(event) {
-  const file = event.target.files[0]
-  processFile(file)
+    const file = event.target.files[0]
+    processFile(file)
 }
 
-function processFile(file) {
-  error.value = ""
+async function processFile(file) {
 
-  if (!file) return
-
-  if (validate_logo(file, error.value)) {
-    logo.value = file
-    logoUrl.value = URL.createObjectURL(file)
-    hasLogo.value = true
-    uploadImmediately(file)  
-  }
-}
-
-async function uploadImmediately(file) {
-  isUploading.value = true
-  const success = await upload_logo(file)
-
-  if (success) {
     error.value = ""
-    logoUrl.value = URL.createObjectURL(file)
-    hasLogo.value = true
-  } else {
-    error.value = "Failed to upload logo. Please try again."
+    if (!file) return
+    
+    if ( validate_logo(file, error.value) ) {
+        logo.value = file
+        logoUrl.value = URL.createObjectURL(file)
+        hasLogo.value = true
+        
+        isUploading.value = true
+        const success = await upload_logo(file)
+        
+        if (success) {
+            error.value = ""
+            logoUrl.value = URL.createObjectURL(file)
+            hasLogo.value = true
+        } else {
+            error.value = "Failed to upload logo. Please try again."
   }
 
   isUploading.value = false
+  }
 }
 
 async function removeLogo() {

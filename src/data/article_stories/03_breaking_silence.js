@@ -57,6 +57,6 @@ export const breaking_silence = {
     ],
     image: "https://floating-gates-pub.nbg1.your-objectstorage.com/breaking-the-silence.svg",
     author: "Mattia Samiolo",
-    callToActionLink: "https://floating-gates/pricing",
+    callToActionLink: "https://floating-gates.com/pricing",
     callToActionText: "Explore the Value",
 }

@@ -60,7 +60,7 @@ const socialItems = [
             <div class="col-lg-6">
               <div class="widget">
                 <a href="/services" class="footer-link">
-                  <h3 class="footer-heading">
+                  <h3 >
                     Enterprise Services
                     <svg xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 24 24"
@@ -79,7 +79,7 @@ const socialItems = [
               
               <div class="widget">
                 <a href="/referral-login" class="footer-link">
-                  <h3 class="footer-heading">
+                  <h3>
                     Become a Partner
                     <svg xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 24 24"
@@ -101,15 +101,15 @@ const socialItems = [
         <!-- Detached Contact column -->
         <div class="col-lg-3">
           <div class="widget">
-            <h3>Contact</h3>
-            <address>{{ contactInfo.address }}</address>
+            <h3>Contacts</h3>
+            <address>Loc: {{ contactInfo.address }}</address>
             <ul class="list-unstyled links mb-4">
               <li>
-                <a :href="'tel://' + contactInfo.phone1">{{ contactInfo.phone }}</a>
+                <a :href="'tel://' + contactInfo.phone1"> Tel:{{ contactInfo.phone }}</a>
               </li>
               <li>
                 <a :href="'mailto:' + contactInfo.email">
-                  <span>{{ contactInfo.email }}</span>
+                  <span> Email: {{ contactInfo.email }}</span>
                 </a>
               </li>
               <li>
@@ -140,12 +140,6 @@ const socialItems = [
 
 
 <style scoped>
-.footer-heading {
-  display: flex;
-  align-items: center;
-  gap: 0.4em; /* spacing between text and arrow */
-}
-
 .footer-arrow {
   height: 1em;       /* same height as text */
   width: auto;       /* keep aspect ratio */

@@ -21,15 +21,6 @@ const isLoading = ref(false)
 const error = ref('')
 const success = ref('')
 
-// === Helper to convert multiplier ↔ percentage ===
-function convert2percentage(a) {
-  a.overhead_multiplier = Number(((a.overhead_multiplier - 1) * 100).toFixed(3));
-  a.quantity_multipliers.forEach(m => m.value = Number(((1 - m.value) * 100).toFixed(3)));
-  a.tolerance_multipliers.forEach(m => m.value = Number(((m.value - 1) * 100).toFixed(3)));
-  a.urgency_multipliers.forEach(m => m.value = Number(((m.value - 1) * 100).toFixed(3)));
-}
-
-
 // === Computed table definitions ===
 const tableDefinitions = computed(() => ({
   'Quantity Discount': {
@@ -59,6 +50,7 @@ const tableDefinitions = computed(() => ({
 }))
 
 // === Row management ===
+// If .ID is 0 - then is to be inserted in database
 function addRow(table) {  table.push({ id: 0, key: 0, value: 0 }) }
 function removeRow(table, index) {  table.splice(index, 1) }
 
@@ -69,8 +61,8 @@ async function update_db() {
   success.value = ''
 
   try {
-    // Converted back to multipliers inside the function      
-    await update_autoquote_config( autoquote_config.value )
+    // Reinsert correct id inside the struct, so you can delete it      
+    autoquote_config.value = await update_autoquote_config( autoquote_config.value )
     success.value = 'Configuration updated successfully!'
   } catch (err) {
     console.error('Update failed:', err)
@@ -84,7 +76,6 @@ async function update_db() {
 onMounted(async () => {
   try {
     autoquote_config.value = await get_autoquote_config()
-    convert2percentage(autoquote_config.value)
   } catch (err) {
     error.value = 'Failed to load configuration. Please reload the page.'
   }
@@ -109,9 +100,6 @@ onMounted(async () => {
           class="input-field"
           min="1"
         />
-      </div>
-
-      <div class="input-group">
         <label>Business Overhead (%)</label>
         <input
           type="number"
@@ -233,14 +221,14 @@ onMounted(async () => {
 .input-section {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 0.5rem;
   margin-bottom: 3rem;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
 }
 
 .input-group label {

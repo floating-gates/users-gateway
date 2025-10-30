@@ -1,3 +1,5 @@
+@import 'bootstrap/dist/css/bootstrap.css';
+
 body {
   font-family: "Nunito", sans-serif;
   line-height: 1.6;
@@ -813,3 +815,20 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
       .site-footer .social li a:hover {
         background: #D77A61;
         color: #ffffff; }
+
+
+
+:root {
+  --theme-color: #223843; /* fallback */
+  --theme-color-orange: #D77A61; /* fallback */
+}
+
+.logo-img {
+  height: 25px; /* or whatever height you prefer */
+  width: auto;  /* maintains aspect ratio */
+  position: relative
+}
+
+body, p, h1, h2, h3, h4, h5, h6, a, li, span, div {
+  font-family: 'Titillium Web', sans-serif;
+}

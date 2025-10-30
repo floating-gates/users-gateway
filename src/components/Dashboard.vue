@@ -25,39 +25,39 @@ const hasError = ref(false)
 
 // Modal visibility
 const modals = ref({
-  pricing: false,
-  shipping: false,
-  order: false
+    pricing: false,
+    shipping: false,
+    order: false
 })
 
 // Computed stats
 const stats = computed(() => ({
-  active: project_list.value.length,
-  pending: project_list.value.filter(p => p.price_status === price_status[2]).length,
-  completed: project_list.value.filter(p => 
-    p.price_status === price_status[3] || p.price_status === price_status[7]
-  ).length
+    active: project_list.value.length,
+    pending: project_list.value.filter(p => p.price_status === price_status[2]).length,
+    completed: project_list.value.filter(p => 
+        p.price_status === price_status[3] || p.price_status === price_status[7]
+    ).length
 }))
 
 // Modal handlers
 const toggleModal = (type, proj_id = null) => {
-  if (proj_id) {
-    project_in_scope.value = project_list.value.find(p => p.id === proj_id)
-  }
-  modals.value[type] = !modals.value[type]
+    if (proj_id) {
+        project_in_scope.value = project_list.value.find(p => p.id === proj_id)
+    }
+    modals.value[type] = !modals.value[type]
 }
 
 // Delete handler
 async function handleDelete(proj_id) {
-  if (!confirm("Are you sure you want to delete this project?")) return;
-  
-  try {
-    const res = await delete_project(proj_id);
-    if (res.status !== 204) throw new Error('Failed to delete project');
-    project_list.value = project_list.value.filter(p => p.id !== proj_id);
-  } catch (err) {
-    alert("Error deleting project: " + err.message);
-  }
+    if (!confirm("Are you sure you want to delete this project?")) return;
+    
+    try {
+        const res = await delete_project(proj_id);
+        if (res.status !== 204) throw new Error('Failed to delete project');
+        project_list.value = project_list.value.filter(p => p.id !== proj_id);
+    } catch (err) {
+        alert("Error deleting project: " + err.message);
+    }
 }
 
 // Status badge helpers
@@ -66,19 +66,19 @@ const isInvoiceSent = (status) => status === 'invoice_sent'
 const shouldShowShipping = (status) => isPriceAccepted(status) || isInvoiceSent(status)
 
 onMounted(async () => {
-  const credentials = await verify_user_credentials();
-  isAdmin.value = credentials.is_admin;
-  
-  if (!credentials.is_authenticated) {
-    window.location.replace("/login");
-    return;
-  }
-
-  user_details.value = await get_user_details();
-  const sub_status = user_details.value.subscription_status;
-  subscriptionToBeActivated.value = sub_status === "inactive" || sub_status === "demo";
-
-  connect_projects_via_ws(project_list);
+    const credentials = await verify_user_credentials();
+    isAdmin.value = credentials.is_admin;
+    
+    if (!credentials.is_authenticated) {
+        window.location.replace("/login");
+        return;
+    }
+    
+    user_details.value = await get_user_details();
+    const sub_status = user_details.value.subscription_status;
+    subscriptionToBeActivated.value = sub_status === "inactive" || sub_status === "demo";
+    
+    connect_projects_via_ws(project_list);
 });
 </script>
 
@@ -112,14 +112,14 @@ onMounted(async () => {
           <div class="col-lg-12 mb-5">
             <div class="stats-grid">
               <div v-for="(stat, i) in [
-                { value: stats.active, label: 'Active Orders' },
-                { value: stats.pending, label: 'Waiting Customer' },
-                { value: stats.completed, label: 'Orders Completed' }
-              ]" :key="i" class="stats-card" :data-aos-delay="i * 100" data-aos="fade-up">
+                          { value: stats.active, label: 'Active Orders' },
+                          { value: stats.pending, label: 'Waiting Customer Decision' },
+                          { value: stats.completed, label: 'Orders Completed' }
+                          ]" :key="i" class="stats-card" :data-aos-delay="i * 100" data-aos="fade-up">
                 <h3 class="stats-number">{{ stat.value }}</h3>
                 <p class="stats-label">{{ stat.label }}</p>
               </div>
-
+              
               <div v-if="isAdmin" class="stats-card" data-aos="fade-up" data-aos-delay="400">
                 <a class="stats-label" href="/admin-dashboard">Admin Dashboard</a>
               </div>
@@ -131,7 +131,7 @@ onMounted(async () => {
             <div v-if="hasError" class="error-box">
               <p>{{ error }}</p>
             </div>
-          
+            
             <div class="dashboard-main-content">
               <div class="content-header">
                 <h2 class="section-title">Recent Orders</h2>
@@ -157,18 +157,41 @@ onMounted(async () => {
                   </div>
                   
                   <div class="project-actions">
+                    <!-- Info Button -->
                     <button
-                      @click="toggleModal('order', project.id)" 
-                      class="btn btn-lille icon icon-info"
+                      @click="toggleModal('order', project.id)"
+                      class="btn"
                       :style="{ borderColor: themeColorLille, color: themeColor }"
-                      title="Info on Order" />
+                      title="Info on Order"
+                      >
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           fill="none"
+                           viewBox="0 0 24 24"
+                           :stroke="themeColor"
+                           stroke-width="1.6"
+                           style="width: 24px; height: 24px;">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M11.25 11.25h1.5v5.25h-1.5v-5.25zM12 9a.75.75 0 110-1.5.75.75 0 010 1.5zm0 12a9 9 0 100-18 9 9 0 000 18z" />
+                      </svg>
+                    </button>
                     
-                    <button 
-                      @click="handleDelete(project.id)" 
-                      class="btn icon icon-trash"
+                    <!-- Delete Button -->
+                    <button
+                      @click="handleDelete(project.id)"
+                      class="btn"
                       :style="{ borderColor: themeColorOrange, color: themeColor }"
-                      title="Delete Project" />
-                    
+                      title="Delete Project"
+                      >
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           fill="none"
+                           viewBox="0 0 24 24"
+                           :stroke="themeColor"
+                           stroke-width="1.6"
+                           style="width: 24px; height: 24px;">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M6 7.5h12m-9 3v6m6-6v6M9 3h6a1 1 0 011 1v1H8V4a1 1 0 011-1zM4.5 7.5h15l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7.5z" />
+                      </svg>
+                    </button>
                     <!-- Price Form -->
                     <form v-if="project.price_status === 'pending'"
                           class="price-form"
@@ -176,7 +199,7 @@ onMounted(async () => {
                       <label>Set Price (€):</label>
                       <input type="number" v-model="project.price" />
                       <button type="submit" class="btn btn-primary btn-sm"
-                        :style="{ background: themeColor, borderColor: themeColor }">
+                              :style="{ background: themeColor, borderColor: themeColor }">
                         Send Quote
                       </button>
                     </form>
@@ -191,29 +214,63 @@ onMounted(async () => {
                     
                     <!-- Invoice Status -->
                     <button v-else-if="isInvoiceSent(project.price_status)"
-                            class="btn btn-success btn-sm d-flex align-items-center" disabled
+                            class="btn align-items-center" disabled
                             :style="{ background: themeColorLille, color: themeColor }">
-                      <span class="me-1">Invoice Sent</span>
-                      <i class="bi bi-check-circle-fill"></i>
+                      <span >Invoice Sent</span>
                     </button>
                     
                     <!-- Shipping Button -->
                     <button v-if="shouldShowShipping(project.price_status)"
                             @click="toggleModal('shipping', project.id)"
                             class="btn btn-primary btn-sm"
-                            :style="{ background: themeColorOrange, borderColor: themeColorOrange, color: themeColor }">
+                            :style="{ background: themeColorOrange,
+                                    borderColor: themeColorOrange,
+                                    color: themeColor }">
                       Ship to {{ project.city }}, {{ project.country }}
                     </button>
                     
                     <!-- Price Display -->
-                    <div v-else class="d-flex align-items-center">
-                      <h3 class="mb-0 me-3">{{ project.price }}€</h3>
-                      <i v-if="project.price_status === price_status[3]" 
-                         class="icon icon-check-circle text-success" />
-                      <i v-if="project.price_status === price_status[2]" 
-                         class="icon icon-spinner animate-spin text-secondary" />
-                      <i v-if="project.price_status === price_status[4]"
-                         class="icon icon-cancel text-danger" />
+                    <div v-else class="d-flex align-items-center gap-2">
+                      <h3 class="mb-0">{{ project.price }}€</h3>
+                      
+                      <!-- Waiting Quotation -->
+                      <svg v-if="project.price_status === price_status[2]" 
+                           viewBox="0 0 100 100" 
+                           class="status-icon animate-spin" 
+                           width="28" height="28">
+                        <circle cx="50" cy="20" r="4" :fill="themeColor" />
+                        <circle cx="67.32" cy="25.98" r="4" :fill="themeColor" />
+                        <circle cx="78.66" cy="41.34" r="4" :fill="themeColor" />
+                        <circle cx="80" cy="60" r="4" :fill="themeColor" />
+                        <circle cx="67.32" cy="74.02" r="4" :fill="themeColor" />
+                        <circle cx="50" cy="80" r="4" :fill="themeColor" />
+                        <circle cx="32.68" cy="74.02" r="4" :fill="themeColor" />
+                        <circle cx="20" cy="60" r="4" :fill="themeColor" />
+                      </svg>
+                      
+                      <!-- Accepted Quotation -->
+                      <svg v-if="project.price_status === price_status[3]" 
+                           xmlns="http://www.w3.org/2000/svg" 
+                           fill="none" viewBox="0 0 24 24" 
+                           stroke-width="2" 
+                           class="status-icon" 
+                           width="28" height="28"
+                           :style="{ stroke: '#22c55e' }">
+                        <path stroke-linecap="round" stroke-linejoin="round" 
+                              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                      
+                      <!-- Refused Quotation  -->
+                      <svg v-if="project.price_status === price_status[4]" 
+                           xmlns="http://www.w3.org/2000/svg" 
+                           fill="none" viewBox="0 0 24 24" 
+                           stroke-width="2" 
+                           class="status-icon" 
+                           width="28" height="28"
+                           :style="{ stroke: '#ef4444' }">
+                        <path stroke-linecap="round" stroke-linejoin="round" 
+                              d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
                     </div>
                   </div>
                   
@@ -221,12 +278,12 @@ onMounted(async () => {
                   <div class="progress-container">
                     <div class="progress">
                       <div class="progress-bar" role="progressbar" 
-                        :style="{ 
-                          width: get_progress(project) + '%', 
-                          backgroundColor: get_progress(project) === 100 ? themeColorGold : themeColor 
-                        }"
-                        :aria-valuenow="get_progress(project)"
-                        aria-valuemin="0" aria-valuemax="100" />
+                           :style="{ 
+                                   width: get_progress(project) + '%', 
+                                   backgroundColor: get_progress(project) === 100 ? themeColorGold : themeColor 
+                                   }"
+                           :aria-valuenow="get_progress(project)"
+                           aria-valuemin="0" aria-valuemax="100" />
                     </div>
                   </div>
                 </div>
@@ -259,47 +316,45 @@ onMounted(async () => {
 }
 
 .sub-wrapper {
-  padding-top: 3rem;
+    padding-top: 3rem;
 }
 
 .stats-grid {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
 }
 
 .stats-card {
-  background-color: v-bind(themeColorWhite);
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 200px;
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: v-bind(themeColorWhite);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .stats-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.15);
 }
 
 .stats-number {
-  font-size: 38px;
-  font-weight: bold;
-  color: v-bind(themeColor);
-  margin-bottom: 8px;
+    font-size: 38px;
+    font-weight: bold;
+    color: v-bind(themeColor);
+    margin-bottom: 8px;
 }
 
 .stats-label {
-  font-size: 16px;
-  color: #666;
-  text-align: center;
+    font-size: 16px;
+    color: #666;
+    text-align: center;
 }
 
 .dashboard-main-content {
@@ -334,12 +389,12 @@ onMounted(async () => {
 }
 
 .error-box {
-  background: #ffe6e6;
-  border: 1px solid #ff4d4d;
-  color: #b30000;
-  padding: 12px;
-  border-radius: 8px;
-  margin: 1rem 0;
+    background: #ffe6e6;
+    border: 1px solid #ff4d4d;
+    color: #b30000;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 1rem 0;
 }
 
 .project-info {
@@ -360,6 +415,10 @@ onMounted(async () => {
     align-items: center;
     gap: 15px;
     margin-bottom: 15px;
+}
+
+.project-actions button:hover svg {
+  stroke: v-bind(themeColorWhite);
 }
 
 .price-form {

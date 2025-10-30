@@ -100,9 +100,14 @@ const surf = props.proj.surface_finish ? props.proj.surface_finish : "Not define
       <div class="modal-actions">
         <button
         @click="downloadFile(props.proj.id)"
-        class="btn icon icon-download"
+        class="btn"
         :style="{ borderColor: themeColor, color: themeColor }"
-          title="Download the 3D model"></button>
+          title="Download the 3D model">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+</svg>
+
+        </button>
         
         <button
           type="button"
@@ -165,6 +170,11 @@ const surf = props.proj.surface_finish ? props.proj.surface_finish : "Not define
   color: white;
   border: 2px solid transparent;
   transition: all 0.2s ease;
+}
+
+.btn svg {
+  width: 2rem;
+  height: 2rem;
 }
 
 .btn:hover {

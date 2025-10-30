@@ -5,10 +5,6 @@ import Header from "../components/Header.vue";
 
 const missionSubHeading = "Maximizing Idle Manufacturing Potential";
 
-function youtubeVideoUrl() {
-    return `https://www.youtube.com/watch?v=&amp;t=9s`;
-}
-
 const features = [
     { 
         title: 'Automatic Feasibility Check', 
@@ -33,7 +29,6 @@ const features = [
   <div class="row justify-content-between align-items-center">
     <div class="col-lg-5">
       <div class="mission-content">
-        
         <span
           class="mission-badge"
           data-aos="fade-up"
@@ -54,14 +49,6 @@ const features = [
     
     <div class="col-lg-7" data-aos="fade-up" data-aos-delay="400">
       <div class="video-container">
-        <!-- <a :href="youtubeVideoUrl()" class="video-overlay" data-fancybox> -->
-          <!--   <div class="play-button" :style="{ backgroundColor: themeColor }"> -->
-            <!--     <svg width="24" height="24" viewBox="0 0 16 16" fill="white"> -->
-              <!--       <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/> -->
-              <!--     </svg> -->
-            <!--   </div> -->
-          <!--   <div class="video-pulse" :style="{ borderColor: themeColor + '30' }"></div> -->
-          <!-- </a> -->
         <img :src="mainPhoto" alt="Manufacturing Hub" class="hero-image" />
       </div>
     </div>
@@ -166,6 +153,7 @@ const features = [
     font-weight: 650;
     line-height: 1.2;
     margin-bottom: 30px;
+    color: v-bind("themeColor");
 }
 
 .lead-text {
@@ -173,7 +161,6 @@ const features = [
     line-height: 1.7;
     margin-bottom: 40px;
     font-weight: 400;
-    color: v-bind("themeColor");
 }
 
 .mission-points {
@@ -227,61 +214,15 @@ const features = [
 
 .video-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: rgba(0, 0, 0, 0.3); */
-    /* text-decoration: none; */
     transition: all 0.3s ease;
     z-index: 3;
 }
 
 .video-overlay:hover .video-container .hero-image {
     transform: scale(1.05);
-}
-
-.play-button {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 2;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-}
-
-.play-button:hover {
-    transform: scale(1.1);
-}
-
-.video-pulse {
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    border: 3px solid;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(1.3);
-        opacity: 0;
-    }
 }
 
 /* Achievement Section */

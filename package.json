@@ -6,22 +6,24 @@
   "scripts": {
     "confirm": "read -p 'Are you sure you want to deploy to PRODUCTION? (y/N) ' ans && [ \"$ans\" = y ]",
     "test": "vitest run",
-    "build-local":      "npm run test && vite build --mode development",
-    "build-staging":    "npm run test && vite build --mode staging",
+    "build-local": "npm run test && vite build --mode development",
+    "build-staging": "npm run test && vite build --mode staging",
     "build-production": "npm run test && vite build --mode production",
     "backup-staging": "ssh mattia@192.168.1.99  cp -r /shared_fs/data/landing-page/ /shared_fs/data/landing-page.bak",
-    "backup-prod":   "ssh mattia@192.168.1.100  cp -r /shared_fs/data/landing-page/ /shared_fs/data/landing-page.bak",
+    "backup-prod": "ssh mattia@192.168.1.100  cp -r /shared_fs/data/landing-page/ /shared_fs/data/landing-page.bak",
     "deploy-local": "npm run build-local                                             &&  cp -r dist/* /gates-stack-structure/data/landing-page",
-      "deploy-staging": "npm run backup-staging                    && npm run build-staging    && scp -r dist/* mattia@192.168.1.99:/shared_fs/data/landing-page",
+    "deploy-staging": "npm run backup-staging                    && npm run build-staging    && scp -r dist/* mattia@192.168.1.99:/shared_fs/data/landing-page",
     "deploy-production": "npm run confirm && npm run backup-prod && npm run build-production && scp -r dist/* mattia@192.168.1.100:/shared_fs/data/landing-page"
   },
   "dependencies": {
+    "aos": "^2.3.4",
+    "bootstrap": "^5.3.8",
     "vue": "^3.5.22",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.6.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.4",
-    "vite": "^6.3.6",
+    "vite": "^6.4.1",
     "vitest": "^3.2.4"
   }
 }

@@ -131,8 +131,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
                  data-aos="fade-up"
                  data-aos-delay="100">
               <p>
-                Publish your HUB at <strong :style="{ color: themeColorOrange }">YourCompany.com</strong>.  
-                Get customer requests, check if they fit, and send quotes automatically — without wasting time on sales calls or manual checks.
+               Let customers design their parts online through <strong :style="{ color: themeColorOrange }">your hosted CAD</strong>. Gates automatically checks feasibility and generates quotes/orders — so you can skip the sales calls and manual verifications while gaining new customers.
               </p>
             </div>
             
@@ -146,7 +145,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
                 class="address-input"
                 />
               <button type="submit" class="address-submit" Start Here >
-                <span>Launch Your App</span>
+                <span>Launch Your CAD Online</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"/>
                 </svg>
