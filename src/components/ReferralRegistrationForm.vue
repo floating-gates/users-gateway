@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import { themeColor } from '../data/items.js'
+import { themeColor } from '../config.js'
 import { referral_login } from '../referral_handler/login.js'
 import { register_referral } from '../referral_handler/registration.js'
 import { countries } from '../data/country_list.js'

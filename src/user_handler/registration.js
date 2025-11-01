@@ -1,4 +1,4 @@
-import { register_user_api_endpoint } from "../data/items.js"
+import { register_user_api_endpoint } from "../config.js"
 
 export async function register_user(registration_form) {
 

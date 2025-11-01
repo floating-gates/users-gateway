@@ -1,5 +1,5 @@
 import { user_recovery_api_endpoint,
-    set_new_usr_passwd_endpoint } from "../data/items.js"
+    set_new_usr_passwd_endpoint } from "../config.js"
 
 export async function start_recovery_password( email ) {
 

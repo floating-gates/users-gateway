@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { themeColor, themeColorWhite, themeColorOrange } from '../data/items';
+import { themeColor, themeColorWhite, themeColorOrange } from '../config.js';
 
 const props = defineProps({
   machines: {

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, defineProps } from "vue";
 import { logout } from "../user_handler/logout.js"
-import { themeColor, demo_url } from "../data/items.js";
+import { themeColor, demo_url } from "../config.js";
 
 defineProps({
   context: {
@@ -29,7 +29,7 @@ async function platform_logout() {
         <div class="nav-wrapper">
           <!-- Logo -->
           <a href="/" class="logo">
-            <img src="../assets/images/logo.webp" alt="Floating Gates Logo" class="logo-img" />
+            <img src="../data/images/logo.webp" alt="Floating Gates Logo" class="logo-img" />
           </a>
 
           <!-- Hamburger button -->

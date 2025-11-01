@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch, defineProps, onMounted } from 'vue';
 import { create_subscription } from '../user_handler/subscription.js';
-import { themeColor, themeColorOrange, themeColorWhite, price_list } from '../data/items.js';
+import { themeColor, themeColorOrange, themeColorWhite, price_list } from '../config.js';
 
 const props = defineProps({
   provisional_hub_name: String,

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import mainPhoto from "../assets/images/hero_pic.webp";
-import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
+import mainPhoto from "../data/images/hero_pic.webp";
+import { themeColor, themeColorOrange, themeColorWhite } from "../config.js";
 
 // Instead of a single string, make it a list
 // const heroHeading = [

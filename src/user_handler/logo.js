@@ -1,4 +1,4 @@
-import { get_logo_endpoint, upload_logo_endpoint } from '../data/items.js'
+import { get_logo_endpoint, upload_logo_endpoint } from '../config.js'
 
 
 export function validate_logo(file, error) {

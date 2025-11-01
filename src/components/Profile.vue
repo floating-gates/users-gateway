@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive, onMounted, nextTick, defineAsyncComponent } from 'vue';
 import { get_user_details } from '../user_handler/user_details.js';
-import { themeColor, themeColorWhite } from '../data/items.js';
+import { themeColor, themeColorWhite } from '../config.js';
 import { verify_user_credentials } from '../user_handler/login.js';
 import { derive_menu_from_features } from '../user_handler/subscription.js';
 import { getMachineList, updateMachineList } from "../user_handler/machine.js";
@@ -16,7 +16,6 @@ const FeatureList = defineAsyncComponent(() => import("./FeatureList.vue"));
 const AutoQuote   = defineAsyncComponent(() => import("./AutoQuote.vue"));
 const ParametricModel = defineAsyncComponent(() => import("./ParametricModel.vue"));
 const BrandDetails = defineAsyncComponent(() => import("./BrandDetails.vue"));
-const ReportIssue  = defineAsyncComponent(() => import("./ReportIssue.vue"));
 
 const activeTab = ref('');
 const tabs = ref([]);
@@ -145,7 +144,7 @@ onMounted(async () => {
             @update_materials="(mats) => materials = mats"/>
         </div>
         
-        <div v-else-if="activeTab === 'Subscription'">
+        <div v-else-if="activeTab === 'Admin'">
           <SubscriptionStatus
             :user="userDetails" />
         </div>
@@ -167,15 +166,10 @@ onMounted(async () => {
           <ParametricModel />
         </div>
         
-        <div v-else-if="activeTab === 'Details'">
+        <div v-else-if="activeTab === 'Brand'">
           <BrandDetails
             :user="userDetails" />
         </div>
-        
-        <div v-else-if="activeTab === 'Issues'">
-          <ReportIssue />
-        </div>
-        
       </div>
     </div>
 </div>
@@ -188,7 +182,6 @@ onMounted(async () => {
   overflow-x: auto; /* allow horizontal scroll if too many tabs */
   -webkit-overflow-scrolling: touch;
 }
-
 
 .tab-menu {
     position: relative;

@@ -12,7 +12,7 @@ import { handle_price_allocation } from '../price_handler/price_setting.js'
 import { get_user_details } from '../user_handler/user_details.js';
 import { verify_user_credentials } from '../user_handler/login.js';
 import { themeColor, themeColorOrange, themeColorLille, themeColorGold,
-         themeColorWhite, price_status } from "../data/items.js";
+         themeColorWhite, price_status } from "../config.js";
 
 // State
 const project_in_scope = ref(null)

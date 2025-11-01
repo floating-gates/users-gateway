@@ -1,4 +1,4 @@
-import { post_payment_information_endpoint } from "../data/items.js"
+import { post_payment_information_endpoint } from "../config.js"
 
 export async function post_payment_information(form, proj_id) {
 

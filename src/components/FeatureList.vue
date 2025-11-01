@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, defineProps, defineEmits, onMounted } from 'vue'
 import { themeColor, themeColorWhite,
-         themeColorOrange } from '../data/items.js'
+         themeColorOrange } from '../config.js'
 import { update_features } from '../feature_handling/features_handling.js'
 
 // Props from parent

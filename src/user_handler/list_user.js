@@ -1,4 +1,4 @@
-import { list_users_api_endpoint } from '../data/items.js';
+import { list_users_api_endpoint } from '../config.js';
 
 export async function get_users_list() {
     try {

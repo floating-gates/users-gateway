@@ -2,7 +2,7 @@
 import { ref, onMounted, defineEmits, defineProps } from 'vue'
 import { updateMachineList } from "../user_handler/machine.js"
 import { themeColor, themeColorOrange,
-         themeColorWhite } from '../data/items.js';
+         themeColorWhite } from '../config.js';
 import { default_machines } from '../data/default_machines.js'
 
 /*

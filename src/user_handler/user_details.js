@@ -1,4 +1,4 @@
-import { user_details_api_endpoint } from '../data/items.js';
+import { user_details_api_endpoint } from '../config.js';
 
 /*
 UserDetails = {

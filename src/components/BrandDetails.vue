@@ -1,6 +1,6 @@
 <script setup>
 import { ref, defineProps, onMounted } from 'vue'
-import { themeColor, themeColorOrange, themeColorWhite } from '../data/items.js'
+import { themeColor, themeColorOrange, themeColorWhite } from '../config.js'
 import { get_logo, upload_logo, validate_logo } from '../user_handler/logo.js'
 
 const logo = ref(null)         // always holds File object

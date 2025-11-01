@@ -1,7 +1,7 @@
 w<script setup>
-import { contactInfo, themeColorOrange } from "../data/items";
-import iconGithub from "../assets/images/github-logo.svg";
-import iconSubstack from "../assets/images/substack-logo.png";
+import { contactInfo, themeColorOrange } from "../config.js";
+import iconGithub from "../data/images/github-logo.svg";
+import iconSubstack from "../data/images/substack-logo.png";
 
 
 const copyrightText = "Copyright 2025, All rights reserved.";

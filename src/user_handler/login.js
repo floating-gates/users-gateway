@@ -1,4 +1,4 @@
-import { login_user_api_endpoint, auth_api_endpoint } from '../data/items.js';
+import { login_user_api_endpoint, auth_api_endpoint } from '../config.js';
 
 export async function user_login( email, password ) {
     const response = await fetch( login_user_api_endpoint, {

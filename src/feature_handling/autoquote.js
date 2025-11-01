@@ -1,5 +1,5 @@
 import { get_autoquote_endpoint,
-    update_autoquote_endpoint } from '../data/items.js'
+    update_autoquote_endpoint } from '../config.js'
 import { toRaw } from 'vue'
 
 export async function get_autoquote_config( ) {

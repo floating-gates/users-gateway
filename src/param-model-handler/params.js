@@ -1,5 +1,5 @@
 import {  get_parametric_params_vec_endpoint, update_parametric_params_endpoint, 
-          delete_parametric_params_endpoint } from '../data/items.js';
+          delete_parametric_params_endpoint } from '../config.js';
 
 
 export async function get_model_parameters( model_name ) {

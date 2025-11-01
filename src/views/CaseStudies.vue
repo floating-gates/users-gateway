@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watchEffect } from "vue";
-import { themeColor, themeColorOrange, themeColorLille, themeColorWhite } from "../data/items.js";
+import { themeColor, themeColorOrange, themeColorLille, themeColorWhite } from "../config.js";
 import Header from "../components/Header.vue";
 import { articles } from "../data/articles.js";
 import { useRoute, useRouter } from "vue-router";

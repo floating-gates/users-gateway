@@ -1,7 +1,7 @@
 import { update_parametric_model_endopoint,
          get_complete_parametric_model_endpoint,
          get_parametric_models_vec_endpoint,
-         delete_parametric_model_endopoint } from '../data/items.js';
+         delete_parametric_model_endopoint } from '../config.js';
 
 export async function get_models() {
 

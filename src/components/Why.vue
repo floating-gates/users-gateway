@@ -1,6 +1,6 @@
 <script setup>
-import advantages_yoy from "../assets/images/advantages_yoy.webp";
-import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
+import advantages_yoy from "../data/images/advantages_yoy.webp";
+import { themeColor, themeColorOrange, themeColorWhite } from "../config.js";
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import { logout_referral_api_endpoint, COOKIE_NAME } from "../data/items.js";
+import { logout_referral_api_endpoint, COOKIE_NAME } from "../config.js";
 
 export async function logout() {
 

@@ -1,5 +1,5 @@
 import { create_subscription_endpoint,
-         delete_subscription_endpoint } from '../data/items.js'
+         delete_subscription_endpoint } from '../config.js'
 
 
 export async function create_subscription(
@@ -38,9 +38,8 @@ export function derive_menu_from_features( feature_dict ) {
         'Machines',
         'Materials',
         'Features',
-        'Subscription',
-        'Details',
-        'Issues' ];
+        'Admin',
+        'Brand' ];
 
     if (feature_dict["automatic_quotation"])  menu.push('AutoQuote')
     if (feature_dict["parametric_design"])    menu.push('Devices')

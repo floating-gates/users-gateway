@@ -1,4 +1,4 @@
-import { update_materials_endpoint, get_materials_endpoint } from '../data/items.js'
+import { update_materials_endpoint, get_materials_endpoint } from '../config.js'
 
 export async function  getMaterials() {
     try {

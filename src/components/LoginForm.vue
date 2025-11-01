@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { themeColor, auth_api_endpoint} from '../data/items'
+import { themeColor, auth_api_endpoint} from '../config.js'
 import { user_login } from '../user_handler/login.js'
 import { useRouter } from 'vue-router'
 

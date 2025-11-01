@@ -1,5 +1,5 @@
 <script setup>
-import { themeColor, contactInfo } from "../data/items.js";
+import { themeColor, contactInfo } from "../config.js";
 import Header from "../components/Header.vue"
 
 const lastUpdated = 'August 29, 2025';

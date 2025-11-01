@@ -1,4 +1,4 @@
-import { register_referral_api_endpoint } from "../data/items.js"
+import { register_referral_api_endpoint } from "../config.js"
 
 export async function register_referral(registration_form) {
 

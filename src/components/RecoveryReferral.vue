@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { themeColor } from '../data/items'
+import { themeColor } from '../config.js'
 import { start_recovery_referral_passwd } from '../referral_handler/recovery.js'
 
 const email = ref('')

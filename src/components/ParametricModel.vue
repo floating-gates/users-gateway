@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import { themeColor, themeColorWhite,
-         themeColorOrange } from '../data/items.js'
+         themeColorOrange } from '../config.js'
 import { get_models, update_model,
          delete_model } from '../param-model-handler/model.js'
 import ParametricModelDetails from './ParametricModelDetails.vue'

@@ -4,7 +4,7 @@ import { get_referral_details } from '../referral_handler/referral_details.js';
 import { update_referral_details } from '../referral_handler/update.js'
 import { verify_referral_credentials } from '../referral_handler/login.js';
 import { themeColor, themeColorOrange, themeColorLille,
-         themeColorWhite } from "../data/items.js";
+         themeColorWhite } from "../config.js";
 import { logout } from "../user_handler/logout.js"
 
 import Header from "../components/Header.vue";

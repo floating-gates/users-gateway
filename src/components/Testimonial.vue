@@ -1,5 +1,5 @@
 <script setup>
-import { themeColor } from "../data/items";
+import { themeColor } from "../config.js";
 
 const heading = "Testimonials";
 const subHeading = "Our Customers Feedbck";

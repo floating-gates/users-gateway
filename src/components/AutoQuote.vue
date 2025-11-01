@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { themeColor, themeColorOrange,
-         themeColorWhite } from '../data/items.js'
+         themeColorWhite } from '../config.js'
 import { get_autoquote_config,
          update_autoquote_config } from '../feature_handling/autoquote.js'
 

@@ -1,4 +1,4 @@
-import { update_feature_endpoint } from "../data/items.js"
+import { update_feature_endpoint } from "../config.js"
 
 export async function update_features(
     independent_payment,

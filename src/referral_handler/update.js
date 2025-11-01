@@ -1,4 +1,4 @@
-import { update_referral_api_endpoint } from '../data/items.js';
+import { update_referral_api_endpoint } from '../config.js';
 
 
 export async function update_referral_details( iban, swift ) {

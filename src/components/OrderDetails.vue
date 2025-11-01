@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
-import { themeColor, themeColorOrange } from "../data/items.js";
+import { themeColor, themeColorOrange } from "../config.js";
 import { downloadFile } from '../project_handler/project.js';
 
 // pub struct ProjectDescription {

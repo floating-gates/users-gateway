@@ -1,5 +1,5 @@
 import { price_status, price_status_api_endpoint,
-         pricing_proj_api_endpoint } from "../data/items.js"
+         pricing_proj_api_endpoint } from "../config.js"
 
 
 export async function mark_proj_as_shipped( proj ) {

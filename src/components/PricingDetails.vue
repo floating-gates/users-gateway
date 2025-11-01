@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive, watch, computed,
          defineEmits, defineProps } from 'vue';
-import { themeColor, themeColorOrange, MAX_MB_PDF } from "../data/items.js";
+import { themeColor, themeColorOrange, MAX_MB_PDF } from "../config.js";
 import { post_payment_information } from "../payment_handler/payment.js"; 
 
 const props = defineProps(['proj']);

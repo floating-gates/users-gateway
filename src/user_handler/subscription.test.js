@@ -7,9 +7,8 @@ describe('derive_menu_from_features', () => {
     'Machines',
     'Materials',
     'Features',
-    'Subscription',
-    'Details',
-    'Issues'
+    'Admin',
+    'Brand',
   ];
 
   it('returns base menu when no features are enabled', () => {

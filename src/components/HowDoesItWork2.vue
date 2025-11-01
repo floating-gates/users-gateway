@@ -1,12 +1,12 @@
 <script setup>
-import mainPhoto from "../assets/images/hero_pic_.webp";
+import mainPhoto from "../data/images/hero_pic_.webp";
 
 import { 
   themeColor, 
   themeColorOrange, 
   themeColorGold, 
   themeColorWhite 
-} from "../data/items";
+} from "../config.js";
 </script>
 
 <template>

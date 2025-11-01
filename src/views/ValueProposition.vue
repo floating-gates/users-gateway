@@ -1,6 +1,6 @@
 <script setup>
 import Header from "../components/Header.vue";
-import { themeColor } from "../data/items.js";
+import { themeColor } from "../config.js";
 // import { useHead } from '@vueuse/head'; // Install: npm install @vueuse/head
 
 const value_proposition_intro = "Every manufacturing machine whether in a garage or a corporate lab, holds unused potential. Our mission is to connect machines, effortlessly and transparently with the greatest ideators. We aim to be the leading provider of virtual manufacturing hubs, using simulation capabilities, rigorous manufacturing checks, and commitment to connecting manufacturers with clients."
@@ -74,7 +74,7 @@ const customerSections = [
 
         <figure class="image-wrapper">
           <img 
-            src="../assets/images/product.png" 
+            src="../data/images/product.png" 
             alt="Gates manufacturing platform dashboard showing automated order tracking, real-time quoting interface, and production management tools" 
             class="section-image"
             itemprop="screenshot"
@@ -122,7 +122,7 @@ const customerSections = [
 
         <figure class="image-wrapper">
           <img 
-            src="../assets/images/customer.webp" 
+            src="../data/images/customer.webp" 
             alt="Small and medium manufacturing enterprises workshop showing production equipment and manufacturing processes" 
             class="section-image"
             loading="lazy"
@@ -163,7 +163,7 @@ const customerSections = [
       "url": "https://gates-manufacturing.com",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web-based",
-      "screenshot": "https://gates-manufacturing.com/assets/images/product.png",
+      "screenshot": "https://gates-manufacturing.com/data/images/product.png",
       "featureList": [
         "Automated order handling and tracking",
         "Real-time manufacturing quotes",

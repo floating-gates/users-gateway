@@ -1,7 +1,7 @@
 <script setup>
 import { ref, defineEmits, onMounted } from 'vue';
 import { themeColor, themeColorWhite, themeColorLille,
-         themeColorOrange } from '../data/items';
+         themeColorOrange } from '../config.js';
 import { default_materials } from '../data/default_materials.js'
 import { updateMaterials } from "../user_handler/materials.js"
 

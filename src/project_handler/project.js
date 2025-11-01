@@ -3,7 +3,7 @@ import { get_project_endpoint,
          delete_project_endpoint,
          download_api_endpoint,
          price_status
-       } from '../data/items.js'
+       } from '../config.js'
 
 
 export async function create_project( proj_name,

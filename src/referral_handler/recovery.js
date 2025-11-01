@@ -1,5 +1,5 @@
 import { referral_recovery_api_endpoint,
-        set_new_referral_passwd_endpoint } from "../data/items.js"
+        set_new_referral_passwd_endpoint } from "../config.js"
 
 
 export async function start_recovery_referral_passwd ( referral_email ) {

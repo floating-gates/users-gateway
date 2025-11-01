@@ -46,7 +46,7 @@ onMounted(async () => {
         <!-- Image column -->
         <div class="col-lg-7">
           <img 
-            src="../assets/images/platform_logic_pic.webp" 
+            src="../data/images/platform_logic_pic.webp" 
             alt="Manufacturing Hub" 
             class="img-fluid rounded"
           />

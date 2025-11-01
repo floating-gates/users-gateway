@@ -1,6 +1,6 @@
 <script setup>
-import { themeColor, themeColorOrange, themeColorWhite } from "../data/items";
-import mainPhoto from "../assets/images/platform_logic_pic.webp";
+import { themeColor, themeColorOrange, themeColorWhite } from "../config.js";
+import mainPhoto from "../data/images/platform_logic_pic.webp";
 import Header from "../components/Header.vue";
 
 const missionSubHeading = "Maximizing Idle Manufacturing Potential";

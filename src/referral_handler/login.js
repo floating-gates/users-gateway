@@ -1,5 +1,5 @@
 import { login_referral_api_endpoint,
-         referral_auth_api_endpoint } from '../data/items.js';
+         referral_auth_api_endpoint } from '../config.js';
 
 export async function referral_login( email, password ) {
     const response = await fetch( login_referral_api_endpoint, {

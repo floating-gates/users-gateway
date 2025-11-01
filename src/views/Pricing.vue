@@ -2,7 +2,7 @@
 import Header from '../components/Header.vue'
 
 import { themeColor, themeColorOrange,
-         themeColorWhite, display_price_list } from "../data/items";
+         themeColorWhite, display_price_list } from "../config.js";
 
 const heading = "Plans and Pricing";
 const subHeading = "Pricing refer only to the hosting services (GATES). You always choose the final price to charge the customer to manufacture their devices. We just suggest.";

@@ -1,25 +1,27 @@
+# Gates 
+ 
+Rethinking digital manufacturing. 
+
 <div align="center">
-  <img src="src/assets/images/hero_pic_.webp" alt="Gates Manufacturing Hub" width="100%" />
+  <img src="src/data/images/hero_pic_.webp" alt="Gates Manufacturing Hub" width="100%" />
 </div>
 
-# Gates
-
-**Gates** provides a **Manufacturing Hub** that connects customers and manufacturers through an integrated online platform.  
-It combines **public CAD engineering tools**, **instant quoting**, and **feasibility analysis** to streamline the entire production process — from design to delivery.
-
----
+**Gates** provides a **Manufacturing Hub** that connects customers and manufacturers through an split online platform.  
+It combines a **a privately owned online CAD**, **instant quoting**, and **feasibility analysis** to streamline the entire production process — from design to delivery.
 
 ## Overview
 
-**Gates** offers manufacturers a centralized digital hub to manage and attract clients, while empowering customers to design and price products in real time.
+It offers manufacturers a centralized digital hub to manage and attract clients, while empowering customers to design and price products in real time in the CAD front end.
 
 ### For Manufacturers
+
 - Gain visibility and reach new customers.
 - Manage and track existing clients efficiently.
 - Avoid uncertain prospects with automated feasibility checks.
 - Streamline interactions with a transparent, automated quoting process.
 
 ### For Manufacturers' Consumers
+
 - Design devices directly in the **Online CAD** environment.
 - Get **instant quotes**, **feasibility checks**, and **design optimizations** before submitting an order.
 - Issue orders directly to the most suitable manufacturing partner.

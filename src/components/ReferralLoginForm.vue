@@ -1,9 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { themeColor, auth_api_endpoint} from '../data/items'
+import { themeColor, auth_api_endpoint} from '../config.js'
 import { referral_login } from '../referral_handler/login.js'
 import { useRouter } from 'vue-router'
-import { COOKIE_NAME } from "../data/items.js";
+import { COOKIE_NAME } from "../config.js";
 
 // Form state
 const login_form = ref({ email: '', password: '' })

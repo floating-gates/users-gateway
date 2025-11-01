@@ -1,6 +1,6 @@
 <script setup>
 import { defineEmits, defineProps } from 'vue';
-import { themeColor, themeColorOrange } from "../data/items.js";
+import { themeColor, themeColorOrange } from "../config.js";
 import { mark_proj_as_shipped } from "../price_handler/price_setting.js";
 
 const emit = defineEmits(['close', 'shipped']);

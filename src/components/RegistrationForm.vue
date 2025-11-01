@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref, onMounted } from 'vue'
-import { themeColor, themeColorOrange } from '../data/items.js'
+import { themeColor, themeColorOrange } from '../config.js'
 import { user_login } from '../user_handler/login.js'
 import { register_user } from '../user_handler/registration.js'
 import { validate_logo } from '../user_handler/logo.js'

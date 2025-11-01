@@ -1,5 +1,5 @@
 <script setup>
-import { themeColor, themeColorOrange, themeColorLille } from "../data/items";
+import { themeColor, themeColorOrange, themeColorLille } from "../config.js";
 import { ref } from "vue";
 import Header from "../components/Header.vue";
 

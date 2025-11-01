@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import { get_complete_model } from '../param-model-handler/model.js'
 import { get_model_parameters, update_params, delete_parameter } from '../param-model-handler/params.js'
-import { themeColor, themeColorWhite, themeColorOrange } from '../data/items.js'
+import { themeColor, themeColorWhite, themeColorOrange } from '../config.js'
 
 const props = defineProps({
     model_name: String,

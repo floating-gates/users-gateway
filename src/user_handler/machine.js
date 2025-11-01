@@ -1,4 +1,4 @@
-import { update_machine_endpoint, get_machine_endpoint } from '../data/items.js'
+import { update_machine_endpoint, get_machine_endpoint } from '../config.js'
 
 export async function  getMachineList() {
     try {

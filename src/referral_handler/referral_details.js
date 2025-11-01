@@ -1,4 +1,4 @@
-import { referral_details_api_endpoint } from '../data/items.js';
+import { referral_details_api_endpoint } from '../config.js';
 
 export async function get_referral_details() {
     const response = await fetch( referral_details_api_endpoint, {

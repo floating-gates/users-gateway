@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { themeColor } from '../data/items'
+import { themeColor } from '../config.js'
 import { set_new_passwd } from '../user_handler/recovery.js'
 import Header from '../components/Header.vue'
 

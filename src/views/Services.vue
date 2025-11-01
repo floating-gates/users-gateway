@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from "vue";
-import { themeColor, themeColorOrange, themeColorLille, contactInfo } from "../data/items";
+import { themeColor, themeColorOrange, themeColorLille, contactInfo } from "../config.js";
 import Header from "../components/Header.vue";
-import simulation_service_img from "../assets/images/simulation_service.jpg";
-import stochastic_img from "../assets/images/stochastic_img.webp";
-import param_design from "../assets/images/param_design.png";
+import simulation_service_img from "../data/images/simulation_service.jpg";
+import stochastic_img from "../data/images/stochastic_img.webp";
+import param_design from "../data/images/param_design.png";
 
 const phone = contactInfo["phone"].replace(/[\s+]/g, "");
 const message = "Hi! I'm interested in one of your enterprise services";
@@ -13,31 +13,42 @@ const whatsAppUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
 const services = [
   {
     name: "Scientific Software Development",
-    description: "As manufacturing becomes more complex, we design predictive software to model system behavior using proven numerical methods. Examples include structural integrity, fatigue, vibrations and heat exchange forecasts.",
+    description: "As modern manufacturing and engineering systems grow in complexity, our expertise empowers you to understand and predict how your products behave under real-world conditions. We design customized scientific software that leverages proven numerical methods—such as Finite Element Analysis (FEA) and other computational modeling techniques—to simulate physical phenomena with high accuracy. From structural integrity and fatigue to vibrations and heat transfer, our simulations enable data-driven design decisions that enhance performance and reliability.",
     image: simulation_service_img,
     advantages: [
-      "Explore a variety of designs without costly experiments.",
-      "Make measurements in locations otherwise inaccessible, e.g., inside a mixer, oil channels etc.",
-      "Physics-informed, data-driven design decisions.",
+      "Test and refine designs virtually, reducing the need for costly physical experiments.",
+      "Access data from locations that are physically unreachable, such as inside mixers, micro-channels, or sealed systems.",
+      "Combine physics-based models with real-world data for informed, predictive design decisions."
     ],
-    outcome: ["Software able to explore/measure physics of a specific phenomenon you want from the device."]
+    outcome: [
+      "A customized software tool capable of exploring and quantifying the physics behind the specific phenomena relevant to your system or device."
+    ]
   },
   {
     name: "Parametric Mechanical Design",
-    description: "We use CAD and automation to rapidly iterate on designs. Our parametric workflows help you reach optimal solutions driven by physical and measurable objectives.",
-    advantages: ["Quick design updates through parameter adjustments."],
+    description: "We combine CAD automation and parametric modeling to accelerate your mechanical design process. By embedding key design parameters directly into your models, we enable rapid iteration and optimization guided by measurable physical objectives. Our approach allows you to explore design variations, fine-tune geometries, and converge toward high-performance solutions faster than ever before.",
     image: param_design,
-    outcome: ["Software able to build up a custom CAD file algoritmically to allow easy fast iterations."]
+    advantages: [
+      "Instantly update and optimize designs through simple parameter adjustments.",
+      "Reduce manual design work and human error through automation.",
+      "Enable objective-driven design exploration linked to performance metrics."
+    ],
+    outcome: [
+      "A parametric software system that programmatically generates and modifies CAD models, allowing seamless and fast design iterations."
+    ]
   },
   {
     name: "Machine Learning Exploration",
-    description: "By integrating ML with physics-based simulations, we analyze a broader range of design options efficiently and at lower cost.",
+    description: "We merge the predictive power of machine learning with the rigor of physics-based simulations to unlock new frontiers in design exploration. This hybrid approach enables the efficient analysis of complex systems, identifying optimal configurations with minimal computational cost. By learning from simulated or experimental data, our models can rapidly forecast system performance across a vast design space, accelerating innovation while reducing time and expense.",
     image: stochastic_img,
     advantages: [
-      "Predict complex systems behavior.",
-      "Perform hundreds of virtual experiments with minimal computational cost."
+      "Predict the behavior of complex, nonlinear, or multi-physics systems with high accuracy.",
+      "Run hundreds of virtual experiments at a fraction of traditional computational costs.",
+      "Leverage data-driven insights to guide design optimization and decision-making."
     ],
-    outcome: ["Insight and previosion of performances of complex systems."]
+    outcome: [
+      "Comprehensive insights and reliable performance predictions for complex systems, empowering smarter and faster design choices."
+    ]
   }
 ];
 
@@ -103,7 +114,7 @@ const selectService = (index) => {
                 </div>
 
                 <a :href="whatsAppUrl" class="whatsapp-btn">
-                  <img src="../assets/images/WhatsAppButtonGreenMedium.svg" alt="Contact via WhatsApp" class="whatsapp-icon" />
+                  <img src="../data/images/WhatsAppButtonGreenMedium.svg" alt="Contact via WhatsApp" class="whatsapp-icon" />
                 </a>
               </div>
             </div>
@@ -195,7 +206,7 @@ const selectService = (index) => {
 }
 
 .service-image {
-  max-width: 300px;
+  max-width: 600px;
   height: auto;
   border-radius: 14px;
 }
