@@ -333,13 +333,6 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     font-weight: 650;
 }
 
-.untree_co-hero .dots {
-  position: absolute;
-  width: 100%;
-  height: 100%; /* ⬅️ was 200%, no need to overflow vertically */
-  overflow: hidden; /* ⬅️ ensure nothing leaks out visually */
-}
-
 .untree_co-hero .dots:before {
   z-index: -1;
   right: 0;
@@ -347,7 +340,6 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   content: "";
   width: 304px;
   height: 264px;
-  background: url("../images/dots.png") right top;
   background-size: contain;
   background-repeat: no-repeat;
   transform: translateX(20%); /* ⬅️ was 60%, reduce for mobile safety */

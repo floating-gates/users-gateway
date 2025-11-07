@@ -1,8 +1,8 @@
-w<script setup>
+<script setup>
 import { contactInfo, themeColorOrange } from "../config.js";
 import iconGithub from "../data/images/github-logo.svg";
 import iconSubstack from "../data/images/substack-logo.png";
-
+import short_logo from "../data/images/logo_short_black.webp"
 
 const copyrightText = "Copyright 2025, All rights reserved.";
 const column1Heading = "About us";
@@ -19,7 +19,6 @@ const socialItems = [
         link: "https://floatinggates.substack.com/profile/posts",
         icon: iconSubstack,
     },
-
 ];
 </script>
 
@@ -34,7 +33,10 @@ const socialItems = [
           <div class="row">
             <div class="col-lg-6">
               <div class="widget">
-                <h3>{{ column1Heading }}</h3>
+                <div class="about-header">
+                  <img :src="short_logo" alt="Floating Gates" class="footer-logo-small" />
+                  <h3>{{ column1Heading }}</h3>
+                </div>
                 <p>{{ column1Text }}</p>
               </div>
               <div class="widget">
@@ -60,7 +62,7 @@ const socialItems = [
             <div class="col-lg-6">
               <div class="widget">
                 <a href="/services" class="footer-link">
-                  <h3 >
+                  <h3>
                     Enterprise Services
                     <svg xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 24 24"
@@ -98,6 +100,7 @@ const socialItems = [
             </div>
           </div>
         </div>
+
         <!-- Detached Contact column -->
         <div class="col-lg-3">
           <div class="widget">
@@ -105,11 +108,11 @@ const socialItems = [
             <address>Loc: {{ contactInfo.address }}</address>
             <ul class="list-unstyled links mb-4">
               <li>
-                <a :href="'tel://' + contactInfo.phone1"> Tel:{{ contactInfo.phone }}</a>
+                <a :href="'tel://' + contactInfo.phone1">Tel: {{ contactInfo.phone }}</a>
               </li>
               <li>
                 <a :href="'mailto:' + contactInfo.email">
-                  <span> Email: {{ contactInfo.email }}</span>
+                  <span>Email: {{ contactInfo.email }}</span>
                 </a>
               </li>
               <li>
@@ -128,35 +131,52 @@ const socialItems = [
             &nbsp;|&nbsp;
             <a href="/terms_and_services">Terms and Services</a>
             and 
-          <a href="/privacy-policy"> Privacy Policy</a>
-          apply
-        </p>
+            <a href="/privacy-policy">Privacy Policy</a>
+            apply
+          </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
-
-
 <style scoped>
+.about-header {
+  display: flex;
+  align-items: center;        /* Vertically center logo + text */
+  gap: 0.75rem;               /* Space between logo and text */
+  margin-bottom: 0.75rem;
+}
+
+.about-header h3 {
+  margin: 0;                  /* Remove default h3 spacing */
+  font-size: 1.25rem;         /* Adjust as needed */
+  font-weight: 600;
+}
+
+.footer-logo-small {
+  width: 40px;                /* Slightly larger for balance */
+  height: auto;
+  flex-shrink: 0;             /* Prevent logo from shrinking */
+}
+
 .footer-arrow {
-  height: 1em;       /* same height as text */
-  width: auto;       /* keep aspect ratio */
-  color: var(--themeColorOrange); /* use your theme variable */
-  flex-shrink: 0;    /* prevent squishing */
+  height: 1em;
+  width: auto;
+  color: var(--themeColorOrange);
+  flex-shrink: 0;
 }
 
 .social {
   display: flex;
-  gap: 1rem; /* adjust space as needed */
+  gap: 1rem;
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
 .social li img {
-  height: 32px; /* keep consistent size */
+  height: 32px;
   width: auto;
 }
 </style>

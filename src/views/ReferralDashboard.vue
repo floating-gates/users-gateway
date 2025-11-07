@@ -382,7 +382,6 @@ onMounted(async () => {
 
 /* Main Referral Card */
 .referral-card {
-  background: white;
   border-radius: 16px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   overflow: hidden;
@@ -391,7 +390,7 @@ onMounted(async () => {
 .card-header {
   padding: 2rem;
   border-bottom: 1px solid #e5e7eb;
-  background: v-bind(themeColorWhite);
+  background: v-bind( themeColor );
   color: white;
 }
 
@@ -405,8 +404,7 @@ onMounted(async () => {
   font-size: 1rem;
   margin: 0;
   opacity: 0.9;
-  color: v-bind(themeColor);
-
+  color: v-bind(themeColorWhite);
 }
 
 /* Code Section */

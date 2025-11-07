@@ -9,15 +9,15 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../config.js";
       <!-- Section Header -->
       <div class="text-center" data-aos="fade-up">
         <h1 class="section-title">
-          Move Manufacturing Online. Customers ask. We Automate. You produce.
+          Move Manufacturing Online <span class="dot">•</span> Customers ask <span class="dot">•</span> We Automate <span class="dot">•</span> You produce
         </h1>
-        <p class="section-subtitle">
+        <p class="subtitle">
           One of the most promising discoveries in our journey has been realizing how much companies care about how they are perceived. Hence we sat down and thought about how we can technologically enable manufacturing plants in the most outreaching way possible, giving birth to the idea of proxying our technology.
         </p>
       </div>
 
       <!-- Content + Visual -->
-      <div class="row align-items-center">
+      <div class="space row align-items-center">
         <!-- Advantages Column -->
         <div class="col-lg-4 col-12" data-aos="fade-right" data-aos-delay="100">
           <div class="pe-lg-4">
@@ -70,7 +70,7 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../config.js";
               <!-- Item 4: Call to Action -->
               <li class="advantage-item" :style="{ backgroundColor: themeColor }">
                 <a @click="$router.push('/login')" class="item-icon" :style="{ backgroundColor: themeColorWhite }">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" :stroke="themeColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                   </svg>
                 </a>
@@ -83,7 +83,7 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../config.js";
         </div>
 
         <!-- Image Column -->
-        <div class="col-lg-8 col-12 mt-4 mt-lg-0" data-aos="fade-left" data-aos-delay="150">
+        <div class="col-lg-8 col-12" data-aos="fade-left" data-aos-delay="150">
           <div class="shadow-lg rounded-4 overflow-hidden p-3">
             <img
               :src="advantages_yoy"
@@ -102,16 +102,30 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../config.js";
 .advantages-section {
   position: relative;
   overflow: hidden;
-  margin-bottom: 2rem;
 }
 
 .section-title {
-  margin-bottom: 1.8rem;
   font-size: 2rem;
   font-weight: 650;
   color: v-bind(themeColor);
   position: relative;
   display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.section-title .dot {
+  color: v-bind(themeColorOrange);
+}
+
+.subtitle {
+  max-width: 900px;
+  line-height: 1.6;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.space {
+  margin-top: 3rem;
 }
 
 .advantage-list {
@@ -165,7 +179,6 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../config.js";
   padding-left: 5%;
   padding-right: 5%;
   max-width: 1600px;
-  margin: 0 auto;
 }
 
 .visual-wrapper {
@@ -182,6 +195,11 @@ import { themeColor, themeColorOrange, themeColorWhite } from "../config.js";
     font-size: 1.75rem;
   }
 
+  .section-subtitle {
+    max-width: 90%;
+    margin-bottom: 2rem;
+  }
+    
   .advantage-item {
     flex-direction: column;
     align-items: flex-start;

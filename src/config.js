@@ -26,6 +26,7 @@ const logout_api_endpoint        = api_url + '/user/logout';
 const user_details_api_endpoint  = api_url + '/user/details';
 const user_recovery_api_endpoint = api_url + '/user/recovery';
 const set_new_usr_passwd_endpoint = api_url + '/user/set_new_password';
+const auth_google_api_endpoint     = api_url + '/user/login/google' ;
 
 const referral_auth_api_endpoint     = api_url + '/referral/me'
 const register_referral_api_endpoint = api_url + '/referral/register';
@@ -208,5 +209,6 @@ export {
     update_parametric_model_endopoint, get_complete_parametric_model_endpoint,
     update_autoquote_endpoint, get_parametric_models_vec_endpoint,
     get_parametric_params_vec_endpoint,  update_parametric_params_endpoint,
-    delete_parametric_model_endopoint, delete_parametric_params_endpoint
+    delete_parametric_model_endopoint, delete_parametric_params_endpoint,
+    auth_google_api_endpoint
 };

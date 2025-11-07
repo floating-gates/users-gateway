@@ -222,7 +222,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px; /* ⬅️ Adds clear horizontal space between text and icon */
+  gap: 14px;
   font-weight: 600;
   letter-spacing: 0.3px;
   transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
@@ -238,7 +238,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
 }
 
 .address-submit svg {
-  width: 1.2em; /* ⬅️ Makes the icon match text size */
+  width: 1.2em; /* Makes the icon match text size */
   height: 1.2em;
   stroke: v-bind(themeColorWhite);
   transition: stroke 0.3s ease, transform 0.3s ease;
@@ -246,7 +246,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
 
 .address-submit:hover svg {
   stroke: v-bind(themeColor); /* stays white on orange bg */
-  transform: translateX(4px); /* ⬅️ slight movement forward on hover */
+  transform: translateX(4px); /* slight movement forward on hover */
 }
 
 
@@ -254,7 +254,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
     padding: 0.9rem 1.2rem;
     min-height: 56px;   
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -268,7 +268,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
 .address-submit svg {
     width: 24px;
     height: 24px;
-  stroke: white;
+    stroke: white;
 }
 </style>
 

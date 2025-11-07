@@ -25,7 +25,7 @@ import {
       </p>
 
       <!-- IMAGE -->
-      <div class="image-wrapper" data-aos="zoom-in" data-aos-delay="200">
+      <div class="image-wrapper" data-aos="zoom-in" data-aos-delay="100">
         <!-- <a :href="youtubeVideoUrl" class="video-overlay" data-fancybox> -->
         <!--     <div class="play-button" :style="{ backgroundColor: themeColor }"> -->
         <!--         <svg width="24" height="24" viewBox="0 0 16 16" fill="white"> -->
