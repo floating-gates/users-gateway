@@ -7,7 +7,7 @@ import { verify_user_credentials } from "../user_handler/login.js";
 
 import { ref, onMounted } from "vue";
 
-const currentView = ref("register"); 
+const currentView = ref("login"); 
 
 function switchTo(view) {
   currentView.value = view;
@@ -22,7 +22,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Header :context="'login'" />
+  <Header :context="'landing-page'" />
 
   <div class="untree_co-hero" id="auth-section">
     <div class="container-fluid login-container container">
