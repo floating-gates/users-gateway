@@ -58,8 +58,8 @@ const get_parametric_params_vec_endpoint = api_url + '/param-model/get-parametri
 
 
 // Subscription API Endpoints
-// const get_subscription_endpoint    = api_url + '/subscription';          // NOT USED
-const create_subscription_endpoint = api_url + '/subscription/create';
+const set_next_subscription_endpoint = api_url + '/subscription/set-next-subscription'
+const get_gocardless_payment_link_endpoint = api_url + '/subscription/get-payment-link'
 const delete_subscription_endpoint = api_url + '/subscription/delete';
 
 // Project API Endpoints
@@ -107,23 +107,23 @@ const tier = {  //----------------- Not exported, DB interface
 const price_list = {
     [tier[1]]: {
         0: {
-            link: gocardless_link_basic_plan,
-            price: 49.0,
+            // link: gocardless_link_basic_plan,
+            price: 4900,
             display_price: '49.00 €/month'
         },
         20:  {
-            link: gocardless_link_basic_plan_20,
-            price: 39.2,
+            // link: gocardless_link_basic_plan_20,
+            price: 3920,
             display_price: '39.20 €/month'
         },
         50: {
-            link: gocardless_link_basic_plan_50,
-            price: 24.5,
+            // link: gocardless_link_basic_plan_50,
+            price: 2450,
             display_price: '24.50 €/month'
         },
         80:  {
-            link: gocardless_link_basic_plan_80,
-            price: 9.8,
+            // link: gocardless_link_basic_plan_80,
+            price: 980,
             display_price: '9.80 €/month'
         }
 
@@ -131,44 +131,44 @@ const price_list = {
     [tier[2]]: {
         0: {
             link: "",
-            price: 99999.0,
+            price: 999990,
             display_price: 'Coming Soon...'
         },
         50:  {
             link: "",
-            price: 99999.0,
+            price: 999990,
             display_price: 'Coming Soon...'
         },
         20:  {
             link: "",
-            price: 99999.0,
+            price: 999990,
             display_price: 'Coming Soon...'
         },
         80:  {
             link: "",
-            price: 99999.0,
+            price: 999990,
             display_price: 'Coming Soon'
         }
     },
     [tier[3]]: {
         0: {
-            link: "/services",
-            price: 99999.0,
-            display_price: 'Request a Quote'
+            link: "/dashboard",
+            price: 9999900,
+            display_price: 'One of Us will be in contact with you.'
         },
         50:  {
             link: "/services",
-            price: 99999.0,
+            price: 999990,
             display_price: 'You have a 50% discount, Request a Quote'
         },
         20:  {
             link: "/services",
-            price: 99999.0,
+            price: 999990,
             display_price: 'You have a 20% discount, Request a Quote'
         },
         80:  {
             link: "/services",
-            price: 9.8,
+            price: 9000000,
             display_price: 'You have a 80% discount, Request a Quote'
         }
     }
@@ -192,9 +192,9 @@ export {
     themeColorGold, demo_url, COOKIE_NAME, price_status_api_endpoint,
     auth_api_endpoint, register_user_api_endpoint, login_user_api_endpoint,
     logout_api_endpoint, user_details_api_endpoint, MAX_MB_PDF,
-    create_subscription_endpoint, delete_subscription_endpoint,
+    get_gocardless_payment_link_endpoint, delete_subscription_endpoint,
     get_project_endpoint, user_recovery_api_endpoint,
-    set_new_usr_passwd_endpoint,
+    set_new_usr_passwd_endpoint, set_next_subscription_endpoint,
     create_project_endpoint, delete_project_endpoint,
     pricing_proj_api_endpoint, download_api_endpoint,
     price_status, price_list, display_price_list, contactInfo,

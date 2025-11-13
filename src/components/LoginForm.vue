@@ -7,30 +7,26 @@ import google_icon from "../data/images/google_icon.svg"
 
 const login_form = ref({ email: '', password: '' })
 const router = useRouter()
-const error = ref('')
+const error = ref(null)
 const isLoading = ref(false)
 
 async function handleLogin() {
-  error.value = ''
-  let hasError = false
-
-  if (!login_form.value.email) {
-    error.value = 'Email is required.'
-    hasError = true
-  }
-  if (!login_form.value.password) {
-    error.value = 'Password is required.'
-    hasError = true
-  }
-  if (hasError) return
+  error.value = null
+    
+  if (!login_form.value.email)    { error.value = 'Email is required.' }
+  if (!login_form.value.password) { error.value = 'Password is required.' }
+  if ( error.value ) return
 
   isLoading.value = true
 
   try {
-    const response = await user_login(login_form.value.email, login_form.value.password)
+      const response = await user_login( login_form.value.email,
+                                         login_form.value.password)
     if (response.status === 202) {
       router.push('/dashboard')
     } else {
+
+      // WTF is this 
       const data = await response.json().catch(() => ({}))
       if (response.status === 401) error.value = 'Invalid email or password.'
       else if (response.status === 400) error.value = 'No user found.'
@@ -169,17 +165,6 @@ function handleGoogleLogin() {
   width: 20px;
   height: 20px;
   margin-right: 8px;
-}
-
-.error-text {
-  color: red;
-  font-size: 0.875rem;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  background-color: #fee;
-  border: 1px solid #fcc;
-  border-radius: 4px;
-  display: block;
 }
 
 .toggle-link {

@@ -1,83 +1,85 @@
 <script setup>
 import { ref, watch, defineProps, onMounted } from 'vue';
-import { create_subscription } from '../user_handler/subscription.js';
+import { set_next_subscription  } from '../user_handler/subscription.js';
+import { get_gocardless_payment_link } from '../user_handler/subscription.js';
 import { themeColor, themeColorOrange, themeColorWhite, price_list } from '../config.js';
 
 const props = defineProps({
-  provisional_hub_name: String,
-  discount: Number
+    provisional_hub_name: String,
+    discount: Number
 });
 
 const hostAddress = ref('');
 const subscriptionPlan = ref('');
 const price = ref(null);
 const showPaymentButton = ref(true)
-const paymentUrl = ref('');
 const enrollButtonText = ref('Select a Plan')
 
-const hasError = ref(false);
-const error = ref('');
+const error = ref(null);
+const error_in_hostname = ref(null)
 
-async function paySubscription() {
-  hostAddress.value = hostAddress.value.trim().toLowerCase();
-  
-  if (!/^[a-z0-9_-]+$/.test(hostAddress.value)) {
-    error.value = "No spaces or special characters are allowed.";
-    hasError.value = true;
-    return;
-  }
-  
-  const response = await create_subscription(
-    subscriptionPlan.value,
-    hostAddress.value,
-    price.value
-  );
-  
-  if (response.status === 409) {
-    error.value = "The requested host address is already in use. Please choose a different one.";
-    hasError.value = true;
-    return;
-  }
-  
-  if (paymentUrl.value) window.location.href = paymentUrl.value;
+async function start_payment_procedure() {
+    
+    let paymentUrl = null 
+    hostAddress.value = hostAddress.value.trim().toLowerCase();
+    
+    if (!/^[a-z0-9_-]+$/.test(hostAddress.value)) {
+        error.value = "No spaces or special characters are allowed.";
+        hasError.value = true;
+        return;
+    }
+    
+    try {
+        await set_next_subscription( subscriptionPlan.value,
+                                     hostAddress.value,
+                                     price.value )
+    } catch (e) {
+        error_in_hostname.value = e.message
+    }
+    
+    try {
+        paymentUrl = await get_gocardless_payment_link( price.value )
+    } catch (e) {
+        error.value = e.message
+    }
+        
+    if (paymentUrl) window.location.href = paymentUrl;
 }
 
 watch(subscriptionPlan, (plan) => {
-
-    if (plan === "standard") { showPaymentButton.value = false }
-    else { showPaymentButton.value = true }
-
-    if (plan === 'basic')      { enrollButtonText.value = "Activate your Hub Now" }
-    if (plan === 'enterprise') { enrollButtonText.value = "Request a Quotation" }
     
-    if (plan) {
-    paymentUrl.value = price_list[plan][props.discount].link;
-        price.value  = price_list[plan][props.discount].price;
-  }
+    (plan === "standard") ?
+        showPaymentButton.value = false : showPaymentButton.value = true
+    if (plan === 'basic') { enrollButtonText.value = "Activate your Hub Now" }
+    if (plan === 'enterprise') { enrollButtonText.value = "Request a Quotation" }
+    if (plan) { price.value = price_list[plan][props.discount].price; }
 });
 
 onMounted(() => {
-  if (props.provisional_hub_name) hostAddress.value = props.provisional_hub_name;
+    if (props.provisional_hub_name) hostAddress.value = props.provisional_hub_name;
 });
 </script>
 
 <template>
 <div class="subscription-card">
   <h2 class="subscription-title" :style="{ color: themeColor }">
-    Launch Your Hub in Seconds
-  </h2>
-  
-  <p class="subscription-description">
+    Activate your Subscription, to host your Factory online. </h2>
+  <h2 class="subscription-title" :style="{ color: themeColorOrange }">
+    You are currently in Demo mode. </h2>
+  <p class="note">
     Secure your own hub today and start receiving orders instantly.  
     Choose the plan that matches your goals — from a little 3D machine to production line.
   </p>
   
-  <div v-if="hasError" class="error-text">{{ error }}</div>
+  <div v-if="error" class="error-text">
+    {{ error }}
+  </div>
   
-  <form @submit.prevent="paySubscription">
+  <form @submit.prevent="start_payment_procedure">
     <div class="form-group">
       <label for="planSelect"><strong>Select Your Plan</strong></label>
-      <select v-model="subscriptionPlan" id="planSelect" class="form-control" required>
+      <select v-model="subscriptionPlan" id="planSelect"
+              class="form-control" required>
         <option
           v-for="(plans, plan_name) in price_list"
           :key="plan_name"
@@ -89,12 +91,14 @@ onMounted(() => {
     
     <div v-if="subscriptionPlan" class="pricing-highlight" :style="{ color: themeColorOrange }">
       {{ price_list[subscriptionPlan][props.discount].display_price }}
-      <span class="note">(cancel anytime)</span>
     </div>
-    <p class="payment-note">Your payment is securely processed by GoCardless Ltd.</p>
+    
+    <div v-if="error_in_hostname" class="error-text">
+      {{ error_in_hostname }}
+    </div>
     
     <div class="form-group">
-      <label for="hostUrl"><strong>🌐 Choose Your Hub Address</strong></label>
+      <label for="hostUrl"><strong>🌐 Choose Your CAD Address</strong></label>
       <input
         v-model="hostAddress"
         id="hostUrl"
@@ -109,7 +113,7 @@ onMounted(() => {
       <button type="submit" class="btn-primary" :style="{ backgroundColor: themeColor }">
         {{ enrollButtonText }}
       </button>
-      <p class="benefits">Instant setup • Refund Guaranteed • Cancel anytime</p>
+      <p class="benefits">Instant CAD setup • Refund Guaranteed • Cancel Anytime</p>
     </div>
   </form>
 </div>
@@ -119,32 +123,17 @@ onMounted(() => {
 .subscription-card {
     background-color: #fff;
     border-radius: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-    max-width: 600px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.52);
+    max-width: 900px;
     margin: 3rem auto;
     padding: 2.5rem;
 }
 
 .subscription-title {
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     color: v-bind(themeColor);
-    margin-bottom: 1rem;
-}
-
-.subscription-description {
-    text-align: center;
-    color: #333;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-}
-
-.error-text {
-    text-align: center;
-    color: red;
-    font-weight: 500;
-    margin-bottom: 1rem;
 }
 
 .form-group {
@@ -170,16 +159,9 @@ onMounted(() => {
 }
 
 .note {
-    font-size: 0.85rem;
-    color: #666;
-    margin-left: 0.3rem;
-}
-
-.payment-note {
     text-align: center;
     font-size: 0.85rem;
-    color: #555;
-    margin-bottom: 1.5rem;
+    color: #666;
 }
 
 .input-hint {
@@ -211,9 +193,15 @@ onMounted(() => {
     background-color: v-bind(themeColorOrange);
 }
 
+select.form-control {
+  appearance: auto; /* Restores the default dropdown arrow */
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+}
+
 .benefits {
     margin-top: 1rem;
     font-size: 0.9rem;
-  color: #444;
+    color: #444;
 }
 </style>

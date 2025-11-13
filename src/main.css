@@ -824,3 +824,15 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 body, p, h1, h2, h3, h4, h5, h6, a, li, span, div {
   font-family: 'Titillium Web', sans-serif;
 }
+
+
+.error-text {
+  color: red;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 4px;
+  display: block;
+}
