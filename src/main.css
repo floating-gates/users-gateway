@@ -1,7 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 
 body {
-  font-family: "Nunito", sans-serif;
   line-height: 1.6;
   background: #ffffff;
   overflow-x: hidden;
@@ -160,10 +159,11 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         .site-nav .site-navigation .site-menu > li > a.active {
           color: #D77A61; }
       .site-nav .site-navigation .site-menu > li.cta-button-outline a {
-        padding: 5px 22px;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        color: #000000;
-        border-radius: 30px; }
+        padding: 8px 23px;
+        font-weight: 550;
+        border: 2px solid #223843;
+        color: #223843;
+        border-radius: 15px; }
         .site-nav .site-navigation .site-menu > li.cta-button-outline a:hover {
           color: #000000;
           background: #ffffff;
@@ -173,11 +173,12 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         background: #ffffff;
         border-color: #ffffff; }
       .site-nav .site-navigation .site-menu > li.cta-primary a {
-        padding: 5px 22px;
-        border: 1px solid transparent;
-        color: #ffffff !important;
-        background: #D77A61;
-        border-radius: 30px; }
+        padding: 8px 23px;
+        border: 2px solid transparent;
+        font-weight: 550;
+        color: #EFF1F3 !important;
+        background: #223843;
+        border-radius: 14px; }
       .site-nav .site-navigation .site-menu > li.active > a {
         color: #ffffff; }
     .site-nav .site-navigation .site-menu .has-children {
@@ -290,6 +291,17 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
       color: #000000; }
       .site-nav.scrolled .site-navigation .site-menu li a.active {
         color: #D77A61; }
+
+/* Smooth scaling animation for CTA buttons */
+.site-nav .site-navigation .site-menu > li.cta-primary a,
+.site-nav .site-navigation .site-menu > li.cta-button-outline a {
+  transition: transform 0.2s ease-in-out;
+}
+
+.site-nav .site-navigation .site-menu > li.cta-primary a:hover,
+.site-nav .site-navigation .site-menu > li.cta-button-outline a:hover {
+  transform: scale(1.07);
+}
 
 .site-mobile-menu-close {
   display: block;

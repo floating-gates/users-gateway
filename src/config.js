@@ -80,6 +80,12 @@ const update_autoquote_endpoint = api_url + '/features/update-autoquote-details'
 // Payment handling API endpoint
 const post_payment_information_endpoint = api_url + '/payment/info';
 
+const git_book_url = "https://floating-gates.gitbook.io/gates-docs/"
+const documentation_links = {
+    "intro": git_book_url,
+    "start": git_book_url + "/quick-start" 
+}
+
 const price_status = {  // DB interface
     1: 'pending',
     2: 'set',
@@ -210,5 +216,5 @@ export {
     update_autoquote_endpoint, get_parametric_models_vec_endpoint,
     get_parametric_params_vec_endpoint,  update_parametric_params_endpoint,
     delete_parametric_model_endopoint, delete_parametric_params_endpoint,
-    auth_google_api_endpoint
+    auth_google_api_endpoint, documentation_links
 };
