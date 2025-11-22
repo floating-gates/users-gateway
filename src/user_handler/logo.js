@@ -1,4 +1,4 @@
-import { get_logo_endpoint, upload_logo_endpoint } from '../config.js'
+import { get_logo_endpoint, upload_logo_endpoint, delete_logo_endpoint } from '../config.js'
 
 
 export function validate_logo(file, error) {
@@ -57,5 +57,28 @@ export async function get_logo() {
     } catch (err) {
         console.error("Error fetching logo:", err)
         return null
+    }
+}
+
+export async function delete_logo() {
+    try {
+        const response = await fetch(delete_logo_endpoint, {
+            method: 'DELETE',
+            credentials: "include",
+        });
+
+        if (response.ok) return true;
+
+        // Show backend error if present
+        try {
+            const err = await response.json();
+            throw new Error(err?.message || "Delete failed");
+        } catch {
+            throw new Error(await response.text());
+        }
+
+    } catch (err) {
+        console.error("Error deleting logo:", err);
+        return false;
     }
 }
