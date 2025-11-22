@@ -1,7 +1,7 @@
 <script setup>
 import { ref, defineProps } from "vue";
 import { logout } from "../user_handler/logout.js"
-import { themeColor, demo_url, documentation_links } from "../config.js";
+import { themeColor, demo_url, docs_links, survey_link } from "../config.js";
 import { useRouter } from "vue-router"
 const router = useRouter()
 
@@ -61,7 +61,8 @@ async function platform_logout() {
                 
                 <ul class="dropdown-menu" v-show="isDocsOpen">
                   <li><a href="/case-studies" class="nav-link">Articles</a></li>
-                 <li><a :href="documentation_links.intro" class="nav-link">Documentation</a></li>
+                  <li><a :href="docs_links.intro" class="nav-link">Documentation</a></li>
+                  <li><a :href="survey_link" class="nav-link">Survey</a></li>
                 </ul>
               </li>
             </ul>
@@ -90,13 +91,16 @@ async function platform_logout() {
                 <li v-if="context === 'profile'" class="cta-primary"><a href="/dashboard">Dashboard</a></li>
                 
                 <li class="dropdown"  @click="isDocsOpen = !isDocsOpen">
-                   <a
-                     :style="{
-                             margin: '1rem',
-                             color: themeColor,
-                             fontSize: '18px',
-                             fontWeight: 550
-                             }"
+                  <a
+                    :style="{
+                            margin: '1rem',
+                            color: themeColor,
+                            fontSize: '18px',
+                            fontWeight: 550,
+                            border: `2px solid ${themeColor}`,
+                            padding: '6px 25px',
+                            borderRadius: '14px'
+                            }"
                      >
                      <span>Profile </span>
                     <span class="chevron"> ▾</span>
@@ -124,15 +128,11 @@ async function platform_logout() {
 <style scoped>
 .site-nav {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     width: 100%;       
 }
 
 .site-nav .container {
     max-width: 1550px;
-    margin: 0 auto;    /* centers the container inside nav */
     padding-left: 5%;
     padding-right: 5%;
 }

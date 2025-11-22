@@ -14,7 +14,7 @@ const faqs = [
 },
 {
   question: "What is Floating Gates?",
-  answer: "Floating Gates is a technology Partner for manufacturers. We help businesses connect with new and existing customers by providing digital tools to establish a strong online presence, and enable growth. Our solutions empower manufacturers to expand their reach to stay competitive in an increasingly digital market."
+  answer: "Gates is a technology proxy for factories. We provide an online-CAD that attract, engage, and convert customers by guiding them seamlessly toward the product they want, intelligently assessing what you can reasonably produce. We enable manufacturers to stay competitive in an increasingly digital market."
 },
 {
   question: "What problem does it solve?",

@@ -2,7 +2,9 @@
 import { ref, watch, defineProps, onMounted } from 'vue';
 import { set_next_subscription  } from '../user_handler/subscription.js';
 import { get_gocardless_payment_link } from '../user_handler/subscription.js';
-import { themeColor, themeColorOrange, themeColorWhite, price_list } from '../config.js';
+import { themeColor, themeColorOrange, themeColorWhite,
+         price_list, docs_links } from '../config.js';
+import HelpIcon from './HelpIcon.vue'
 
 const props = defineProps({
     provisional_hub_name: String,
@@ -63,7 +65,9 @@ onMounted(() => {
 <template>
 <div class="subscription-card">
   <h2 class="subscription-title" :style="{ color: themeColor }">
-    Activate your Subscription, to host your Factory online. </h2>
+    Activate your Subscription, to host your Factory online.
+    <HelpIcon :docs_link="docs_links.subscription"/>
+  </h2>
   <h2 class="subscription-title" :style="{ color: themeColorOrange }">
     You are currently in Demo mode. </h2>
   <p class="note">
@@ -125,7 +129,7 @@ onMounted(() => {
     border-radius: 1.5rem;
     box-shadow: 0 6px 12px rgba(0,0,0,0.52);
     max-width: 900px;
-    margin: 3rem auto;
+    margin: 6rem auto 0 auto;
     padding: 2.5rem;
 }
 

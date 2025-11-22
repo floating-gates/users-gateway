@@ -159,11 +159,11 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         .site-nav .site-navigation .site-menu > li > a.active {
           color: #D77A61; }
       .site-nav .site-navigation .site-menu > li.cta-button-outline a {
-        padding: 8px 23px;
-        font-weight: 550;
+        padding: 8px 25px;
+        font-weight: 580;
         border: 2px solid #223843;
         color: #223843;
-        border-radius: 15px; }
+        border-radius: 14px; }
         .site-nav .site-navigation .site-menu > li.cta-button-outline a:hover {
           color: #000000;
           background: #ffffff;
@@ -173,9 +173,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         background: #ffffff;
         border-color: #ffffff; }
       .site-nav .site-navigation .site-menu > li.cta-primary a {
-        padding: 8px 23px;
-        border: 2px solid transparent;
-        font-weight: 550;
+        padding: 8px 25px;
+        border: 3px solid transparent;
+        font-weight: 580;
         color: #EFF1F3 !important;
         background: #223843;
         border-radius: 14px; }
@@ -343,6 +343,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 
 .heading {
     font-weight: 650;
+    color: #223843;
 }
 
 .untree_co-hero .dots:before {
@@ -376,8 +377,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     .untree_co-section {
       padding: 50px 0; } }
   .untree_co-section .heading {
-    font-size: 38px;
-    color: #000000; }
+      font-size: 38px;
+      color: #223843;
+}
     .untree_co-section .heading strong {
       font-weight: 700; }
     @media (max-width: 1200px) {
@@ -461,12 +463,6 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
       top: 0;
       width: 4px;
       background: #D77A61; }
-
-.pricing-title {
-  margin-bottom: 40px; }
-  @media (max-width: 1200px) {
-    .pricing-title {
-      margin-bottom: 30px; } }
 
 @media (max-width: 1200px) {
   .pricing {
@@ -848,3 +844,8 @@ body, p, h1, h2, h3, h4, h5, h6, a, li, span, div {
   border-radius: 4px;
   display: block;
 }
+
+.help-icon {
+  width: 1rem;
+  height: 1rem;
+ }

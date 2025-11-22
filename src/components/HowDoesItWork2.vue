@@ -16,12 +16,12 @@ import {
       <h1 class="heading">
         <span :style="{ color: themeColorOrange }">How?  </span>
         <span :style="{ fontSize: '2.5rem' }">
-           Integrate your work with clear requirements and live tracking.
+           We provide the CAD online. Customers use it to purchases.
         </span>
       </h1>
 
       <p class="subtitle">
-        Gates provides to You a Manufacturing Hub to funnel orders, while it host publicly a CAD Online to permit Your customers to engineer and price the devices ahead of time under your supervison.
+Gates host publicly a CAD Online to funnel orders at your preferred address, while it provides to the factory the Manufacturing Hub to control the platform and the subsequent orders. This permit to Your customers to engineer and price the devices ahead of time under your supervison.
       </p>
 
       <!-- IMAGE -->

@@ -119,7 +119,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
           
           <div class="col-lg-5 ps-lg-5 intro" id="header">
             <h1 class="heading"
-                style="font-size: 2.9rem; line-height: 1.2; max-width: 100%;"
+                style="font-size: 2.8rem; line-height: 1.2; max-width: 100%;"
                 data-aos="fade-up"
                 data-aos-delay="100">
               <span v-for="(line, idx) in heroHeading" :key="idx" :style="{ color: themeColor }" class="block">
@@ -144,9 +144,9 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
                 @input="stopTyping"
                 class="address-input"
                 />
-              <button type="submit" class="address-submit" Start Here >
+              <button type="submit" class="address-submit" >
                 <span>Launch Your CAD Online</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" :stroke="themeColorWhite">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"/>
                 </svg>
               </button>
@@ -193,7 +193,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
     max-width: 100%;
     margin-top: 20px;
     background-color: #fff;
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -203,7 +203,7 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
     padding: 0.9rem 1.2rem;
     font-size: 1.05rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 14px;
     background-color: v-bind(themeColorWhite);
     transition: background-color 0.3s ease;
 }
@@ -218,13 +218,13 @@ onBeforeUnmount(() => stopTyping()); // cleanup timers
   min-width: 56px;
   min-height: 56px;
   border: none;
-  border-radius: 8px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
   font-weight: 600;
-  letter-spacing: 0.3px;
+  /* letter-spacing: 0.3px; */
   transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
   color: v-bind(themeColorWhite);
   background-color: v-bind(themeColor);

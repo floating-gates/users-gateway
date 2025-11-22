@@ -110,12 +110,11 @@ function handleGoogleLogin() {
 <style scoped>
 .heading {
   font-size: 4rem;
-  margin-bottom: 2rem;
-  text-align: center;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 .form-control {
