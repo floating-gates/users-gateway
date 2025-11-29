@@ -26,7 +26,7 @@ async function platform_logout() {
 </script>
 
 <template>
-<nav class="site-nav dark js-clone-nav js-site-navbar site-navbar-target">
+<nav class="site-nav dark js-clone-nav js-site-navbar">
   <div class="container">
     <div class="site-navigation">
       <div class="nav-wrapper">
@@ -49,6 +49,7 @@ async function platform_logout() {
           <template v-if="context === 'landing-page'">
             <ul class="site-menu main-menu">
               <li><a href="/" class="nav-link">Home</a></li>
+              <!-- <li><a href="/product" class="nav-link">Product</a></li> -->
               <li><a href="/pricing" class="nav-link">Pricing</a></li>
               <li><a href="/mission" class="nav-link">Mission</a></li>
               <li><a href="/faq" class="nav-link">FAQ</a></li>
@@ -126,24 +127,6 @@ async function platform_logout() {
 </template>
 
 <style scoped>
-.site-nav {
-    position: fixed;
-    width: 100%;       
-}
-
-.site-nav .container {
-    max-width: 1550px;
-    padding-left: 5%;
-    padding-right: 5%;
-}
-
-.nav-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
 .menu-container {
     display: flex;
     flex: 1;

@@ -206,9 +206,10 @@ const selectService = (index) => {
 }
 
 .service-image {
-  max-width: 600px;
+  max-width: 100%;
   height: auto;
   border-radius: 14px;
+  display: block;
 }
 
 .service-section {

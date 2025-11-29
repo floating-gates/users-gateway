@@ -21,7 +21,7 @@ const startButtonName = "Get Started";
           {{ heading }}
           <sub :style="{ color: themeColorOrange, 'font-size': '0.8rem' }">for GATES</sub>
         </h2>        
-        <p>{{ subHeading }}</p>
+        <p class="mb-5">{{ subHeading }}</p>
       </div>
     </div>
     <div class="col-lg-12">
