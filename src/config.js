@@ -40,6 +40,7 @@ const set_new_referral_passwd_endpoint = api_url + '/referral/set_new_password'
 const update_feature_endpoint    = api_url + '/user/update-feature';
 const get_logo_endpoint          = api_url + '/user/get_logo';
 const upload_logo_endpoint       = api_url + '/user/upload_logo';
+const delete_logo_endpoint       = api_url + '/user/delete_logo';
 
 const update_machine_endpoint = api_url + '/user/update-machine'
 const get_machine_endpoint    = api_url + '/user/get-machines'
@@ -79,6 +80,16 @@ const get_autoquote_endpoint    = api_url + '/features/get-autoquote-details';
 const update_autoquote_endpoint = api_url + '/features/update-autoquote-details'
 // Payment handling API endpoint
 const post_payment_information_endpoint = api_url + '/payment/info';
+
+const git_book_url = "https://floating-gates.gitbook.io/gates-docs"
+
+const docs_links = {
+    "intro": git_book_url,
+    "start": git_book_url + "/quick-start", 
+    "subscription": git_book_url + "/host-your-hub-on-line" 
+}
+
+const survey_link = "https://forms.gle/JYHXxX2anVp14X6a6"
 
 const price_status = {  // DB interface
     1: 'pending',
@@ -201,7 +212,8 @@ export {
     get_machine_endpoint, update_machine_endpoint, get_materials_endpoint,
     update_materials_endpoint, list_users_api_endpoint,
     update_feature_endpoint, post_payment_information_endpoint,
-    get_logo_endpoint, upload_logo_endpoint, referral_auth_api_endpoint,
+    get_logo_endpoint, upload_logo_endpoint, delete_logo_endpoint,
+    referral_auth_api_endpoint,
     register_referral_api_endpoint, login_referral_api_endpoint,
     logout_referral_api_endpoint, update_referral_api_endpoint,
     referral_details_api_endpoint, set_new_referral_passwd_endpoint,
@@ -210,5 +222,5 @@ export {
     update_autoquote_endpoint, get_parametric_models_vec_endpoint,
     get_parametric_params_vec_endpoint,  update_parametric_params_endpoint,
     delete_parametric_model_endopoint, delete_parametric_params_endpoint,
-    auth_google_api_endpoint
+    auth_google_api_endpoint, docs_links, survey_link
 };

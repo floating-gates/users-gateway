@@ -1,7 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 
 body {
-  font-family: "Nunito", sans-serif;
   line-height: 1.6;
   background: #ffffff;
   overflow-x: hidden;
@@ -125,21 +124,33 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   font-size: 24px;
   color: #ffffff;
   font-weight: 700; }
-  .logo:hover {
-    color: #ffffff; }
 
 .site-nav {
   position: absolute;
   width: 100%;
+  background-color: #ffffff;
   z-index: 10; }
   .site-nav a {
     position: relative;
     z-index: 9;
     cursor: pointer; }
 
+.nav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .site-nav {
-  padding-top: 20px;
-  padding-bottom: 20px; }
+    position: fixed;
+    width: 100%;
+    padding-top: 18px;
+    padding-bottom: 18px; }
+   .site-nav .container {
+    max-width: 1550px;
+    padding-left: 5%;
+    padding-right: 5%;}
   .site-nav h1 {
     margin: 0;
     padding: 0;
@@ -160,10 +171,11 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         .site-nav .site-navigation .site-menu > li > a.active {
           color: #D77A61; }
       .site-nav .site-navigation .site-menu > li.cta-button-outline a {
-        padding: 5px 22px;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        color: #000000;
-        border-radius: 30px; }
+        padding: 8px 25px;
+        font-weight: 580;
+        border: 2px solid #223843;
+        color: #223843;
+        border-radius: 14px; }
         .site-nav .site-navigation .site-menu > li.cta-button-outline a:hover {
           color: #000000;
           background: #ffffff;
@@ -173,11 +185,12 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         background: #ffffff;
         border-color: #ffffff; }
       .site-nav .site-navigation .site-menu > li.cta-primary a {
-        padding: 5px 22px;
-        border: 1px solid transparent;
-        color: #ffffff !important;
-        background: #D77A61;
-        border-radius: 30px; }
+        padding: 8px 25px;
+        border: 3px solid transparent;
+        font-weight: 580;
+        color: #EFF1F3 !important;
+        background: #223843;
+        border-radius: 14px; }
       .site-nav .site-navigation .site-menu > li.active > a {
         color: #ffffff; }
     .site-nav .site-navigation .site-menu .has-children {
@@ -204,7 +217,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         -webkit-box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.1);
         box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.1);
         padding: 20px 0;
-        margin-top: 20px;
+        margin-top: 0px;
         margin-left: 0px;
         background: #ffffff;
         -webkit-transition: 0.2s 0s;
@@ -291,6 +304,17 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
       .site-nav.scrolled .site-navigation .site-menu li a.active {
         color: #D77A61; }
 
+/* Smooth scaling animation for CTA buttons */
+.site-nav .site-navigation .site-menu > li.cta-primary a,
+.site-nav .site-navigation .site-menu > li.cta-button-outline a {
+  transition: transform 0.2s ease-in-out;
+}
+
+.site-nav .site-navigation .site-menu > li.cta-primary a:hover,
+.site-nav .site-navigation .site-menu > li.cta-button-outline a:hover {
+  transform: scale(1.07);
+}
+
 .site-mobile-menu-close {
   display: block;
   position: relative;
@@ -331,6 +355,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 
 .heading {
     font-weight: 650;
+    color: #223843;
 }
 
 .untree_co-hero .dots:before {
@@ -364,8 +389,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     .untree_co-section {
       padding: 50px 0; } }
   .untree_co-section .heading {
-    font-size: 38px;
-    color: #000000; }
+      font-size: 38px;
+      color: #223843;
+}
     .untree_co-section .heading strong {
       font-weight: 700; }
     @media (max-width: 1200px) {
@@ -449,12 +475,6 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
       top: 0;
       width: 4px;
       background: #D77A61; }
-
-.pricing-title {
-  margin-bottom: 40px; }
-  @media (max-width: 1200px) {
-    .pricing-title {
-      margin-bottom: 30px; } }
 
 @media (max-width: 1200px) {
   .pricing {
@@ -836,3 +856,8 @@ body, p, h1, h2, h3, h4, h5, h6, a, li, span, div {
   border-radius: 4px;
   display: block;
 }
+
+.help-icon {
+  width: 1rem;
+  height: 1rem;
+ }

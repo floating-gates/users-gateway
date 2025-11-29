@@ -20,9 +20,8 @@ const startButtonName = "Get Started";
         <h2 class="heading">
           {{ heading }}
           <sub :style="{ color: themeColorOrange, 'font-size': '0.8rem' }">for GATES</sub>
-        </h2>
-        
-        <p>{{ subHeading }}</p>
+        </h2>        
+        <p class="mb-5">{{ subHeading }}</p>
       </div>
     </div>
     <div class="col-lg-12">
@@ -38,8 +37,8 @@ const startButtonName = "Get Started";
                 </div>
                 <pre></pre>
                 <ul class="list-unstyled ul-check primary mb-5">
-                  <li> Customer's 3D Platform </li>
-                  <li> Manufacturing Hub for You </li>
+                  <li> CAD hosted at your address </li>
+                  <li> Manufacturing Hub to manage orders </li>
                   <li> Automatic Quotations </li>
                   <li> Your Brand in Display </li>
                 </ul>
@@ -66,7 +65,9 @@ const startButtonName = "Get Started";
                 <ul class="list-unstyled ul-check primary mb-5">
                   <li>All 'Basic' features</li>
                   <li>Manufacturing Checks</li>
+                  <li>Feasability Agent</li>
                   <li>Structural Integrity simulations</li>
+                  <li>Listed in Manufacturing World Map </li>
                 </ul>
                 <p class="text-center mb-0">
                   <a
@@ -75,7 +76,7 @@ const startButtonName = "Get Started";
                     :style="[
                             { backgroundColor: themeColor },
                             { borderColor: themeColor },
-                            ]" > Check Out What's Boiling</a>
+                            ]" > In next release</a>
                 </p>
               </div>
             </div>

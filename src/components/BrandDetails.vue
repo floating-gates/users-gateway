@@ -1,7 +1,8 @@
 <script setup>
 import { ref, defineProps, onMounted } from 'vue'
 import { themeColor, themeColorOrange, themeColorWhite } from '../config.js'
-import { get_logo, upload_logo, validate_logo } from '../user_handler/logo.js'
+import { get_logo, upload_logo,
+         validate_logo, delete_logo } from '../user_handler/logo.js'
 
 const logo = ref(null)         // always holds File object
 const logoUrl = ref(null)      // preview URL
@@ -10,6 +11,7 @@ const hasLogo = ref(false)
 const error = ref("")
 const isUploading = ref(false)
 const isDragOver = ref(false)
+const isDeleting = ref(false)
 
 const fileInput = ref(null)
 
@@ -46,12 +48,24 @@ async function processFile(file) {
 }
 
 async function removeLogo() {
-  logo.value = null
-  logoUrl.value = null
-  hasLogo.value = false
-  if (fileInput.value) {
-    fileInput.value.value = ''
-  }
+    error.value = ""
+    if (!hasLogo.value) return
+
+    isDeleting.value = true
+    try {
+        const success = await delete_logo()
+        if (success) {
+            logo.value = null
+            logoUrl.value = null
+            hasLogo.value = false
+            if (fileInput.value) fileInput.value.value = ''
+        } else {
+            error.value = "Failed to delete logo. Please try again."
+        }
+    } catch (err) {
+        error.value = err.message || "Failed to delete logo. Please try again."
+    }
+    isDeleting.value = false
 }
 
 // Drag and drop handlers
@@ -169,9 +183,8 @@ onMounted(async () => {
     </div>
 
     <!-- Action Buttons -->
-    <div class="action-section">     
+    <div v-if="hasLogo" class="action-section">     
       <button 
-        v-if="hasLogo"
         class="action-button secondary"
         @click="removeLogo"  >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="button-icon">
