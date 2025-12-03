@@ -4,6 +4,7 @@ import RecoveryReferral from "../components/RecoveryReferral.vue";
 import ReferralLoginForm from "../components/ReferralLoginForm.vue";
 import Header from "../components/Header.vue";
 import { verify_user_credentials } from "../user_handler/login.js";
+import { terms_and_services_url, privacy_policy_url } from "../config.js"
 
 import { ref, onMounted } from "vue";
 
@@ -53,20 +54,26 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div v-if="currentView === 'register'" class="register-footer">
+    <div class="register-footer">
+      <div v-if="currentView === 'register'">
         <p>
           Already have an account?
           <a href="#" @click.prevent="() => switchTo('login')">Login</a>
         </p>
+      </div>
+      
+      <div>
         <p>
           By registering you confirm to have read and accepted the
-          <a href="/terms_and_services">Terms and Conditions</a>
+          <a :href="terms_and_services_url">Terms and Conditions</a>
           and 
-          <a href="/privacy-policy">Privacy Policy</a>
+          <a :href="privacy_policy_url">Privacy Policy</a>
         </p>
       </div>
     </div>
   </div>
+</div>    
+
 </template>
 
 <style scoped>
@@ -96,15 +103,9 @@ onMounted(async () => {
 .login-container {    
     padding-left: 5%;
     padding-right: 5%;
-    max-width: 1600px; /* Optional: cap it so it doesn’t grow too much on ultra-wide monitors */
+    max-width: 1600px; 
     margin: 0 auto;
 }
-
-
-/* .img-fluid { */
-/*   max-width: 100%; */
-/*   height: auto; */
-/* } */
 
 .register-footer {
     text-align: center;

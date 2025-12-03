@@ -101,7 +101,7 @@ onMounted(async () => {
           <!-- Dashboard Header -->
           <div class="col-lg-12 mb-4">
             <div class="dashboard-header" data-aos="fade-up">
-              <h1 class="heading">Manufacturing Hub</h1>
+              <h1 class="heading">Ongoing Projects</h1>
               <p class="welcome-message">
                 Welcome, <span :style="{ color: themeColorOrange }">{{ user_details.full_name }}</span>
               </p>
@@ -388,6 +388,10 @@ onMounted(async () => {
     padding: 14px;
 }
 
+.heading {
+    text-align: left;
+}
+
 .error-box {
     background: #ffe6e6;
     border: 1px solid #ff4d4d;
@@ -412,9 +416,10 @@ onMounted(async () => {
 
 .project-actions {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 15px;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
 }
 
 .project-actions button:hover svg {

@@ -1,10 +1,10 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { get_referral_details } from '../referral_handler/referral_details.js';
 import { update_referral_details } from '../referral_handler/update.js'
 import { verify_referral_credentials } from '../referral_handler/login.js';
 import { themeColor, themeColorOrange, themeColorLille,
-         themeColorWhite } from "../config.js";
+         themeColorWhite, app_login_url } from "../config.js";
 import { logout } from "../user_handler/logout.js"
 
 import Header from "../components/Header.vue";
@@ -20,15 +20,15 @@ const swift = ref('');
 const ibanError = ref('');
 const swiftError = ref('');
 
-const copyReferralLink = () => {
+function copyReferralLink() {
     if (!referral_details.value) return;
-    const referralLink = `${window.location.origin}/login?referral_code=${referral_details.value.referral_code}`;
-    navigator.clipboard.writeText(referralLink);
+    const referralLink = `${app_login_url}/login?referral_code=${referral_details.value.referral_code}`;
+    navigator.clipboard.writeText(referralLink)
 };
 
 const totalReferrals = computed(() => referral_details.value?.referred_users?.length || 0);
 const activeReferrals = computed(() =>
-  referral_details.value?.referred_users?.filter(u => u.subscription_status === 'active').length || 0
+    referral_details.value?.referred_users?.filter(u => u.subscription_status === 'active').length || 0
 );
 
 const savePaymentDetails = async () => {
@@ -101,16 +101,15 @@ onMounted(async () => {
 
 
 <template>
-<Header :context="'referral'" />
+<Header :context="'login'" />
 
-<div class="referral-container">
-  
+<div class="referral-container">  
   <!-- Loading State -->
   <div v-if="isLoading" class="loading-card">
     <div class="loading-spinner"></div>
     <p class="loading-text">Loading referral details...</p>
   </div>
-    
+  
   <!-- Success State -->
   <div v-else-if="referral_details" class="referral-card">
     <div class="card-header">
@@ -303,11 +302,12 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-/* Base Container */
 .referral-container {
+  padding-top: 120px;
+  padding-bottom: 80px;
   max-width: 1200px;
-  margin: 7rem auto;
-  padding: 4rem auto;
+  margin: 0 auto;
+  align-items: center;
 }
 
 /* Loading State */

@@ -8,8 +8,7 @@ export async function logout() {
             credentials: 'include',
         });
         localStorage.removeItem(COOKIE_NAME);
-        window.location.replace("/");
-        
+        window.location.replace("/login");
     } catch (error) {
         console.error("Logout failed: ", error);
     }
