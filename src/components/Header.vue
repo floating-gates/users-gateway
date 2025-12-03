@@ -1,9 +1,7 @@
 <script setup>
 import { ref, defineProps } from "vue";
+import { themeColor, demo_url, docs_links } from "../config.js";
 import { logout } from "../user_handler/logout.js"
-import { themeColor, demo_url, docs_links, survey_link } from "../config.js";
-import { useRouter } from "vue-router"
-const router = useRouter()
 
 defineProps({
     context: {
@@ -18,11 +16,6 @@ defineProps({
 const isMenuOpen = ref(false);
 const isDocsOpen = ref(false);
 
-
-async function platform_logout() {
-    await logout()
-    router.push("/login")
-}
 </script>
 
 <template>
@@ -31,57 +24,22 @@ async function platform_logout() {
     <div class="site-navigation">
       <div class="nav-wrapper">
         <!-- Logo -->
-        <a href="/" class="logo">
-          <img src="../data/images/logo.webp" alt="Floating Gates Logo" class="logo-img" />
+        <a  href="/dashboard" >
+          <img src="../data/images/logo.webp"
+               alt="Manufacturing Hub" class="logo logo-img" />
         </a>
         
-        <!-- Hamburger button -->
-        <button class="hamburger" @click="isMenuOpen = !isMenuOpen">
-          <span :class="{ 'open': isMenuOpen }"></span>
-          <span :class="{ 'open': isMenuOpen }"></span>
-          <span :class="{ 'open': isMenuOpen }"></span>
-        </button>
-        
-        <!-- Menus -->
-        <div class="menu-container" :class="{ 'mobile-open': isMenuOpen }">
+        <!-- LANDING PAGE HEADER -->
+        <template v-if="context === 'dashboard' || context === 'profile'">
+
+          <!-- Menus -->
+          <button class="hamburger" @click="isMenuOpen = !isMenuOpen">
+            <span :class="{ 'open': isMenuOpen }"></span>
+            <span :class="{ 'open': isMenuOpen }"></span>
+            <span :class="{ 'open': isMenuOpen }"></span>
+          </button>
           
-          <!-- LANDING PAGE HEADER -->
-          <template v-if="context === 'landing-page'">
-            <ul class="site-menu main-menu">
-              <li><a href="/" class="nav-link">Home</a></li>
-              <!-- <li><a href="/product" class="nav-link">Product</a></li> -->
-              <li><a href="/pricing" class="nav-link">Pricing</a></li>
-              <li><a href="/mission" class="nav-link">Mission</a></li>
-              <li><a href="/faq" class="nav-link">FAQ</a></li>
-              
-              <!-- DROPDOWN MENU -->
-              <li class="dropdown" @mouseenter="isDocsOpen = true" @mouseleave="isDocsOpen = false">
-                <a class="nav-link dropdown-toggle">
-                  Resources
-                </a>
-                
-                <ul class="dropdown-menu" v-show="isDocsOpen">
-                  <li><a href="/case-studies" class="nav-link">Articles</a></li>
-                  <li><a :href="docs_links.intro" class="nav-link">Documentation</a></li>
-                  <li><a :href="survey_link" class="nav-link">Survey</a></li>
-                </ul>
-              </li>
-            </ul>
-            <div class="button-group">
-              <ul  class="site-menu button-menu">
-                <li class="cta-button-outline">
-                  <a href="/login" :style="{ color: themeColor }" >Log in</a>
-                </li>
-                <li class="cta-primary">
-                  <a :href="demo_url">Demo</a>
-                </li>
-              </ul>
-            </div>
-          </template>
-          
-          
-          <!-- DASHBOARD HEADER -->
-          <template v-else-if="context === 'dashboard' || context === 'profile'">
+          <div class="menu-container" :class="{ 'mobile-open': isMenuOpen }">
             <div class="button-group">
               <ul class="site-menu button-menu">
                 
@@ -112,14 +70,14 @@ async function platform_logout() {
                       <a :href='host_address' class="nav-link">Your 3D CAD Interface</a>
                     </li>
                     <li>
-                      <a @click.prevent="platform_logout" class="nav-link">Logout</a>
+                      <a @click.prevent="logout" class="nav-link">Logout</a>
                     </li>
                   </ul>
                 </li>
               </ul>
             </div>
-          </template>
-        </div>
+          </div>
+        </template>
       </div>
     </div>
   </div>

@@ -7,6 +7,7 @@ const themeColorGold   = '#D8B4A0';
 
 // URLs and Tokens
 const api_url                    = import.meta.env.VITE_API_URL;
+const app_login_url              = import.meta.env.VITE_APP_LOGIN_URL;
 const demo_url                   = import.meta.env.VITE_DEMO_URL;
 const websocket_api_url          = import.meta.env.VITE_API_WS_URL;
 const gocardless_token           = import.meta.env.VITE_GOCARDLESS_TOKEN;
@@ -16,17 +17,21 @@ const gocardless_link_basic_plan_20 = import.meta.env.VITE_GOCARDLESS_LINK_BASIC
 const gocardless_link_basic_plan_50 = import.meta.env.VITE_GOCARDLESS_LINK_BASIC_PLAN_50
 const gocardless_link_basic_plan_80 = import.meta.env.VITE_GOCARDLESS_LINK_BASIC_PLAN_80
 
+const landing_page_url = import.meta.env.VITE_LANDING_PAGE_URL
+const terms_and_services_url = landing_page_url + "/terms_and_services" 
+const privacy_policy_url     = landing_page_url + "/privacy-policy"
+
 const COOKIE_NAME = "fg_cookie_token";
 
 // User API Endpoints
-const auth_api_endpoint          = api_url + '/user/me';
-const register_user_api_endpoint = api_url + '/user/register';
-const login_user_api_endpoint    = api_url + '/user/login';
-const logout_api_endpoint        = api_url + '/user/logout';
-const user_details_api_endpoint  = api_url + '/user/details';
-const user_recovery_api_endpoint = api_url + '/user/recovery';
+const auth_api_endpoint           = api_url + '/user/me';
+const register_user_api_endpoint  = api_url + '/user/register';
+const login_user_api_endpoint     = api_url + '/user/login';
+const logout_api_endpoint         = api_url + '/user/logout';
+const user_details_api_endpoint   = api_url + '/user/details';
+const user_recovery_api_endpoint  = api_url + '/user/recovery';
 const set_new_usr_passwd_endpoint = api_url + '/user/set_new_password';
-const auth_google_api_endpoint     = api_url + '/user/login/google' ;
+const auth_google_api_endpoint    = api_url + '/user/login/google' ;
 
 const referral_auth_api_endpoint     = api_url + '/referral/me'
 const register_referral_api_endpoint = api_url + '/referral/register';
@@ -89,8 +94,6 @@ const docs_links = {
     "subscription": git_book_url + "/host-your-hub-on-line" 
 }
 
-const survey_link = "https://forms.gle/JYHXxX2anVp14X6a6"
-
 const price_status = {  // DB interface
     1: 'pending',
     2: 'set',
@@ -101,11 +104,6 @@ const price_status = {  // DB interface
     7: 'shipped'
 };
 
-const display_price_list = [
-    {name: 'Basic'     , price: '49.00' },
-    {name: 'Standard'  , price: 'Coming Soon' },
-    {name: 'Enterprise', price: 'Request a Quote' }
-];
 
 const tier = {  //----------------- Not exported, DB interface
     1: 'basic',
@@ -188,17 +186,18 @@ const price_list = {
 
 // Contact Info
 const contactInfo = {
-    address: 'Via Capitello Rasa 28, Lendinara (RO), 45026, Italy',
+    // address: 'Via Capitello Rasa 28, Lendinara (RO), 45026, Italy',
     phone: '+39 3493822812',
     email: 'contact@floating-gates.com',
-    website: 'https://floating-gates.com',
-    vat: 'IT01675720294'
+    // website: 'https://floating-gates.com',
+    // vat: 'IT01675720294'
 };
 
 const MAX_MB_PDF = 5;
 
 // Exporting all
 export {
+    terms_and_services_url, privacy_policy_url, app_login_url,
     themeColor, themeColorOrange, themeColorWhite, themeColorLille,
     themeColorGold, demo_url, COOKIE_NAME, price_status_api_endpoint,
     auth_api_endpoint, register_user_api_endpoint, login_user_api_endpoint,
@@ -208,7 +207,7 @@ export {
     set_new_usr_passwd_endpoint, set_next_subscription_endpoint,
     create_project_endpoint, delete_project_endpoint,
     pricing_proj_api_endpoint, download_api_endpoint,
-    price_status, price_list, display_price_list, contactInfo,
+    price_status, price_list, contactInfo,
     get_machine_endpoint, update_machine_endpoint, get_materials_endpoint,
     update_materials_endpoint, list_users_api_endpoint,
     update_feature_endpoint, post_payment_information_endpoint,
@@ -222,5 +221,4 @@ export {
     update_autoquote_endpoint, get_parametric_models_vec_endpoint,
     get_parametric_params_vec_endpoint,  update_parametric_params_endpoint,
     delete_parametric_model_endopoint, delete_parametric_params_endpoint,
-    auth_google_api_endpoint, docs_links, survey_link
-};
+    auth_google_api_endpoint, docs_links };
