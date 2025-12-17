@@ -6,6 +6,7 @@ import ShippingDetails from "./ShippingDetails.vue";
 import PricingDetails from "./PricingDetails.vue"; 
 import OrderDetails from "./OrderDetails.vue";
 import EnrollToSub from "./EnrollToSub.vue"
+import DashboardStats from "./DashboardStats.vue"
 
 import { connect_projects_via_ws, delete_project, get_progress } from '../project_handler/project.js';
 import { handle_price_allocation } from '../price_handler/price_setting.js'
@@ -16,9 +17,9 @@ import { themeColor, themeColorOrange, themeColorLille, themeColorGold,
 
 // State
 const project_in_scope = ref(null)
-const project_list = ref([])
+const proj_list = ref([])
 const isAdmin = ref(false)
-const user_details = ref({})
+const user_details = ref({});
 const subscriptionToBeActivated = ref(false)
 const error = ref('')
 const hasError = ref(false)
@@ -31,19 +32,10 @@ const modals = ref({
     order: false
 })
 
-// Computed stats
-const stats = computed(() => ({
-    active: project_list.value.length,
-    pending: project_list.value.filter(p => p.price_status === price_status[2]).length,
-    completed: project_list.value.filter(p => 
-        p.price_status === price_status[3] || p.price_status === price_status[7]
-    ).length
-}))
-
 // Modal handlers
 const toggleModal = (type, proj_id = null) => {
     if (proj_id) {
-        project_in_scope.value = project_list.value.find(p => p.id === proj_id)
+        project_in_scope.value = proj_list.value.find(p => p.id === proj_id)
     }
     modals.value[type] = !modals.value[type]
 }
@@ -55,7 +47,7 @@ async function handleDelete(proj_id) {
     try {
         const res = await delete_project(proj_id);
         if (res.status !== 204) throw new Error('Failed to delete project');
-        project_list.value = project_list.value.filter(p => p.id !== proj_id);
+        proj_list.value = proj_list.value.filter(p => p.id !== proj_id);
     } catch (err) {
         alert("Error deleting project: " + err.message);
     }
@@ -85,7 +77,7 @@ onMounted(async () => {
     
     loading.value = false // authentication OK
 
-    connect_projects_via_ws(project_list)
+    connect_projects_via_ws(proj_list)
 })
 </script>
 
@@ -119,24 +111,8 @@ onMounted(async () => {
               </p>
             </div>
           </div>
-          
-          <!-- Dashboard Stats -->
-          <div class="col-lg-12 mb-5" data-aos="fade-up">
-            <div class="stats-grid">
-              <div v-for="(stat, i) in [
-                          { value: stats.active, label: 'Active Orders' },
-                          { value: stats.pending, label: 'Waiting Customer Decision' },
-                          { value: stats.completed, label: 'Orders Completed' }
-                          ]" :key="i" class="stats-card" :data-aos-delay="i * 100" data-aos="fade-up">
-                <h3 class="stats-number">{{ stat.value }}</h3>
-                <p class="stats-label">{{ stat.label }}</p>
-              </div>
-              
-              <div v-if="isAdmin" class="stats-card" data-aos="fade-up" data-aos-delay="400">
-                <a class="stats-label" href="/admin-dashboard">Admin Dashboard</a>
-              </div>
-            </div>
-          </div>
+
+          <DashboardStats :proj_list="proj_list" :is_admin="isAdmin" />
           
           <!-- Main Content -->
           <div class="col-12" data-aos="fade-up" data-aos-delay="400">
@@ -147,18 +123,18 @@ onMounted(async () => {
             <div class="dashboard-main-content">
               <div class="content-header">
                 <h2 class="section-title">Recent Orders</h2>
-                <a class="btn action-btn"
-                   :href="user_details.host_address"
-                   :style="{ background: themeColor,
-                           borderColor: themeColor,
-                           color: themeColorWhite }">
-                  Visit your CAD
-                </a>
+                <!-- <a class="btn action-btn" -->
+                <!--    :href="user_details.host_address" -->
+                <!--    :style="{ background: themeColor, -->
+                <!--            borderColor: themeColor, -->
+                <!--            color: themeColorWhite }"> -->
+                <!--   Visit your CAD -->
+                <!-- </a> -->
               </div>
               
               <!-- Projects List -->
               <div class="projects-list">
-                <div v-for="project in project_list" :key="project.id" class="project-item">
+                <div v-for="project in proj_list" :key="project.id" class="project-item">
                   <div class="project-info">
                     <h3>{{ project.proj_name }}</h3>
                     <p class="proj-detail">Status: {{ project.status }}</p>
@@ -339,49 +315,11 @@ onMounted(async () => {
     padding-top: 3rem;
 }
 
-.stats-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.stats-card {
-    background-color: v-bind(themeColorWhite);
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0.1, 0, 0.3);
-    width: 200px;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.stats-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 14px rgba(0, 0.1, 0, 0.15);
-}
-
-.stats-number {
-    font-size: 38px;
-    font-weight: bold;
-    color: v-bind(themeColor);
-    margin-bottom: 8px;
-}
-
-.stats-label {
-    font-size: 16px;
-    color: #666;
-    text-align: center;
-}
-
 .dashboard-main-content {
     background-color: white;
     border-radius: 10px;
     padding: 25px;
-    box-shadow: 0 4px 6px v-bind(themeColorLille);
+    box-shadow: 5px 3px 3px 5px v-bind(themeColorLille);
 }
 
 .content-header {
