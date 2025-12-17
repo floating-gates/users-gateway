@@ -8,7 +8,7 @@ import { terms_and_services_url, privacy_policy_url } from "../config.js"
 
 import { ref, onMounted } from "vue";
 
-const currentView = ref("register"); 
+const currentView = ref("login"); 
 
 function switchTo(view) {
   currentView.value = view;
@@ -37,7 +37,8 @@ onMounted(async () => {
             />
           </div>
           <div v-else-if="currentView === 'register'">
-            <ReferralRegistrationForm @switch-to-login="() => switchTo('login')" />
+            <ReferralRegistrationForm
+              @switch-to-login="() => switchTo('login')" />
           </div>
           <div v-else-if="currentView === 'recovery'">
             <RecoveryReferral @switch-to-login="() => switchTo('login')" />
@@ -111,5 +112,3 @@ onMounted(async () => {
     text-align: center;
 }
 </style>
-
-

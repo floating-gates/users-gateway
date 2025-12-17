@@ -44,11 +44,10 @@ const isDocsOpen = ref(false);
               <ul class="site-menu button-menu">
                 
                 <!-- PROFILE BUTTON + DROPDOWN -->
-                <li v-if="context === 'dashboard'" class="cta-primary"><a href="/profile">Set Up your Factory</a>
-                </li>
+                <li v-if="context === 'dashboard'" class="cta-primary"><a href="/profile">Set Up your Factory</a> </li>
                 
                 <li v-if="context === 'profile'" class="cta-primary"><a href="/dashboard">Dashboard</a></li>
-                
+                                
                 <li class="dropdown"  @click="isDocsOpen = !isDocsOpen">
                   <a
                     :style="{

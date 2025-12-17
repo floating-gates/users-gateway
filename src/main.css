@@ -846,6 +846,32 @@ body, p, h1, h2, h3, h4, h5, h6, a, li, span, div {
   font-family: 'Titillium Web', sans-serif;
 }
 
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 55px;          /* ← same height for all */
+    padding: 0 18px;       /* ← horizontal spacing for text buttons */
+    min-width: 40px;       /* ← icon buttons become square */
+    border-radius: 22px;
+    border-color: #223843;
+    background-color: #223843;
+    color: #EFF1F3; 
+}
+
+.action-2nd-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 55px;          /* ← same height for all */
+    padding: 0 18px;       /* ← horizontal spacing for text buttons */
+    min-width: 40px;       /* ← icon buttons become square */
+    border-radius: 22px;
+    border-color: #223843;
+    background-color: #EFF1F3;
+    color: #223843; 
+}
+
 
 .error-text {
   color: red;

@@ -7,9 +7,6 @@ import { verify_user_credentials } from "../user_handler/login.js";
 import { terms_and_services_url, privacy_policy_url } from "../config.js"
 import { ref, onMounted } from "vue";
 
-
-
-
 const currentView = ref("login"); 
 
 function switchTo(view) {
@@ -65,6 +62,11 @@ onMounted(async () => {
       </div>
       
       <div>
+        <p>
+          Are you a partner? 
+          <a href="/referral-login">Login as Partner</a>
+        </p>
+
         <p>
           By registering you confirm to have read and accepted the
           <a :href="terms_and_services_url">Terms and Conditions</a>

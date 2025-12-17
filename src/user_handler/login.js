@@ -18,8 +18,7 @@ async function get_user_credentials() {
         });
         return response;
     } catch (err) {
-        console.error('Cookie verification failed', err);
-        throw err;
+        console.log('No authorization cookie for user');
     }
 }
 

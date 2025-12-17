@@ -10,16 +10,22 @@ const api_url                    = import.meta.env.VITE_API_URL;
 const app_login_url              = import.meta.env.VITE_APP_LOGIN_URL;
 const demo_url                   = import.meta.env.VITE_DEMO_URL;
 const websocket_api_url          = import.meta.env.VITE_API_WS_URL;
-const gocardless_token           = import.meta.env.VITE_GOCARDLESS_TOKEN;
-const gocardless_secret          = import.meta.env.VITE_GOCARDLESS_SECRET;
-const gocardless_link_basic_plan = import.meta.env.VITE_GOCARDLESS_LINK_BASIC_PLAN
-const gocardless_link_basic_plan_20 = import.meta.env.VITE_GOCARDLESS_LINK_BASIC_PLAN_20
-const gocardless_link_basic_plan_50 = import.meta.env.VITE_GOCARDLESS_LINK_BASIC_PLAN_50
-const gocardless_link_basic_plan_80 = import.meta.env.VITE_GOCARDLESS_LINK_BASIC_PLAN_80
+const forbidden_cad_addresses = import.meta.env.VITE_FORBIDDEN_CAD_ADDRESSES
 
 const landing_page_url = import.meta.env.VITE_LANDING_PAGE_URL
 const terms_and_services_url = landing_page_url + "/terms_and_services" 
 const privacy_policy_url     = landing_page_url + "/privacy-policy"
+const faq_url = landing_page_url + "/faq" 
+const price_url = landing_page_url + "/pricing"
+
+const pitch_deck_pdf_url = "https://floating-gates-pub.nbg1.your-objectstorage.com/pitch_deck.pdf"
+const business_card_pdf_url = "https://floating-gates-pub.nbg1.your-objectstorage.com/BusinessCard.pdf"
+const documentation_url = "https://floating-gates.gitbook.io/gates-docs"
+
+const referral_documents = {
+    pitch_deck_pdf_url,
+    business_card_pdf_url
+}
 
 const COOKIE_NAME = "fg_cookie_token";
 
@@ -197,7 +203,8 @@ const MAX_MB_PDF = 5;
 
 // Exporting all
 export {
-    terms_and_services_url, privacy_policy_url, app_login_url,
+    terms_and_services_url, privacy_policy_url, app_login_url, faq_url,
+    price_url, documentation_url, forbidden_cad_addresses,
     themeColor, themeColorOrange, themeColorWhite, themeColorLille,
     themeColorGold, demo_url, COOKIE_NAME, price_status_api_endpoint,
     auth_api_endpoint, register_user_api_endpoint, login_user_api_endpoint,
@@ -221,4 +228,4 @@ export {
     update_autoquote_endpoint, get_parametric_models_vec_endpoint,
     get_parametric_params_vec_endpoint,  update_parametric_params_endpoint,
     delete_parametric_model_endopoint, delete_parametric_params_endpoint,
-    auth_google_api_endpoint, docs_links };
+    auth_google_api_endpoint, docs_links, referral_documents };

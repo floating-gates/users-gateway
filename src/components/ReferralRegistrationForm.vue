@@ -93,39 +93,28 @@ async function handleSubmit() {
     
     if (hasError) return
     
-    try {
+   try {
         const registrationForm = new FormData()
         Object.entries(form).forEach(([key, value]) => {
             if (value !== null) registrationForm.append(key, value)
         })
         
-        const response = await register_referral(registrationForm);
+        const response = await register_referral(registrationForm)
         
         if (!response.ok) {
-            let errorMessage = `Registration failed. Return status: ${response.status}`;
-            
-            try {
-                const errorData = await response.json(); // <-- parse backend JSON
-                if (errorData.message) {
-                    errorMessage = errorData.message;
-                }
-            } catch (e) {
-                // if parsing fails, fallback to generic
-            }
-            
             if (response.status === 409) {
-                errors.email = 'Email already registered.';
+                errors.email = 'Email already registered.'
             } else {
-                errors.general = errorMessage;
+                errors.general = 'Registration failed. Return status: ' + response.status
             }
+            return
         }
-        
+                
         showEmailCheck.value = true
-        // await referral_login(form.email, form.password)
         
     } catch (error) {
         console.error('Submission error: ', error)
-        errors.general = 'A network or unexpected error occurred.'
+        alert('A network or unexpected error occurred.')
     }
 }
 </script>

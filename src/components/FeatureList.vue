@@ -67,8 +67,8 @@ onMounted(() => {
 
 <template>
   <div class="hub-features">
-    <h2>Hub Features</h2>
-
+    <h2>CAD Features</h2>
+    <p> This is what your customers can interact with </p>
     <div class="features-list">
       <div class="feature-item">
         <span class="feature-label"> Automatic Quotes </span>

@@ -22,6 +22,7 @@ const user_details = ref({})
 const subscriptionToBeActivated = ref(false)
 const error = ref('')
 const hasError = ref(false)
+const loading = ref(true)
 
 // Modal visibility
 const modals = ref({
@@ -66,29 +67,40 @@ const isInvoiceSent = (status) => status === 'invoice_sent'
 const shouldShowShipping = (status) => isPriceAccepted(status) || isInvoiceSent(status)
 
 onMounted(async () => {
-    const credentials = await verify_user_credentials();
-    isAdmin.value = credentials.is_admin;
+    const credentials = await verify_user_credentials().catch(() => null)
+
+    if (!credentials || !credentials.is_authenticated) {
+        window.location.replace("/login")
+        return
+    }
+
+    user_details.value = await get_user_details()
+    isAdmin.value = credentials.is_admin
+
+    const sub = user_details.value.subscription_status
     
-    if (!credentials.is_authenticated) {
-        window.location.replace("/login");
-        return;
+    if ( (sub === 'demo') || (sub === 'inactive') ) {
+        subscriptionToBeActivated.value = true
     }
     
-    user_details.value = await get_user_details();
-    const sub_status = user_details.value.subscription_status;
-    subscriptionToBeActivated.value = sub_status === "inactive" || sub_status === "demo";
-    
-    connect_projects_via_ws(project_list);
-});
+    loading.value = false // authentication OK
+
+    connect_projects_via_ws(project_list)
+})
 </script>
 
 <template>
 <Header context="dashboard" :host_address="user_details.host_address" />
 
+<div v-if="loading" class="loading-state">
+  Checking authentication…
+</div>
+<div v-else>
 <!-- Subscription --> 
 <div v-if="subscriptionToBeActivated" class="sub-wrapper">
   <EnrollToSub
     :provisional_hub_name="user_details.provisional_hub_name"
+    :demo_address="user_details.host_address"
     :discount="user_details.discount" />
 </div>
 
@@ -100,7 +112,7 @@ onMounted(async () => {
           
           <!-- Dashboard Header -->
           <div class="col-lg-12 mb-4">
-            <div class="dashboard-header" data-aos="fade-up">
+            <div class="dashboard-header" >
               <h1 class="heading">Ongoing Projects</h1>
               <p class="welcome-message">
                 Welcome, <span :style="{ color: themeColorOrange }">{{ user_details.full_name }}</span>
@@ -109,7 +121,7 @@ onMounted(async () => {
           </div>
           
           <!-- Dashboard Stats -->
-          <div class="col-lg-12 mb-5">
+          <div class="col-lg-12 mb-5" data-aos="fade-up">
             <div class="stats-grid">
               <div v-for="(stat, i) in [
                           { value: stats.active, label: 'Active Orders' },
@@ -135,10 +147,12 @@ onMounted(async () => {
             <div class="dashboard-main-content">
               <div class="content-header">
                 <h2 class="section-title">Recent Orders</h2>
-                <a class="btn btn-primary"
+                <a class="btn action-btn"
                    :href="user_details.host_address"
-                   :style="{ background: themeColor, borderColor: themeColor }">
-                  Place an Order Yourself
+                   :style="{ background: themeColor,
+                           borderColor: themeColor,
+                           color: themeColorWhite }">
+                  Visit your CAD
                 </a>
               </div>
               
@@ -152,16 +166,32 @@ onMounted(async () => {
                       <a :href="'mailto:' + project.customer_mail">Email customer</a>
                     </p>
                     <p class="proj-detail">
-                      <a :href="project.proj_url">View project</a>
+                      <a :href="user_details.host_address + project.id">View project</a>
                     </p>
                   </div>
                   
                   <div class="project-actions">
+
+                    <!-- Price Form -->
+                    <form v-if="project.price_status === 'pending'"
+                          class="price-form"
+                          @submit.prevent="handle_price_allocation(project)">
+                      <h5 :style="{ color: themeColor }"  >Set Price (€):</h5>
+                      <input type="number" v-model="project.price" />
+                      <button type="submit" class="btn action-btn"
+                              :style="{ background: themeColor,
+                                      borderColor: themeColor,
+                                      color: themeColorWhite }">
+                        Send Quote
+                      </button>
+                    </form>
+
                     <!-- Info Button -->
                     <button
                       @click="toggleModal('order', project.id)"
-                      class="btn"
-                      :style="{ borderColor: themeColorLille, color: themeColor }"
+                      class="btn action-2nd-btn"
+                      :style="{ borderColor: themeColorLille,
+                                color: themeColor }"
                       title="Info on Order"
                       >
                       <svg xmlns="http://www.w3.org/2000/svg"
@@ -178,7 +208,7 @@ onMounted(async () => {
                     <!-- Delete Button -->
                     <button
                       @click="handleDelete(project.id)"
-                      class="btn"
+                      class="btn action-2nd-btn"
                       :style="{ borderColor: themeColorOrange, color: themeColor }"
                       title="Delete Project"
                       >
@@ -192,29 +222,18 @@ onMounted(async () => {
                               d="M6 7.5h12m-9 3v6m6-6v6M9 3h6a1 1 0 011 1v1H8V4a1 1 0 011-1zM4.5 7.5h15l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7.5z" />
                       </svg>
                     </button>
-                    <!-- Price Form -->
-                    <form v-if="project.price_status === 'pending'"
-                          class="price-form"
-                          @submit.prevent="handle_price_allocation(project)">
-                      <label>Set Price (€):</label>
-                      <input type="number" v-model="project.price" />
-                      <button type="submit" class="btn btn-primary btn-sm"
-                              :style="{ background: themeColor, borderColor: themeColor }">
-                        Send Quote
-                      </button>
-                    </form>
-                    
+                                        
                     <!-- Payment Button -->
                     <button v-if="isPriceAccepted(project.price_status)"
                             @click="toggleModal('pricing', project.id)"
-                            class="btn btn-primary btn-sm"
+                            class="btn action-btn"
                             :style="{ background: themeColor, borderColor: themeColor, color: themeColorWhite }">
                       Send Payment Details
                     </button>
                     
                     <!-- Invoice Status -->
                     <button v-else-if="isInvoiceSent(project.price_status)"
-                            class="btn align-items-center" disabled
+                            class="btn action-btn"
                             :style="{ background: themeColorLille, color: themeColor }">
                       <span >Invoice Sent</span>
                     </button>
@@ -222,7 +241,7 @@ onMounted(async () => {
                     <!-- Shipping Button -->
                     <button v-if="shouldShowShipping(project.price_status)"
                             @click="toggleModal('shipping', project.id)"
-                            class="btn btn-primary btn-sm"
+                            class="btn action-btn"
                             :style="{ background: themeColorOrange,
                                     borderColor: themeColorOrange,
                                     color: themeColor }">
@@ -306,6 +325,7 @@ onMounted(async () => {
     </div>
   </div>
 </div>
+</div>
 </template>
 
 <style scoped>
@@ -329,7 +349,7 @@ onMounted(async () => {
 .stats-card {
     background-color: v-bind(themeColorWhite);
     border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0.1, 0, 0.3);
     width: 200px;
     height: 200px;
     display: flex;
@@ -341,7 +361,7 @@ onMounted(async () => {
 
 .stats-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 14px rgba(0, 0.1, 0, 0.15);
 }
 
 .stats-number {

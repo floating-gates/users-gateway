@@ -3,11 +3,12 @@ import { ref, watch, defineProps, onMounted } from 'vue';
 import { set_next_subscription  } from '../user_handler/subscription.js';
 import { get_gocardless_payment_link } from '../user_handler/subscription.js';
 import { themeColor, themeColorOrange, themeColorWhite,
-         price_list, docs_links } from '../config.js';
+         price_list, docs_links, forbidden_cad_addresses } from '../config.js';
 import HelpIcon from './HelpIcon.vue'
 
 const props = defineProps({
     provisional_hub_name: String,
+    demo_address: String,
     discount: Number
 });
 
@@ -16,13 +17,15 @@ const subscriptionPlan = ref('');
 const price = ref(null);
 const showPaymentButton = ref(true)
 const enrollButtonText = ref('Select a Plan')
-
-const error = ref(null);
-const error_in_hostname = ref(null)
+const hasError = ref(false);
+const error = ref('');
 
 async function start_payment_procedure() {
-    
-    let paymentUrl = null 
+
+    hasError.value = false
+    error.value = ''
+
+    let payment_url = null
     hostAddress.value = hostAddress.value.trim().toLowerCase();
     
     if (!/^[a-z0-9_-]+$/.test(hostAddress.value)) {
@@ -30,30 +33,38 @@ async function start_payment_procedure() {
         hasError.value = true;
         return;
     }
-    
+
+    if ( forbidden_cad_addresses.includes(hostAddress.value) ) {
+        error.value = "The requested online-CAD address is already in use. Please choose a different one.";
+        hasError.value = true;
+        return;
+    }
+
     try {
         await set_next_subscription( subscriptionPlan.value,
                                      hostAddress.value,
                                      price.value )
     } catch (e) {
-        error_in_hostname.value = e.message
+        hasError.value = true
+        error.value = e.message
     }
     
     try {
-        paymentUrl = await get_gocardless_payment_link( price.value )
+        payment_url = await get_gocardless_payment_link( price.value )
     } catch (e) {
+        hasError.value = true
         error.value = e.message
     }
         
-    if (paymentUrl) window.location.href = paymentUrl;
+    if ( payment_url && !hasError.value ) window.location.href = payment_url;
 }
 
 watch(subscriptionPlan, (plan) => {
     
     (plan === "standard") ?
         showPaymentButton.value = false : showPaymentButton.value = true
-    if (plan === 'basic') { enrollButtonText.value = "Activate your Hub Now" }
-    if (plan === 'enterprise') { enrollButtonText.value = "Request a Quotation" }
+    if (plan === 'basic') { enrollButtonText.value = "Publish your CAD in seconds" }
+    if (plan === 'enterprise') { enrollButtonText.value = "Speak to one of Us" }
     if (plan) { price.value = price_list[plan][props.discount].price; }
 });
 
@@ -65,20 +76,25 @@ onMounted(() => {
 <template>
 <div class="subscription-card">
   <h2 class="subscription-title" :style="{ color: themeColor }">
+    Your CAD is live in demo mode. You can try it out
+    <a
+      :href="demo_address"
+      target="_blank"
+      :style="{ color: themeColorOrange, fontWeight: '700', marginLeft: '0.3rem' }"
+      >
+       here 
+    </a>
+  </h2>
+  
+  <h2 class="subscription-title" >
     Activate your Subscription, to host your Factory online.
     <HelpIcon :docs_link="docs_links.subscription"/>
   </h2>
-  <h2 class="subscription-title" :style="{ color: themeColorOrange }">
-    You are currently in Demo mode. </h2>
   <p class="note">
     Secure your own hub today and start receiving orders instantly.  
     Choose the plan that matches your goals — from a little 3D machine to production line.
   </p>
-  
-  <div v-if="error" class="error-text">
-    {{ error }}
-  </div>
-  
+    
   <form @submit.prevent="start_payment_procedure">
     <div class="form-group">
       <label for="planSelect"><strong>Select Your Plan</strong></label>
@@ -97,10 +113,10 @@ onMounted(() => {
       {{ price_list[subscriptionPlan][props.discount].display_price }}
     </div>
     
-    <div v-if="error_in_hostname" class="error-text">
-      {{ error_in_hostname }}
-    </div>
-    
+    <div v-if="hasError" class="error-text">
+      {{ error }}
+    </div>      
+
     <div class="form-group">
       <label for="hostUrl"><strong>🌐 Choose Your CAD Address</strong></label>
       <input
@@ -114,7 +130,7 @@ onMounted(() => {
     </div>
     
     <div v-if="showPaymentButton" class="form-actions">
-      <button type="submit" class="btn-primary" :style="{ backgroundColor: themeColor }">
+      <button type="submit" class="action-btn">
         {{ enrollButtonText }}
       </button>
       <p class="benefits">Instant CAD setup • Refund Guaranteed • Cancel Anytime</p>

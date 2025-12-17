@@ -21,8 +21,7 @@ async function get_referral_credentials() {
 
         return response;
     } catch (err) {
-        console.error('Cookie verification failed', err);
-        throw err;
+        console.log('No authorization cookie for partner');
     }
 }
 

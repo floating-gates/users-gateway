@@ -87,10 +87,10 @@ async function handleSubmit() {
             } else {
                 errors.general = 'Registration failed. Return status: ' + response.status
             }
+            return
         }
                 
         showEmailCheck.value = true
-        // await user_login(form.email, form.password)
         
     } catch (error) {
         console.error('Submission error: ', error)
@@ -121,9 +121,9 @@ onMounted( () => {
     
     <div v-else>
       <h3 class="heading" data-aos="fade-up">
-        Get Your Hub
+        Publish your CAD online
         <sub class="no-payment-text">
-          NO PAYMENT REQUIRED.
+          Free for 15 days.
         </sub>
       </h3>
       
@@ -153,7 +153,7 @@ onMounted( () => {
       </div>
       
       <div class="form-group">
-        <label>Hub Name (Optional)</label>
+        <label>Online CAD Name (Optional for now)</label>
         <input v-model="form.provisional_hub_name" type="text" class="form-control" />
       </div>
       

@@ -20,7 +20,7 @@ const BrandDetails = defineAsyncComponent(() => import("./BrandDetails.vue"));
 const activeTab = ref('');
 const tabs = ref([]);
 
-const userDetails = ref({});
+const user_details = ref({});
 const machines    = ref([]);
 const materials   = ref([]);
 
@@ -55,11 +55,11 @@ function moveIndicator(index) {
 // Recompute availble tabs
 function refresh_menu( updatedFeatures ) {
     
-    Object.assign(userDetails.value, updatedFeatures);
+    Object.assign(user_details.value, updatedFeatures);
 
     const features = {
-        automatic_quotation: userDetails.value.automatic_quotation,
-        parametric_design: userDetails.value.parametric_design
+        automatic_quotation: user_details.value.automatic_quotation,
+        parametric_design: user_details.value.parametric_design
     }
 
     tabs.value = derive_menu_from_features(features); // This control menu
@@ -81,7 +81,7 @@ onMounted(async () => {
     getMaterials()
   ]);
 
-  userDetails.value = user;
+  user_details.value = user;
   machines.value = machineList;
   materials.value = materialList;
 
@@ -102,7 +102,7 @@ onMounted(async () => {
 
 
 <template>
-<Header :context="'profile'" />
+<Header context="profile" :host_address="user_details.host_address" />
 
 <div class="untree_co-section">
   <div class="row justify-content-center">
@@ -146,14 +146,14 @@ onMounted(async () => {
         
         <div v-else-if="activeTab === 'Admin'">
           <SubscriptionStatus
-            :user="userDetails" />
+            :user="user_details" />
         </div>
         
         <div v-else-if="activeTab === 'Features'">
           <FeatureList
-            :independent_payment="userDetails.payment_independent"
-            :automatic_quotation="userDetails.automatic_quotation"
-            :parametric_design="userDetails.parametric_design"
+            :independent_payment="user_details.payment_independent"
+            :automatic_quotation="user_details.automatic_quotation"
+            :parametric_design="user_details.parametric_design"
             @refresh-features="refresh_menu"
             />
         </div>
@@ -168,7 +168,7 @@ onMounted(async () => {
         
         <div v-else-if="activeTab === 'Brand'">
           <BrandDetails
-            :user="userDetails" />
+            :user="user_details" />
         </div>
       </div>
     </div>
