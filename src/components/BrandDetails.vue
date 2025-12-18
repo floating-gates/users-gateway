@@ -99,8 +99,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="logo-manager">
-    <!-- Header Section -->
+<div class="selector-container">
+  <div class="selector-zone">
     <div class="header-section">
       <div class="header-content">
         <div class="header-icon">
@@ -110,8 +110,8 @@ onMounted(async () => {
             <polyline points="21,15 16,10 5,21"/>
           </svg>
         </div>
-        <h3 class="header-title">Your Brand Details</h3>
-        <p class="header-description">
+        <h3 class="selector-title">Your Brand Details</h3>
+        <p class="subtitle">
           Upload your company logo to personalize your customer experience. Supports PNG format up to 5MB.
         </p>
       </div>
@@ -195,34 +195,10 @@ onMounted(async () => {
       </button>
     </div>
   </div>
+</div>
 </template>
 
 <style scoped>
-.logo-manager {
-  background-color: v-bind(themeColorWhite);
-  border-radius: 1.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
-              0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  max-width: 600px;
-  
-  /* Center horizontally and add space on top */
-  margin: 3rem auto 0 auto; /* top: 3rem, left/right: auto, bottom: 0 */
-  
-  padding: 2.5rem;
-}
-
-
-/* Header Section */
-.header-section {
-  padding: 2rem 2rem 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.header-content {
-  text-align: center;
-}
-
 
 .header-icon {
   width: 3rem;
@@ -239,22 +215,6 @@ onMounted(async () => {
 .icon {
   width: 1.5rem;
   height: 1.5rem;
-}
-
-.header-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: v-bind(themeColor);
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
-}
-
-.header-description {
-  font-size: 0.95rem;
-  color: #6b7280;
-  line-height: 1.5;
-  max-width: 400px;
-  margin: 0 auto;
 }
 
 /* Error Banner */

@@ -79,7 +79,7 @@ export function derive_menu_from_features( feature_dict ) {
         'Summary',
         'Machines',
         'Materials',
-        'Features',
+        'CAD-Features',
         'Admin',
         'Brand' ];
 

@@ -83,42 +83,40 @@ onMounted(async () => {
 
 
 <template>
+<div class="selector-container">
+  <div class="selector-zone"> 
+    <div class="header-section">
+      <h3 class="selector-title">Parametric Models</h3>
+
+      <div v-if="loading">Loading models...</div>
+
+      <div v-else-if="error_message" class="error-box">
+        {{ error_message }}
+      </div>
+
+      <div v-else>
+        <div class="model-list">
+          <div v-for="(model, index) in available_models" :key="model.name || index">
+            <ParametricModelDetails :model_name="model.name"
+                                    :model_body="model.model"/>
+            <button class="delete-btn" @click="handleDelete(model.name)">
+              Delete Model
+            </button>
+          </div>
+        </div>
   
-    <div class="row justify-content-center">
-      <div class="col-md-12 col-lg-8 parametric-container">
-<h2>Available Parametric Models</h2>
-
-<div v-if="loading">Loading models...</div>
-
-<div v-else-if="error_message" class="error-box">
-  {{ error_message }}
-</div>
-
-<div v-else>
-  <div class="model-list">
-    <div v-for="(model, index) in available_models" :key="model.name || index">
-      <ParametricModelDetails :model_name="model.name"
-                              :model_body="model.model"/>
-      <button class="delete-btn" @click="handleDelete(model.name)">
-        Delete Model
-      </button>
+        <div class="add-model-container">
+          <h3>Add a new Model</h3>
+          <div class="add-model">
+            <input v-model="model_in_scope.name"
+                   placeholder="Model Name"
+                   type="text" />
+            <button class="action-btn" @click="add_model">Add Model</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  
-  <div class="add-model-container">
-    <h3>Add a new Model</h3>
-    <div class="add-model">
-      <input
-        v-model="model_in_scope.name"
-        placeholder="Model Name"
-        type="text" />
-      <button class="add-btn" @click="add_model">Add Model</button>
-    </div>
-  </div>
-  
-  
-</div>
-</div>
 </div>
 </template>
 
@@ -222,11 +220,10 @@ onMounted(async () => {
 
 .add-btn:hover {
     background-color: #005bb5; /* slightly darker shade of themeColor */
-  transform: translateY(-2px);
+    transform: translateY(-2px);
 }
 
 .add-btn:active {
   transform: scale(0.97);
 }
-
 </style>

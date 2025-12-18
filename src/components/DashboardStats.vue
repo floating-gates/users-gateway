@@ -157,6 +157,7 @@ onMounted(async () => {
     font-size: 16px;
     color: #666;
     text-align: center;
+    margin: 1rem;
 }
 
 @keyframes nudge {

@@ -7,6 +7,7 @@ import PricingDetails from "./PricingDetails.vue";
 import OrderDetails from "./OrderDetails.vue";
 import EnrollToSub from "./EnrollToSub.vue"
 import DashboardStats from "./DashboardStats.vue"
+import Loading from "./Loading.vue"
 
 import { connect_projects_via_ws, delete_project, get_progress } from '../project_handler/project.js';
 import { handle_price_allocation } from '../price_handler/price_setting.js'
@@ -84,12 +85,13 @@ onMounted(async () => {
 <template>
 <Header context="dashboard" :host_address="user_details.host_address" />
 
-<div v-if="loading" class="loading-state">
-  Checking authentication…
+<div v-if="loading">
+   <Loading /> 
 </div>
+
 <div v-else>
 <!-- Subscription --> 
-<div v-if="subscriptionToBeActivated" class="sub-wrapper">
+<div v-if="subscriptionToBeActivated" >
   <EnrollToSub
     :provisional_hub_name="user_details.provisional_hub_name"
     :demo_address="user_details.host_address"
@@ -123,13 +125,6 @@ onMounted(async () => {
             <div class="dashboard-main-content">
               <div class="content-header">
                 <h2 class="section-title">Recent Orders</h2>
-                <!-- <a class="btn action-btn" -->
-                <!--    :href="user_details.host_address" -->
-                <!--    :style="{ background: themeColor, -->
-                <!--            borderColor: themeColor, -->
-                <!--            color: themeColorWhite }"> -->
-                <!--   Visit your CAD -->
-                <!-- </a> -->
               </div>
               
               <!-- Projects List -->
@@ -311,10 +306,6 @@ onMounted(async () => {
     text-align: left;
 }
 
-.sub-wrapper {
-    padding-top: 3rem;
-}
-
 .dashboard-main-content {
     background-color: white;
     border-radius: 10px;
@@ -344,10 +335,6 @@ onMounted(async () => {
 
 .icon {
     padding: 14px;
-}
-
-.heading {
-    text-align: left;
 }
 
 .error-box {

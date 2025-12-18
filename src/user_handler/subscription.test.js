@@ -6,7 +6,7 @@ describe('derive_menu_from_features', () => {
     'Summary',
     'Machines',
     'Materials',
-    'Features',
+    'CAD-Features',
     'Admin',
     'Brand',
   ];

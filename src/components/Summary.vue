@@ -44,15 +44,17 @@ const formatCurrency = (value) => {
 </script>
 
 <template>
-  <div class="manufacturing-container">
+<div class="selector-container">
+  <div class="selector-zone"> 
+
     <div class="header-section">
-      <h2 class="main-title">Manufacturing Capabilities</h2>
+      <h2 class="selector-title">Manufacturing Capabilities</h2>
       <p class="subtitle">
         See how your machines are configured
       </p>
     </div>
 
-    <div class="machines-grid">
+    <div class="grid">
 
       <div v-if="props.machines.length === 0" class="materials-grid">
         <button class="btn btn-primary" @click="emit('go_to_machines')">
@@ -104,43 +106,10 @@ const formatCurrency = (value) => {
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <style scoped>
-.manufacturing-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  min-height: 100vh;
-}
-
-.header-section {
-  text-align: center;
-  margin-bottom: 3rem;
-  padding: 2rem 0;
-}
-
-.main-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: v-bind(themeColor);
-    margin-bottom: 1rem;
-}
-
-.subtitle {
-  font-size: 1.125rem;
-  color: #64748b;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.5;
-}
-
-.machines-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 1rem;
-}
 
 .machine-card {
   background: v-bind(themeColorWhite);
@@ -287,9 +256,7 @@ const formatCurrency = (value) => {
     padding: 1.5rem;
     margin: 3rem;
     border-radius: 18px;
-
-                        
-  }
+}
 
 @media (max-width: 768px) {
 

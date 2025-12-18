@@ -83,13 +83,15 @@ onMounted(async () => {
 </script>
     
 <template>
-  <div class="autoquote-container">
+<div class="selector-container">
+  <div class="selector-zone"> 
     <div class="header-section">
-      <h2 class="main-title">Automatic Quotes</h2>
+      <h2 class="selector-title">Automatic Quotation</h2>
       <p class="subtitle">
         Configure your data to make the quotation as precise as possible:
       </p>
-
+    </div>
+    
     <!-- === MAIN INPUTS === -->
     <div class="input-section">
       <div class="input-group">
@@ -193,36 +195,12 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.autoquote-container {
-  max-width: 1400px;
-  padding: 2rem;
-  margin: 3rem;
-  background-color: v-bind(themeColorWhite);
-  min-height: 100vh;
-  border-radius: 1rem;
-}
-
-.header-section {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.main-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: v-bind(themeColor);
-}
-
-.subtitle {
-  font-size: 1.125rem;
-  color: #64748b;
-}
 
 .input-section {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .input-group {
@@ -246,6 +224,7 @@ onMounted(async () => {
 
 .tables-section {
   background: white;
+  margin: 2rem;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);

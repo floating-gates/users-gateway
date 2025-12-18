@@ -69,17 +69,17 @@ onMounted(() => {
 </script>
 
 <template>
-<div class="material-selector-container">
-  <div class="material-selector"> 
-    
-    <!-- Header Section -->
+<div class="selector-container">
+  <div class="selector-zone"> 
     <div class="header-section">
-      <h3 class="report-issue-title">Select Available Materials</h3>
-      <p class="subtitle">Assign each material to compatible machines and set cost per cm³</p>
+      <h3 class="selector-title">Select Available Materials</h3>
+      <p class="subtitle">
+        Assign each material to compatible machines and set cost per cm³
+      </p>
     </div>
     
     <!-- Materials Grid -->
-    <section class="materials-grid">
+    <section class="grid">
       <div
         v-for="material in display_materials" 
         :key="material.denomination"
@@ -87,8 +87,7 @@ onMounted(() => {
         :class="{ 'selected': material.manufacturing_methods_tags.length > 0 }">
         
         <div class="material-info">
-          <h4 class="material-name">{{ material.display_name }}</h4>
-          
+          <h4> {{ material.display_name }} </h4>          
           <!-- Assign Machines -->
           <div class="machine-buttons">
             <span class="assign-label">Compatible Machines:</span>
@@ -131,7 +130,7 @@ onMounted(() => {
     <!-- Update button -->
     <div class="button-group">
       <a
-        class="btn primary-button"
+        class="action-btn"
         @click="update_and_emit_materials"
         >
         Update Materials
@@ -142,47 +141,8 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* --- Titles & Headers --- */
-.report-issue-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: v-bind(themeColor);
-    margin-bottom: 1rem;
-}
-
-.header-section {
-    color: v-bind(themeColor);
-    padding: 2.5rem 2rem 1.5rem;
-    text-align: center;
-}
-
-.subtitle {
-    font-size: 1.125rem;
-    opacity: 0.9;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* --- Layout --- */
-.material-selector {
-    max-width: 1200px;
-    margin: 3rem auto;
-    background: v-bind(themeColorWhite);
-    border-radius: 20px;
-    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.materials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    padding: 2rem;
-}
-
 /* --- Material Card --- */
 .material-card {
-    /* background: v-bind(themeColorWhite); */
     border-radius: 18px;
     padding: 1.25rem;
     transition: all 0.25s ease;
@@ -202,12 +162,6 @@ onMounted(() => {
 }
 
 /* --- Material Info --- */
-.material-name {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
 .machine-buttons {
     margin: 1rem 0;
 }
@@ -279,44 +233,10 @@ onMounted(() => {
     color: v-bind(themeColor);
 }
 
-/* --- Buttons --- */
-.button-group {
-    display: flex;
-    justify-content: flex-end;
-    margin: 1rem 2rem 2rem;
-}
-
-.primary-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.75rem;
-    background: v-bind(themeColor);
-    color: v-bind(themeColorWhite);
-    border-radius: 10px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
-}
-
-.primary-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
-}
-
-.primary-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
 /* --- Responsive --- */
 @media (max-width: 768px) {
-    .material-selector-container {
-        padding: 1rem;
-    }
-    .materials-grid {
+
+    .grid {
         grid-template-columns: 1fr;
         padding: 1.25rem;
     }

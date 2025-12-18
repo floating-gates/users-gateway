@@ -33,11 +33,11 @@ async function handleDeleteSubscription() {
 </script>
 
 <template>
-  <div class="subscription-container">
-    <!-- Subscription Management -->
-    <div class="header">
-      <h3 class="title">Subscription Management</h3>
-      <p class="description">
+<div class="selector-container">
+  <div class="selector-zone"> 
+    <div class="header-section">
+      <h3 class="selector-title">Subscription Management</h3>
+      <p class="subtitle">
         Manage your current subscription and access your hub dashboard.
       </p>
     </div>
@@ -87,9 +87,9 @@ async function handleDeleteSubscription() {
     </div>
 
     <!-- Support Section -->
-    <div class="header">
-      <!-- <h2 class="title" :style="{ color: themeColor }">Need Help?</h2> -->
-      <p class="description">
+    <div class="header-section">
+      <h3 class="selector-title">For any further issues</h3>
+      <p class="subtitle">
         If you've encountered any problems or unexpected behavior while using
         the platform, we're here to help! Here are the ways you can reach us:
       </p>
@@ -148,36 +148,13 @@ async function handleDeleteSubscription() {
       </table>
     </div>
   </div>
+</div>
 </template>
 
 <style scoped>
-.subscription-container {
-  background-color: v-bind(themeColorWhite);
-  border-radius: 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-  padding: 3rem 2rem;
-  margin: 3rem auto;
-  max-width: 1200px;
-}
 
-/* Header */
-.header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: v-bind(themeColor);
-  margin-bottom: 0.5rem;
-  margin-top: 2.0rem;
-}
-
-.description {
-  font-size: 1.1rem;
-  color: #555;
-  line-height: 1.6;
+.subscription-content {
+    margin: 2rem;
 }
 
 /* Subscription Table */

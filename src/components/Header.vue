@@ -40,7 +40,7 @@ const isDocsOpen = ref(false);
           </button>
           
           <div class="menu-container" :class="{ 'mobile-open': isMenuOpen }">
-            <div class="button-group">
+            <div class="header-button-group">
               <ul class="site-menu button-menu">
                 
                 <!-- PROFILE BUTTON + DROPDOWN -->
@@ -91,7 +91,7 @@ const isDocsOpen = ref(false);
     justify-content: space-between;
 }
 
-.button-group {
+.header-button-group {
     margin-left: auto;
 }
 

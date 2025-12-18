@@ -66,9 +66,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="hub-features">
-    <h2>CAD Features</h2>
-    <p> This is what your customers can interact with </p>
+<div class="selector-container">
+  <div class="selector-zone">
+
+    <div class="header-section">
+      <h2 class="selector-title" >CAD Features</h2>
+      <p class="subtitle"> This is what your customers can interact with </p>
+    </div>
+    
     <div class="features-list">
       <div class="feature-item">
         <span class="feature-label"> Automatic Quotes </span>
@@ -95,30 +100,15 @@ onMounted(() => {
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <style scoped>
-.hub-features {
-  background-color: v-bind(themeColorWhite);
-  border-radius: 25px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-  padding: 3rem 2rem;
-  margin: 3rem auto;
-  max-width: 700px;
-  text-align: center;
-}
-
-.hub-features h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: v-bind(themeColor);
-  margin-bottom: 2rem;
-}
-
 .features-list {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  margin: 3rem;
 }
 
 .feature-item {

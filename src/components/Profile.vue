@@ -111,9 +111,11 @@ onMounted(async () => {
 
 <div class="untree_co-section">
   <div class="row justify-content-center">
-<div v-if="!tabs.length">
-  <div class="skeleton-loader">Loading dashboard...</div>
-</div>
+
+    <div v-if="!tabs.length">
+      <div class="skeleton-loader">Loading dashboard...</div>
+    </div>
+
     <div class="col-md-12 col-lg-8">
         <div class="tab-menu-container text-center mb-6">
           <div class="tab-menu">
@@ -154,7 +156,7 @@ onMounted(async () => {
             :user="user_details" />
         </div>
         
-        <div v-else-if="activeTab === 'Features'">
+        <div v-else-if="activeTab === 'CAD-Features'">
           <FeatureList
             :independent_payment="user_details.payment_independent"
             :automatic_quotation="user_details.automatic_quotation"
