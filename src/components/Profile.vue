@@ -91,13 +91,18 @@ onMounted(async () => {
   }
 
   refresh_menu();
+    
+  const params = new URLSearchParams(window.location.search);
+  const first_page = params.get("menu");
   
-  await nextTick();
-  if (tabs.value.length > 0) {
-    activeTab.value = tabs.value[0];
-    moveIndicator(0);
-  }
-});
+    if ( first_page ) {
+        activeTab.value = first_page;
+    } else { 
+        activeTab.value = tabs.value[0];
+    }
+    await nextTick();
+}
+);
 </script>
 
 

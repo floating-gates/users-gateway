@@ -56,13 +56,13 @@ const rawStats = computed(() => [
         number: machineList.value.length,
         label: 'Machines',
         functional_to_cad: true, 
-        link: "/profile#machines"
+        link: "/profile?menu=Machines"
     },
     {
         number: materialList.value.length,
         label: 'Materials',
         functional_to_cad: true,
-        link: "/profile#materials"
+        link: "/profile?menu=Materials"
     }
 ])
 
