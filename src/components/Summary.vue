@@ -60,12 +60,12 @@ const formatCurrency = (value) => {
         <button class="btn btn-primary" @click="emit('go_to_machines')">
           Select machines and materials
         </button>
-
       </div>
+      
       <div 
         v-for="machine in displayMachines" 
         :key="machine.displayName"
-        class="machine-card"
+        class="card"
       >
         <div class="machine-header">
           <h3 class="machine-name">{{ machine.displayName }}</h3>
@@ -110,31 +110,9 @@ const formatCurrency = (value) => {
 </template>
 
 <style scoped>
-
-.machine-card {
-  background: v-bind(themeColorWhite);
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.machine-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: v-bind(themeColor);
-}
-
-.machine-card:hover {
+.card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
   border-color: v-bind(themeColor);
 }
 
@@ -269,10 +247,6 @@ const formatCurrency = (value) => {
     gap: 1.0rem;
   }
 
-  .machine-card {
-    padding: 1.0rem;
-  }
-
   .cost-info {
     flex-direction: column;
     align-items: flex-start;
@@ -288,17 +262,4 @@ const formatCurrency = (value) => {
   }
 }
 
-@media (max-width: 480px) {
-  .main-title {
-    font-size: 1.7rem;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-  }
-
-  .machine-card {
-    padding: 0.4rem;
-  }
-}
 </style>

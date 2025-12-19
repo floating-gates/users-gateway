@@ -164,6 +164,7 @@ a.text-primary {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  margin: 1rem;
 }
 
 /* ===============================
@@ -173,104 +174,6 @@ a.text-primary {
   position: relative;
   cursor: pointer;
   text-decoration: none;
-}
-
-/* ===============================
-   MENU
-================================ */
-.site-menu {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.site-menu > li {
-  display: inline-block;
-}
-
-.site-menu > li > a {
-  font-size: 14px;
-  padding: 10px 15px;
-  color: rgba(0, 0, 0, 0.55);
-  transition: color 0.2s ease;
-}
-
-.site-menu > li > a:hover {
-  color: #000000;
-}
-
-.site-menu > li > a.active {
-  color: #D77A61;
-}
-
-/* ===============================
-   CTA BUTTONS
-================================ */
-.site-menu > li.cta-primary a {
-  padding: 6px 25px;
-  font-weight: 580;
-  background: #223843;
-  color: #EFF1F3 !important;
-  border-radius: 14px;
-  transition: transform 0.2s ease;
-}
-
-.site-menu > li.cta-button-outline a {
-  padding: 8px 25px;
-  font-weight: 580;
-  border: 2px solid #223843;
-  color: #223843;
-  border-radius: 14px;
-  transition: transform 0.2s ease;
-}
-
-.site-menu > li.cta-primary a:hover,
-.site-menu > li.cta-button-outline a:hover {
-  transform: scale(1.07);
-}
-
-/* ===============================
-   DROPDOWN
-================================ */
-.site-menu .has-children {
-  position: relative;
-}
-
-.site-menu .has-children > a {
-  padding-right: 20px;
-}
-
-.site-menu .has-children .dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  min-width: 180px;
-  background: #ffffff;
-  padding: 0.5rem 0;
-  list-style: none;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.2s ease;
-  z-index: 1001;
-}
-
-.site-menu .has-children:hover .dropdown {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.site-menu .dropdown li a {
-  padding: 0.5rem 1rem;
-  display: block;
-  color: #000000;
-}
-
-.site-menu .dropdown li a:hover {
-  background: #f5f5f5;
 }
 
 /* ===============================
@@ -313,16 +216,6 @@ a.text-primary {
 
   .menu-container.mobile-open {
     display: flex;
-  }
-
-  .site-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .site-menu > li {
-    width: 100%;
   }
 }
 
