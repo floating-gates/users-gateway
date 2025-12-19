@@ -111,6 +111,16 @@ const price_status = {  // DB interface
 };
 
 
+const allowed_manufacturing_kind = [
+    "artisan",
+    "machining",
+    "casting",
+    "molding",
+    "forming",
+    "joining",
+    "additive"
+]
+
 const tier = {  //----------------- Not exported, DB interface
     1: 'basic',
     2: 'standard',
@@ -228,4 +238,5 @@ export {
     update_autoquote_endpoint, get_parametric_models_vec_endpoint,
     get_parametric_params_vec_endpoint,  update_parametric_params_endpoint,
     delete_parametric_model_endopoint, delete_parametric_params_endpoint,
-    auth_google_api_endpoint, docs_links, referral_documents };
+    auth_google_api_endpoint, docs_links, referral_documents,
+    allowed_manufacturing_kind };

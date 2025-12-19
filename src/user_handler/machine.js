@@ -22,10 +22,9 @@ export async function  getMachineList() {
 
 export async function updateMachineList( machine_list ){
 
-    // const compliant_with_db_list = machine_list.map( m => delete m["specs"])
-    // console.log(compliant_with_db_list)
-
-    const compliant_with_db_list = machine_list.map(({ specs, selected, ...db_mach_record}) => db_mach_record)
+    const compliant_with_db_list = machine_list.map(
+        ( { specs, selected, ...db_mach_record } ) => db_mach_record
+    )
     
     try {
         const res = await fetch( update_machine_endpoint, {
@@ -41,7 +40,7 @@ export async function updateMachineList( machine_list ){
         }
         
     } catch (err) {
-        console.error('Failed to update feature:', err)
+        throw new Error( 'Failed to update feature: ' + err )
     }
 }
 

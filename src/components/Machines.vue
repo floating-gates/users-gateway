@@ -4,6 +4,8 @@ import { updateMachineList } from "../user_handler/machine.js"
 import { themeColor, themeColorWhite } from '../config.js';
 import { default_machines } from '../data/default_machines.js'
 
+import NewMachine from './NewMachine.vue'
+
 /*
 ///////////////////  EXAMPLE OF MACHINE STRUCTURE
 {
@@ -57,16 +59,26 @@ function arrange_machine_view( current_mac, default_mac ) {
 
     // Inserted specs manually because it is lost in Db 
     for (const cur of current_mac) {
+
+        const defaultEntry = mac[cur.machine_tag]
+
         const m = {
             ...cur,
             selected: true,
-            specs: mac[cur.machine_tag].specs
+            specs: defaultEntry
+                ? defaultEntry.specs
+                : (cur.specs ?? [])
         }
         mac[m.machine_tag] = m
     }
 
+
     // Convert object back into an array
     return Object.values(mac)
+}
+
+function addCustomMachine( machine ) {
+  display_machines.value.push( machine )
 }
 
 onMounted(async () => {
@@ -125,6 +137,7 @@ onMounted(async () => {
           </label>
         </div>
       </div>
+      <NewMachine @create="addCustomMachine" />
     </section>
     <div class="button-group">
       <a
