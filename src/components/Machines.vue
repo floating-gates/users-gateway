@@ -72,12 +72,11 @@ function arrange_machine_view( current_mac, default_mac ) {
         mac[m.machine_tag] = m
     }
 
-
     // Convert object back into an array
     return Object.values(mac)
 }
 
-function addCustomMachine( machine ) {
+function add_custom_machine( machine ) {
   display_machines.value.push( machine )
 }
 
@@ -86,7 +85,6 @@ onMounted(async () => {
     display_machines.value = arrange_machine_view(
         props.machines,
         default_machines )
-    
 })
 </script>
 
@@ -137,7 +135,7 @@ onMounted(async () => {
           </label>
         </div>
       </div>
-      <NewMachine @create="addCustomMachine" />
+      <NewMachine @create="add_custom_machine" />
     </section>
     <div class="button-group">
       <a

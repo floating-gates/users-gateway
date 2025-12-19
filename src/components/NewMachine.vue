@@ -98,7 +98,7 @@ function createMachine() {
       <a
         class="action-btn"
         @click="createMachine">
-        Create Machine
+        Add a Machine
       </a>
     </div>
       
@@ -107,49 +107,11 @@ function createMachine() {
 </template>
 
 <style scoped>
-.create-card {
-  border: 2px dashed v-bind(themeColor);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.create-card:hover {
-  background: rgba(0, 0, 0, 0.02);
-}
-
-.create-placeholder {
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.create-form label {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.create-form input,
-.create-form textarea,
-.create-form select {
-  border-radius: 6px;
-  padding: 0.35rem 0.5rem;
-  outline: none;
-}
-
 .dropdown {
     text-transform: capitalize;
 }
 
 textarea {
   resize: vertical;
-}
-
-.create-icon {
-  width: 80px;
-  height: 80px;
 }
 </style>

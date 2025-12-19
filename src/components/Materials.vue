@@ -5,6 +5,8 @@ import { themeColor, themeColorWhite, themeColorLille,
 import { default_materials } from '../data/default_materials.js'
 import { updateMaterials } from "../user_handler/materials.js"
 
+import NewMaterial from "./NewMaterial.vue"
+
 const props = defineProps(["machines", "materials"]);
 const emit  = defineEmits(["update_materials"]);
 
@@ -44,6 +46,7 @@ function update_and_emit_materials() {
     emit("update_materials", materials);
 }
 
+//TODO: duplicate in NewMaterials
 function toggleMachine( material, machine_tag ) {
     
     const idx = material.manufacturing_methods_tags.indexOf( machine_tag );
@@ -56,6 +59,12 @@ function toggleMachine( material, machine_tag ) {
         material.manufacturing_methods_tags.push( machine_tag );
     }
 };
+
+
+function add_custom_material( mat ) {
+  display_materials.value.push( mat )
+}
+
 
 onMounted(() => {
     
@@ -125,6 +134,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
+      <NewMaterial :machines="props.machines" @create="add_custom_material" />
     </section>
     
     <!-- Update button -->
@@ -146,42 +156,6 @@ onMounted(() => {
     background: v-bind(themeColorWhite);
     border: 6px solid v-bind(themeColor);
     box-shadow: 0 8px 20px -6px rgba(0, 0.1, 0.2, 0.5);
-}
-
-/* --- Material Info --- */
-.machine-buttons {
-    margin: 1rem 0;
-}
-
-.assign-label {
-    display: block;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-.machine-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.machine-btn {
-    border: 1px solid #cbd5e1;
-    background: white;
-    padding: 0.4rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.machine-btn:hover {
-    background: #e2e8f0;
-}
-
-.machine-btn.active {
-    background: v-bind(themeColor);
-    color: v-bind(themeColorWhite);
-    border-color: v-bind(themeColor);
 }
 
 /* --- Inputs --- */
