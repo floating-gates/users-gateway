@@ -5,15 +5,17 @@ export const default_machines = [
         description: 'Fused Deposition Modeling for rapid prototyping and production', specs: ['PLA/ABS', '±0.1mm precision', 'Multi-color'],
         cost_per_hour: 0,
         speed_cm3_per_hour: 0,
-        setup_cost: 0
+        setup_cost: 0,
+        kind: "additive"
     },
     {
         machine_tag: 'sls_3d_printer',
         display_name: 'SLS 3D Printer',
         description: 'Selective Laser Sintering for complex geometries and metal parts', specs: ['Metal/Plastic', '±0.03mm', 'No supports'],
         cost_per_hour: 0,
-      speed_cm3_per_hour: 0,
-        setup_cost: 0
+        speed_cm3_per_hour: 0,
+        setup_cost: 0,
+        kind: "additive"
     },
     {
         machine_tag: 'sla_3d_printer',
@@ -21,21 +23,26 @@ export const default_machines = [
         description: 'Stereolithography for high-resolution and smooth surface finishes', specs: ['Resin', '±0.005mm', 'Smooth finish'],
         cost_per_hour: 0,
         speed_cm3_per_hour: 0,
-        setup_cost: 0 },
+        setup_cost: 0,
+        kind: "additive"
+    },
     {
         machine_tag: 'cnc_3_axis',
         display_name: 'CNC 3-Axis',
-        description: 'Computer Numerical Control machining for precision parts', specs: ['±0.01mm', 'Majority of Metals', 'Low speed_cm3_per_hour'],
+        description: 'Computer Numerical Control machining for precision parts', specs: ['±0.01mm', 'Metals', 'Slow process'],
         cost_per_hour: 0,
         speed_cm3_per_hour: 0,
-        setup_cost: 0 },
+        setup_cost: 0,
+        kind: "machining"
+    },
     {
         machine_tag: 'cnc_5_axis',
         display_name: 'CNC 5-Axis',
         description: 'Advanced 5-axis machining for complex geometries', specs: ['Complex parts', 'Aerospace grade', 'Multi-angle'],
         cost_per_hour: 0,
         speed_cm3_per_hour: 0,
-        setup_cost: 0
+        setup_cost: 0,
+        kind: "machining"
     },
     {
         machine_tag: 'inj_mould',
@@ -44,6 +51,7 @@ export const default_machines = [
         specs: ['Mass production', 'Plastics only', 'Fast cycle'],
         cost_per_hour: 0,
         speed_cm3_per_hour: 0,
-        setup_cost: 0
+        setup_cost: 0,
+        kind: "molding"
     }
 ]

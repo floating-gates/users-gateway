@@ -1,8 +1,7 @@
 <script setup>
 import { ref, onMounted, defineEmits, defineProps } from 'vue'
 import { updateMachineList } from "../user_handler/machine.js"
-import { themeColor, themeColorOrange,
-         themeColorWhite } from '../config.js';
+import { themeColor, themeColorWhite } from '../config.js';
 import { default_machines } from '../data/default_machines.js'
 
 /*
@@ -39,28 +38,32 @@ function update_and_emit_machines() {
     const confirmed = window.confirm(msg);
     if (!confirmed) return;
     
-    updateMachineList(selected_machines);
+    updateMachineList( selected_machines );
     emit("update_machine", selected_machines);
 }
 
-function arrange_machine_view( current_mac, def_mac ) {
+function arrange_machine_view( current_mac, default_mac ) {
+
     const mac = {}
 
-for (const def of def_mac) {
-    const m = {
-        ...def,
-        selected: false
+    // List all, then they get overwritten by same .machine_tag in next loop
+    for (const def of default_mac) {
+        const m = {
+            ...def,
+            selected: false
+        }
+        mac[m.machine_tag] = m
     }
-    mac[m.machine_tag] = m
-}
 
-for (const cur of current_mac) {
-    const m = {
-        ...cur,
-        selected: true
+    // Inserted specs manually because it is lost in Db 
+    for (const cur of current_mac) {
+        const m = {
+            ...cur,
+            selected: true,
+            specs: mac[cur.machine_tag].specs
+        }
+        mac[m.machine_tag] = m
     }
-    mac[m.machine_tag] = m
-}
 
     // Convert object back into an array
     return Object.values(mac)
@@ -68,7 +71,9 @@ for (const cur of current_mac) {
 
 onMounted(async () => {
     
-    display_machines.value = arrange_machine_view(props.machines, default_machines)
+    display_machines.value = arrange_machine_view(
+        props.machines,
+        default_machines )
     
 })
 </script>
@@ -88,7 +93,7 @@ onMounted(async () => {
       <div
         v-for="machine in display_machines"
         :key="machine.machine_tag"
-        class="machine-card"
+        class="card"
         :class="{ 'selected': machine.selected }"
         @click="toggleMachine(machine)" >
         <input
@@ -100,6 +105,7 @@ onMounted(async () => {
           <h4>{{ machine.display_name }}</h4>
           <p class="machine-description">{{ machine.description }}</p>
           <div class="machine-specs">
+            <span class="spec-tag" >{{ machine.kind }}</span>
             <span class="spec-tag" v-for="spec in machine.specs" :key="spec">{{ spec }}</span>
           </div>
         </div>
@@ -132,35 +138,20 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-/* --- Machine Card --- */
-.machine-card {
-    border-radius: 18px;
-    padding: 1.25rem;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 8px 20px -6px rgba(0, 0.1, 0.0, 0.1);
-
-}
-
-.machine-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px -6px rgba(0, 0, 0.2, 0.2);
-}
-
-.machine-card.selected {
+.card.selected {
     border-color: v-bind(themeColor);
     background: v-bind(themeColor);
     color: v-bind(themeColorWhite);
-    box-shadow: 0 8px 20px -6px rgba(37, 99, 235, 0.25);
+    box-shadow: 0 8px 20px -6px rgba(0, 0.1, 0.2, 0.5);
 }
 
-.machine-card.selected .machine-info h4,
-.machine-card.selected .machine-info p,
-.machine-card.selected .spec-tag {
+.card.selected .machine-info h4,
+.card.selected .machine-info p,
+.card.selected .spec-tag {
     color: v-bind(themeColorWhite);
 }
 
-.machine-card.selected .spec-tag {
+.card.selected .spec-tag {
     background: rgba(255, 255, 255, 0.2);   /* so tags stay visible */
 }
 
@@ -191,6 +182,7 @@ onMounted(async () => {
     font-size: 0.75rem;
     font-weight: 500;
     transition: all 0.2s ease;
+    text-transform: capitalize;
 }
 
 /* --- Responsive --- */

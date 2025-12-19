@@ -83,7 +83,7 @@ onMounted(() => {
       <div
         v-for="material in display_materials" 
         :key="material.denomination"
-        class="material-card"
+        class="card"
         :class="{ 'selected': material.manufacturing_methods_tags.length > 0 }">
         
         <div class="material-info">
@@ -141,24 +141,11 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* --- Material Card --- */
-.material-card {
-    border-radius: 18px;
-    padding: 1.25rem;
-    transition: all 0.25s ease;
-    border: 2px solid #e2e8f0;
-}
-
-.material-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.1);
-}
-
-.material-card.selected {
+.card.selected {
     border-color: v-bind(themeColor);
     background: v-bind(themeColorWhite);
     border: 6px solid v-bind(themeColor);
-    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px -6px rgba(0, 0.1, 0.2, 0.5);
 }
 
 /* --- Material Info --- */
@@ -180,11 +167,10 @@ onMounted(() => {
 
 .machine-btn {
     border: 1px solid #cbd5e1;
-    background: #f1f5f9;
+    background: white;
     padding: 0.4rem 1rem;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 0.95rem;
     transition: all 0.2s ease;
 }
 

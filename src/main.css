@@ -31,7 +31,8 @@ a {
   color: #D77A61;
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
-  transition: .3s all ease; }
+    transition: .3s all ease;
+    text-decoration: none;}
   a:hover {
     color: #D77A61;
     text-decoration: none; }
@@ -766,11 +767,26 @@ body, p, h1, h2, h3, h4, h5, h6, a, li, span, div {
     border-radius: 22px;
     border-color: #223843;
     background-color: #223843;
-    color: #EFF1F3; 
+    color: #EFF1F3; }
+
+  .action-btn:hover {
+      transform: translateY(-2px);
+      cursor: pointer;
+      color: #EFF1F3; }
+
+.card {
+    background-color: #f6f7f8;    
+    border-radius: 18px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 20px -6px rgba(0, 0.1, 0.2, 0.5);
 }
 
-.action-btn:hover {
-    transform: translateY(-2px);
+.card:hover {
+    transform: translateY(-3px);
+    transform: translateX(1px);
+    box-shadow: 0 8px 20px -6px rgba(0, 0.3, 0.4, 0.5);
 }
 
 /* --- Buttons --- */
