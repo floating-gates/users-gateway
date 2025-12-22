@@ -104,7 +104,7 @@ onMounted(async () => {
 <template>
 <Header :context="'login'" />
 
-<div class="referral-container">  
+<div class="container">  
   <!-- Loading State -->
   <div v-if="isLoading" class="loading-card">
     <div class="loading-spinner"></div>
@@ -466,13 +466,6 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.referral-container {
-    padding-top: 120px;
-    padding-bottom: 80px;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: center;
-}
 
 /* Loading State */
 .loading-card {

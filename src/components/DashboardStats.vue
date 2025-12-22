@@ -108,7 +108,6 @@ onMounted(async () => {
     <a class="stats-label" href="/admin-dashboard">Admin Dashboard</a>
   </div>
 </div>
-
 </template>
 
 
@@ -121,7 +120,7 @@ onMounted(async () => {
 }
 
 .stats-card {
-    backgroundColor: v-bind(themeColorWhite);
+    background-color: v-bind(themeColorWhite);
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0.1, 0, 0.3);
     width: 200px;
@@ -132,7 +131,6 @@ onMounted(async () => {
     align-items: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 
 .stats-card:hover {
     transform: translateY(-5px);

@@ -1,7 +1,7 @@
 {
   "name": "manufacturing-hub-UI",
   "private": false,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "type": "module",
   "scripts": {
     "confirm": "read -p 'Are you sure you want to deploy to PRODUCTION? (y/N) ' ans && [ \"$ans\" = y ]",
