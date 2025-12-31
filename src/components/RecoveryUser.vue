@@ -27,7 +27,7 @@ try {
   const response = await start_recovery_password(email.value)
 
   if (response.ok) {
-    success.value = 'Recovery email sent! Please check your inbox and spam folder.'
+    success.value = 'Recovery email sent. Please check your inbox (or Spam)!'
     email.value = ''
   } else if (response.status === 401) {
     error.value = 'Invalid email. Please try again.'
@@ -41,7 +41,7 @@ try {
     error.value = 'Unexpected error. Please try again.'
   }
 } catch (e) {
-  error.value = e.message || 'Network error. Please check your connection.'        
+    error.value = e.message   
     } finally {
         isLoading.value = false
     }

@@ -1,12 +1,11 @@
 <script setup>
 import { ref } from 'vue'
-import { themeColor, auth_google_api_endpoint } from '../config.js'
+import { themeColor } from '../config.js'
 import { user_login } from '../user_handler/login.js'
-import { useRouter } from 'vue-router'
+import { handleGoogleAuthentication } from '../user_handler/oauth.js'
 import google_icon from "../data/images/google_icon.svg"
 
 const login_form = ref({ email: '', password: '' })
-const router = useRouter()
 const error = ref(null)
 const isLoading = ref(false)
 
@@ -23,7 +22,7 @@ async function handleLogin() {
       const response = await user_login( login_form.value.email,
                                          login_form.value.password)
     if (response.status === 202) {
-      router.push('/dashboard')
+        window.location.href = '/dashboard'
     } else {
 
       // WTF is this 
@@ -44,10 +43,6 @@ async function handleLogin() {
   } finally {
     isLoading.value = false
   }
-}
-
-function handleGoogleLogin() {
-  window.location.href = auth_google_api_endpoint
 }
 </script>
 
@@ -87,14 +82,15 @@ function handleGoogleLogin() {
         type="submit"
         class="btn btn-primary"
         :style="{ background: themeColor, borderColor: themeColor }"
-        :disabled="isLoading"
-      >
+        :disabled="isLoading" >
         {{ isLoading ? 'Logging in...' : 'Login' }}
       </button>
 
-      <button class="btn btn-google" type="button" @click="handleGoogleLogin">
+      <button class="btn btn-google"
+              type="button"
+              @click="handleGoogleAuthentication">
+        Login with
         <img :src="google_icon" alt="Google icon" class="google-icon" />
-        Google
       </button>
     </div>
   </form>
@@ -122,48 +118,6 @@ function handleGoogleLogin() {
   padding: 0.5rem 0.75rem;
   border: 1px solid #ccc;
   border-radius: 6px;
-}
-
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  justify-content: center;
-}
-
-.btn-primary,
-.btn-google {
-  flex: 1;
-  min-width: 150px;
-  height: 45px;
-  border-radius: 8px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.btn-primary:hover,
-.btn-google:hover {
-  transform: translateY(-1px);
-}
-
-.btn-google {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  color: #444;
-}
-
-.btn-google:hover {
-  background-color: #f5f5f5;
-}
-
-.google-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
 }
 
 .toggle-link {

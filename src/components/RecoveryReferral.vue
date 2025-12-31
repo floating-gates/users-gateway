@@ -27,7 +27,7 @@ async function handleRecovery() {
         const response = await start_recovery_referral_passwd( email.value )
         
         if (response.ok) {
-            success.value = 'Recovery email sent! Please check your inbox and spam folder.'
+            success.value = 'Recovery email sent. Please check your inbox (or Spam)!'
             email.value = ''
         } else if (response.status === 401) {
             error.value = 'Invalid email. Please try again.'

@@ -3,7 +3,7 @@
 Rethinking digital manufacturing. 
 
 <div align="center">
-  <img src="src/data/images/hero_pic_.webp" alt="Gates Manufacturing Hub" width="100%" />
+  <img src="https://floating-gates-pub.nbg1.your-objectstorage.com/how_does_it_works.png" alt="Gates Manufacturing Hub" width="100%" />
 </div>
 
 **Gates** provides a **Manufacturing Hub** that connects customers and manufacturers through an split online platform.  
