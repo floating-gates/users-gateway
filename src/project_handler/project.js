@@ -1,23 +1,9 @@
 import { get_project_endpoint,
-         create_project_endpoint,
          delete_project_endpoint,
          download_api_endpoint,
          price_status
        } from '../config.js'
 
-
-export async function create_project( proj_name,
-                                      customer_mail,
-                                      description,
-                                      shipping_address ) {
-
-    const response = await fetch( create_project_endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify( { proj_name, customer_mail, description, shipping_address } ),
-        credentials: 'include',  })
-        return response
-}
 
 export function connect_projects_via_ws( proj_list ) {
     const socket = new WebSocket( get_project_endpoint );
@@ -73,13 +59,25 @@ export async function downloadFile( proj_id ) {
         });
         
         if (!response.ok) {
-            throw new Error('Failed to download file');
+            throw new Error(
+                `Input file download failed with status: ${response.status}`);
+        }
+            // Get the Content-Type header and normalize it
+        const contentType = (response.headers.get("Content-Type") || "").toLowerCase();
+    
+        let extension = "";
+        if (contentType.includes("stl")) {
+            extension = "stl";
+        } else if (contentType.includes("step")) {
+            extension = "step";
+        } else {
+            // Optional: Logic to fallback to a default or check file signature
+            console.warn("Unknown Content-Type received:", contentType);
         }
         
         const blob = await response.blob();
-        
-        // TODO generalize
-        let filename = proj_id + ".stl";
+
+        let filename = proj_id + "." + extension;
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;

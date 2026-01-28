@@ -1,11 +1,14 @@
 {
   "name": "manufacturing-hub-UI",
   "private": false,
-  "version": "1.2.0",
+  "engines": {
+     "webserver": ">=1.4.0"
+  },
+  "version": "1.2.1",
   "type": "module",
   "scripts": {
     "confirm": "read -p 'Are you sure you want to deploy to PRODUCTION? (y/N) ' ans && [ \"$ans\" = y ]",
-    "test": "vitest run",
+    "test": "make test",
     "restart-gates": "systemctl --user status floating-gates-pod",  
     "build-local":      "npm run test && vite build --mode development",
     "build-staging":    "npm run test && vite build --mode staging",

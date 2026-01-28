@@ -29,6 +29,8 @@ const referral_documents = {
 
 const COOKIE_NAME = "fg_cookie_token";
 
+const webserver_version_compat_endpoint = api_url + '/version'
+
 // User API Endpoints
 const auth_api_endpoint           = api_url + '/user/me';
 const register_user_api_endpoint  = api_url + '/user/register';
@@ -76,7 +78,6 @@ const delete_subscription_endpoint = api_url + '/subscription/delete';
 
 // Project API Endpoints
 const get_project_endpoint      = websocket_api_url + '/project/list';
-const create_project_endpoint   = api_url + '/project/create';
 const delete_project_endpoint   = api_url + '/project/delete';
 const pricing_proj_api_endpoint = api_url + '/project/set_price';
 const price_status_api_endpoint = api_url + '/project/set_price_status';
@@ -222,14 +223,13 @@ export {
     get_gocardless_payment_link_endpoint, delete_subscription_endpoint,
     get_project_endpoint, user_recovery_api_endpoint,
     set_new_usr_passwd_endpoint, set_next_subscription_endpoint,
-    create_project_endpoint, delete_project_endpoint,
-    pricing_proj_api_endpoint, download_api_endpoint,
+    delete_project_endpoint, pricing_proj_api_endpoint, download_api_endpoint,
     price_status, price_list, contactInfo,
     get_machine_endpoint, update_machine_endpoint, get_materials_endpoint,
     update_materials_endpoint, list_users_api_endpoint,
     update_feature_endpoint, post_payment_information_endpoint,
     get_logo_endpoint, upload_logo_endpoint, delete_logo_endpoint,
-    referral_auth_api_endpoint,
+    referral_auth_api_endpoint, webserver_version_compat_endpoint,
     register_referral_api_endpoint, login_referral_api_endpoint,
     logout_referral_api_endpoint, update_referral_api_endpoint,
     referral_details_api_endpoint, set_new_referral_passwd_endpoint,

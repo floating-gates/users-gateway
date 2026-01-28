@@ -95,9 +95,8 @@ function createMachine() {
       </div>
 
     <div >
-      <a
-        class="action-btn"
-        @click="createMachine">
+      <a class="btn dark-btn"
+         @click="createMachine">
         Add a Machine
       </a>
     </div>

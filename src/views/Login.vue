@@ -110,12 +110,6 @@ onMounted(async () => {
     margin: 0 auto;
 }
 
-
-/* .img-fluid { */
-/*   max-width: 100%; */
-/*   height: auto; */
-/* } */
-
 .register-footer {
     text-align: center;
 }

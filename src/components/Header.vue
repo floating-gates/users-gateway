@@ -37,7 +37,7 @@ const isProfileOpen = ref(false); // Added missing ref
             <div class="menu" :class="{ 'open': isMenuOpen }">
               <ul class="menu-list">
                 <li v-if="context === 'dashboard'" class="cta">
-                  <a href="/profile">Set Up Your Factory</a>
+                  <a href="/profile">Software-Defined Factory</a>
                 </li>
                 <li v-if="context === 'profile'" class="cta">
                   <a href="/dashboard">Dashboard</a>

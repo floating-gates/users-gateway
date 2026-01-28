@@ -130,7 +130,7 @@ onMounted(() => {
     </div>
     
     <div v-if="showPaymentButton" class="form-actions">
-      <button type="submit" class="action-btn">
+      <button type="submit" class="btn dark-btn">
         {{ enrollButtonText }}
       </button>
       <p class="benefits">Instant CAD setup • Refund Guaranteed • Cancel Anytime</p>

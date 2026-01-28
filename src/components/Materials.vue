@@ -140,7 +140,7 @@ onMounted(() => {
     <!-- Update button -->
     <div class="button-group">
       <a
-        class="action-btn"
+        class="btn dark-btn"
         @click="update_and_emit_materials"
         >
         Update Materials

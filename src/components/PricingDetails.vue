@@ -130,21 +130,13 @@ async function handleSubmit() {
         <div class="modal-actions">
           <button
             type="button"
-            class="btn"
-            @click="$emit('close')"
-            :style="{ borderColor: themeColor, color: themeColor }"
-          >
+            class="btn white-btn"
+            @click="$emit('close')"  >
             Cancel
           </button>
           <button
             type="submit"
-            class="btn"
-            :style="{
-              borderColor: themeColorOrange,
-              backgroundColor: themeColorOrange,
-              color: 'white'
-            }"
-          >
+            class="btn dark-btn" >
             Send Payment Info
           </button>
         </div>
@@ -210,11 +202,4 @@ textarea {
   margin-top: 20px;
 }
 
-.btn {
-  padding: 8px 16px;
-  border: 2px solid transparent;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
 </style>

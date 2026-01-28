@@ -80,13 +80,12 @@ async function handleLogin() {
     <div class="button-row">
       <button
         type="submit"
-        class="btn btn-primary"
-        :style="{ background: themeColor, borderColor: themeColor }"
+        class="btn dark-btn"
         :disabled="isLoading" >
         {{ isLoading ? 'Logging in...' : 'Login' }}
       </button>
 
-      <button class="btn btn-google"
+      <button class="btn white-btn"
               type="button"
               @click="handleGoogleAuthentication">
         Login with

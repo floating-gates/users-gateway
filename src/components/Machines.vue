@@ -139,7 +139,7 @@ onMounted(async () => {
     </section>
     <div class="button-group">
       <a
-        class="action-btn"
+        class="btn dark-btn"
         @click="update_and_emit_machines">
         Update Machine Fleet
       </a>

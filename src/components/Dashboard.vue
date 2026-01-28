@@ -147,12 +147,9 @@ onMounted(async () => {
                     <form v-if="project.price_status === 'pending'"
                           class="price-form"
                           @submit.prevent="handle_price_allocation(project)">
-                      <h5 :style="{ color: themeColor }"  >Set Price (€):</h5>
+                      <h5 :style="{ color: themeColor }" >Set Price (€):</h5>
                       <input type="number" v-model="project.price" />
-                      <button type="submit" class="btn action-btn"
-                              :style="{ background: themeColor,
-                                      borderColor: themeColor,
-                                      color: themeColorWhite }">
+                      <button type="submit" class="btn dark-btn">
                         Send Quote
                       </button>
                     </form>
@@ -160,11 +157,8 @@ onMounted(async () => {
                     <!-- Info Button -->
                     <button
                       @click="toggleModal('order', project.id)"
-                      class="btn action-2nd-btn"
-                      :style="{ borderColor: themeColorLille,
-                                color: themeColor }"
-                      title="Info on Order"
-                      >
+                      class="btn dark-btn"
+                      title="Info on Order"  >
                       <svg xmlns="http://www.w3.org/2000/svg"
                            fill="none"
                            viewBox="0 0 24 24"
@@ -179,8 +173,7 @@ onMounted(async () => {
                     <!-- Delete Button -->
                     <button
                       @click="handleDelete(project.id)"
-                      class="btn action-2nd-btn"
-                      :style="{ borderColor: themeColorOrange, color: themeColor }"
+                      class="btn orange-btn"
                       title="Delete Project"
                       >
                       <svg xmlns="http://www.w3.org/2000/svg"
@@ -197,14 +190,14 @@ onMounted(async () => {
                     <!-- Payment Button -->
                     <button v-if="isPriceAccepted(project.price_status)"
                             @click="toggleModal('pricing', project.id)"
-                            class="btn action-btn"
+                            class="btn dark-btn"
                             :style="{ background: themeColor, borderColor: themeColor, color: themeColorWhite }">
                       Send Payment Details
                     </button>
                     
                     <!-- Invoice Status -->
                     <button v-else-if="isInvoiceSent(project.price_status)"
-                            class="btn action-btn"
+                            class="btn white-btn"
                             :style="{ background: themeColorLille, color: themeColor }">
                       <span >Invoice Sent</span>
                     </button>
@@ -212,7 +205,7 @@ onMounted(async () => {
                     <!-- Shipping Button -->
                     <button v-if="shouldShowShipping(project.price_status)"
                             @click="toggleModal('shipping', project.id)"
-                            class="btn action-btn"
+                            class="btn white-btn"
                             :style="{ background: themeColorOrange,
                                     borderColor: themeColorOrange,
                                     color: themeColor }">
@@ -364,11 +357,6 @@ onMounted(async () => {
     flex-wrap: wrap;
     align-items: center;
     gap: 15px;
-    /* margin-bottom: 15px; */
-}
-
-.project-actions button:hover svg {
-  stroke: v-bind(themeColorWhite);
 }
 
 .price-form {
@@ -396,11 +384,6 @@ onMounted(async () => {
 
 .progress {
     height: 8px;
-}
-
-.btn:hover {
-    background-color: v-bind(themeColorOrange);
-    border-color: v-bind(themeColor);
 }
 
 .btn-lille:hover {

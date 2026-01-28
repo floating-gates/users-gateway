@@ -51,31 +51,35 @@ a.text-primary {
 
 /* ---------- Base button ---------- */
 .btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  padding: 15px 30px;
-  min-width: 150px;
-  height: 45px;
-
-  border-radius: 30px;
+  padding: 0px 18px;
+  min-width: 40px;
+  height: 55px;
+  border: 2px solid transparent; /* initial border */
+  border-radius: 22px;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .05rem;
   text-transform: uppercase;
-  box-shadow: 0 0 5px -5px rgba(0, 0, 0, 0.4);
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.35),
+    0 6px 20px rgba(0, 0, 0, 0.15);
+
+  transition:
+    background-color 0.1s ease,
+    transform 0.1s ease,
+    border-width 0.1s ease,
+    border-color 0.1s ease,
+    box-shadow 0.1s ease;
 }
 
 .btn:hover {
-  transform: translateY(-1px);
-}
-
-.btn:focus,
-.btn:active {
-  outline: none;
-  box-shadow: none;
+    transform: translateY(3py);
+    box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.16),
+    0 10px 28px rgba(0, 0, 0, 0.12);
 }
 
 /* ---------- Primary ---------- */
@@ -88,29 +92,6 @@ a.text-primary {
 .btn-primary:hover {
   background-color: #D77A61;
   border-color: #D77A61;
-}
-
-/* ---------- Outline primary ---------- */
-.btn-outline-primary {
-  background: transparent;
-  border: 1px solid #D77A61;
-  color: #D77A61;
-}
-
-.btn-outline-primary:hover {
-  background-color: #D77A61;
-  color: #fff;
-}
-
-/* ---------- Google ---------- */
-.btn-google {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  color: #444;
-}
-
-.btn-google:hover {
-  background-color: #f5f5f5;
 }
 
 /* ---------- Google icon ---------- */
@@ -663,22 +644,61 @@ body, p, h1, h2, h3, h4, h5, h6, a, li, span, div {
   font-family: 'Titillium Web', sans-serif;
 }
 
-.action-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 55px;          /* ← same height for all */
-    padding: 0 18px;       /* ← horizontal spacing for text buttons */
-    min-width: 40px;       /* ← icon buttons become square */
-    border-radius: 22px;
+.dark-btn {
     border-color: #223843;
     background-color: #223843;
     color: #EFF1F3; }
 
-  .action-btn:hover {
-      transform: translateY(-2px);
-      cursor: pointer;
-      color: #EFF1F3; }
+.dark-btn svg {
+    color: #EFF1F3;
+    stroke: #EFF1F3;
+}
+
+.dark-btn:hover {
+    background-color: #EFF1F3;
+    color: #223843;
+    stroke: #223843;
+    border-color: #223843;
+    border-width: 3px; /* thicker border */
+}
+
+.dark-btn:hover svg {
+    stroke: #223843;
+}
+
+.orange-btn {
+    border-color: #D77A61;
+    background-color: #D77A61;
+    color: #EFF1F3; }
+
+.orange-btn svg {
+    color: #EFF1F3;
+    stroke: #EFF1F3;
+}
+
+.orange-btn:hover {
+    background-color: #EFF1F3;
+    color: #D77A61;
+    stroke: #D77A61;
+}
+
+.orange-btn:hover svg {
+    stroke: #D77A61;
+    border: 3px;
+    border-color: #D77A61;
+}
+
+.white-btn {
+    background-color: #EFF1F3;
+    color: #223843; }
+
+.white-btn:hover {
+    background-color: #EFF1F3;
+    color: #223843;
+    stroke: #223843;
+    border-color: #223843;
+    border-width: 3px; /* thicker border */
+}
 
 .card {
     background-color: #f6f7f8;    

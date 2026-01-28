@@ -42,20 +42,14 @@ function mark_as_shipped() {
       <div class="modal-actions">
         <button
           type="button"
-          class="btn"
-          @click="$emit('close')"
-          :style="{ borderColor: themeColor, color: themeColor }"
-        >
+          class="btn white-btn"
+          @click="$emit('close')"  >
           Go Back
         </button>
         <button
           type="button"
-          class="btn"
-          @click="mark_as_shipped"
-          :style="{
-            borderColor: themeColorOrange,
-            backgroundColor: themeColorOrange,
-            color: themeColor }"  >
+          class="btn dark-btn"
+          @click="mark_as_shipped">
           Shipped
         </button>
       </div>
@@ -117,13 +111,5 @@ textarea {
   justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
-}
-
-.btn {
-  padding: 8px 16px;
-  border: 2px solid transparent;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
 }
 </style>

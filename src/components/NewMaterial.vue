@@ -127,7 +127,8 @@ function createMaterial() {
       </label>
 
       <div class="button-row">
-        <a class="action-btn" @click="createMaterial">
+        <a class="btn dark-btn"
+           @click="createMaterial">
           Add Material
         </a>
       </div>
